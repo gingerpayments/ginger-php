@@ -1,25 +1,25 @@
 <?php
 
-namespace GingerPayments\Payment\Order;
+namespace GingerPayments\Payment;
 
 use Assert\Assertion as Guard;
 
-final class OrderDescription
+final class OrderMerchantIdentifier
 {
     /**
      * @var string
      */
-    private $description;
+    private $merchantIdentifier;
 
     /**
      * Factory method. Returns a new instance from a string.
      *
-     * @param string $description
-     * @return OrderDescription
+     * @param string $merchantIdentifier
+     * @return OrderMerchantIdentifier
      */
-    public static function fromString($description)
+    public static function fromString($merchantIdentifier)
     {
-        return new static((string) $description);
+        return new static((string) $merchantIdentifier);
     }
 
     /**
@@ -27,7 +27,7 @@ final class OrderDescription
      */
     public function toString()
     {
-        return $this->description;
+        return $this->merchantIdentifier;
     }
 
     /**
@@ -43,8 +43,8 @@ final class OrderDescription
      */
     protected function __construct($value)
     {
-        Guard::notBlank($value, 'Description cannot be blank');
+        Guard::notBlank($value, 'Order merchant identifier cannot be blank');
 
-        $this->description = $value;
+        $this->merchantIdentifier = $value;
     }
 }

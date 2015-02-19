@@ -15,7 +15,7 @@ $client = new GuzzleHttp\Client(
 );
 
 try {
-    $order = GingerPayments\Payment\Order\Order::create(1234, 'EUR', 'order-1234567', 'My order description', 'http://example.com');
+    $order = GingerPayments\Payment\Order::create(1234, 'EUR', 'order-1234567', 'My order description', 'http://example.com');
 
     $request = $client->createRequest(
         'POST',
