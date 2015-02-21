@@ -4,7 +4,7 @@ namespace GingerPayments\Payment;
 
 use Assert\Assertion as Guard;
 
-final class OrderAmount
+final class Amount
 {
     /**
      * @var integer
@@ -13,7 +13,7 @@ final class OrderAmount
 
     /**
      * @param integer $amount
-     * @return OrderAmount
+     * @return Amount
      */
     public static function fromInteger($amount)
     {
@@ -33,7 +33,7 @@ final class OrderAmount
      */
     private function __construct($amount)
     {
-        Guard::min($amount, 1, 'Order amount must be at least one cent');
+        Guard::min($amount, 1, 'Amount must be at least one');
 
         $this->amount = $amount;
     }

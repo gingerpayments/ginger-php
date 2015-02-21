@@ -2,10 +2,16 @@
 
 namespace GingerPayments\Payment;
 
+use Assert\Assertion as Guard;
+use GingerPayments\Payment\Order\MerchantIdentifier;
+use GingerPayments\Payment\Order\Status;
+use GingerPayments\Payment\Transaction\PaymentMethod;
+use Rhumsaa\Uuid\Uuid;
+
 final class Order
 {
     /**
-     * @var OrderIdentifier|null
+     * @var Uuid|null
      */
     private $id;
 
@@ -25,63 +31,199 @@ final class Order
     private $completed;
 
     /**
-     * @var OrderMerchantIdentifier|null
+     * @var MerchantIdentifier|null
      */
     private $merchantOrderId;
 
     /**
-     * @var OrderStatus|null
+     * @var Status|null
      */
     private $status;
 
     /**
-     * @var OrderCurrency
+     * @var Currency
      */
     private $currency;
 
     /**
-     * @var OrderAmount
+     * @var Amount
      */
     private $amount;
 
     /**
-     * @var OrderDescription|null
+     * @var \DateInterval|null
+     */
+    private $expirationPeriod;
+
+    /**
+     * @var Description|null
      */
     private $description;
 
     /**
-     * @var OrderReturnUrl|null
+     * @var Url|null
      */
     private $returnUrl;
+
+    /**
+     * @var Transactions
+     */
+    private $transactions;
+
+    /**
+     * Create a new Order with the iDEAL payment method.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param string $issuerId The SWIFT/BIC code of the iDEAL issuer.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @return Order
+     */
+    public static function createWithIdeal(
+        $amount,
+        $currency,
+        $issuerId,
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null
+    ) {
+        return static::create(
+            $amount,
+            $currency,
+            PaymentMethod::IDEAL,
+            ['issuer_id' => $issuerId],
+            $description,
+            $merchantOrderId,
+            $returnUrl,
+            $expirationPeriod
+        );
+    }
+
+    /**
+     * Create a new Order with the credit card payment method.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @return Order
+     */
+    public static function createWithCreditCard(
+        $amount,
+        $currency,
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null
+    ) {
+        return static::create(
+            $amount,
+            $currency,
+            PaymentMethod::CREDIT_CARD,
+            [],
+            $description,
+            $merchantOrderId,
+            $returnUrl,
+            $expirationPeriod
+        );
+    }
 
     /**
      * Create a new Order.
      *
      * @param integer $amount Amount in cents.
      * @param string $currency A valid currency code.
-     * @param string|null $merchantOrderId A merchant-defined order identifier.
-     * @param string|null $description A description of the order.
-     * @param string|null $returnUrl The return URL.
+     * @param string $paymentMethod The payment method to use.
+     * @param array $paymentMethodDetails An array of extra payment method details.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @return Order
      */
     public static function create(
         $amount,
         $currency,
-        $merchantOrderId = null,
+        $paymentMethod,
+        array $paymentMethodDetails = array(),
         $description = null,
-        $returnUrl = null
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null
     ) {
         return new static(
-            OrderAmount::fromInteger($amount),
-            OrderCurrency::fromString($currency),
-            ($merchantOrderId !== null) ? OrderMerchantIdentifier::fromString($merchantOrderId) : null,
-            ($description !== null) ? OrderDescription::fromString($description) : null,
-            ($returnUrl !== null) ? OrderReturnUrl::fromString($returnUrl) : null
+            Transactions::fromArray(
+                array(
+                    array(
+                        'payment_method' => $paymentMethod,
+                        'payment_method_details' => $paymentMethodDetails
+                    )
+                )
+            ),
+            Amount::fromInteger($amount),
+            Currency::fromString($currency),
+            ($description !== null) ? Description::fromString($description) : null,
+            ($merchantOrderId !== null) ? MerchantIdentifier::fromString($merchantOrderId) : null,
+            ($returnUrl !== null) ? Url::fromString($returnUrl) : null,
+            ($expirationPeriod !== null) ? new \DateInterval($expirationPeriod) : null
         );
     }
 
     /**
-     * @return OrderIdentifier|null
+     * @param array $order
+     * @return Transaction
+     */
+    public static function fromArray(array $order)
+    {
+        Guard::keyExists($order, 'transactions');
+        Guard::keyExists($order, 'amount');
+        Guard::keyExists($order, 'currency');
+
+        return new static(
+            Transactions::fromArray($order['transactions']),
+            Amount::fromInteger($order['amount']),
+            Currency::fromString($order['currency']),
+            array_key_exists('description', $order) ? Description::fromString($order['description']) : null,
+            array_key_exists('merchant_order_id', $order) ? MerchantIdentifier::fromString($order['merchant_order_id']) : null,
+            array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null,
+            array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
+            array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
+            array_key_exists('created', $order) ? new \DateTimeImmutable($order['created']) : null,
+            array_key_exists('modified', $order) ? new \DateTimeImmutable($order['modified']) : null,
+            array_key_exists('completed', $order) ? new \DateTimeImmutable($order['completed']) : null,
+            array_key_exists('status', $order) ? Status::fromString($order['status']) : null
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'currency' => $this->currency()->toString(),
+            'amount' => $this->amount()->toInteger(),
+            'transactions' => $this->transactions()->toArray(),
+            'id' => ($this->id() !== null) ? $this->id()->toString() : null,
+            'created' => ($this->created() !== null) ? $this->created()->format('c') : null,
+            'modified' => ($this->modified() !== null) ? $this->modified()->format('c') : null,
+            'completed' => ($this->completed() !== null) ? $this->completed()->format('c') : null,
+            'expiration_period' => ($this->expirationPeriod() !== null) ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS') : null,
+            'merchant_order_id' => ($this->merchantOrderId() !== null) ? $this->merchantOrderId()->toString() : null,
+            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
+            'description' => ($this->description() !== null) ? $this->description()->toString() : null,
+            'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,
+        );
+    }
+
+    /**
+     * @return Uuid|null
      */
     public function id()
     {
@@ -113,7 +255,7 @@ final class Order
     }
 
     /**
-     * @return OrderMerchantIdentifier|null
+     * @return MerchantIdentifier|null
      */
     public function merchantOrderId()
     {
@@ -121,7 +263,7 @@ final class Order
     }
 
     /**
-     * @return OrderStatus|null
+     * @return Status|null
      */
     public function status()
     {
@@ -129,7 +271,7 @@ final class Order
     }
 
     /**
-     * @return OrderCurrency
+     * @return Currency
      */
     public function currency()
     {
@@ -137,7 +279,7 @@ final class Order
     }
 
     /**
-     * @return OrderAmount
+     * @return Amount
      */
     public function amount()
     {
@@ -145,7 +287,15 @@ final class Order
     }
 
     /**
-     * @return OrderDescription|null
+     * @return \DateInterval|null
+     */
+    public function expirationPeriod()
+    {
+        return $this->expirationPeriod;
+    }
+
+    /**
+     * @return Description|null
      */
     public function description()
     {
@@ -153,7 +303,7 @@ final class Order
     }
 
     /**
-     * @return OrderReturnUrl|null
+     * @return Url|null
      */
     public function returnUrl()
     {
@@ -161,77 +311,52 @@ final class Order
     }
 
     /**
-     * @return string
-     * @todo Move to dedicated serializer
+     * @return Transactions
      */
-    public function toJson()
+    public function transactions()
     {
-        return json_encode($this->toScalarArray());
+        return $this->transactions;
     }
 
     /**
-     * @return array
-     */
-    public function toScalarArray()
-    {
-        $array = array(
-            'currency' => $this->currency()->toString(),
-            'amount' => $this->amount()->toInteger()
-        );
-
-        if ($this->id() !== null) {
-            $array['id'] = $this->id()->toString();
-        }
-
-        if ($this->created() !== null) {
-            $array['created'] = $this->created()->format('c');
-        }
-
-        if ($this->modified() !== null) {
-            $array['modified'] = $this->modified()->format('c');
-        }
-
-        if ($this->completed() !== null) {
-            $array['completed'] = $this->completed()->format('c');
-        }
-
-        if ($this->merchantOrderId() !== null) {
-            $array['merchantOrderId'] = $this->merchantOrderId()->toString();
-        }
-
-        if ($this->status() !== null) {
-            $array['status'] = $this->status()->toString();
-        }
-
-        if ($this->description() !== null) {
-            $array['description'] = $this->description()->toString();
-        }
-
-        if ($this->returnUrl() !== null) {
-            $array['returnUrl'] = $this->returnUrl()->toString();
-        }
-
-        return $array;
-    }
-
-    /**
-     * @param OrderAmount $amount
-     * @param OrderCurrency $currency
-     * @param OrderMerchantIdentifier $merchantOrderId
-     * @param OrderDescription $description
-     * @param OrderReturnUrl $returnUrl
+     * @param Transactions $transactions
+     * @param Amount $amount
+     * @param Currency $currency
+     * @param Description $description
+     * @param MerchantIdentifier $merchantOrderId
+     * @param Url $returnUrl
+     * @param \DateInterval $expirationPeriod
+     * @param Uuid $id
+     * @param \DateTimeImmutable $created
+     * @param \DateTimeImmutable $modified
+     * @param \DateTimeImmutable $completed
+     * @param Status $status
      */
     private function __construct(
-        OrderAmount $amount,
-        OrderCurrency $currency,
-        OrderMerchantIdentifier $merchantOrderId = null,
-        OrderDescription $description = null,
-        OrderReturnUrl $returnUrl = null
+        Transactions $transactions,
+        Amount $amount,
+        Currency $currency,
+        Description $description = null,
+        MerchantIdentifier $merchantOrderId = null,
+        Url $returnUrl = null,
+        \DateInterval $expirationPeriod = null,
+        Uuid $id = null,
+        \DateTimeImmutable $created = null,
+        \DateTimeImmutable $modified = null,
+        \DateTimeImmutable $completed = null,
+        Status $status = null
     ) {
+        $this->transactions = $transactions;
         $this->amount = $amount;
         $this->currency = $currency;
-        $this->merchantOrderId = $merchantOrderId;
         $this->description = $description;
+        $this->merchantOrderId = $merchantOrderId;
         $this->returnUrl = $returnUrl;
+        $this->expirationPeriod = $expirationPeriod;
+        $this->id = $id;
+        $this->created = $created;
+        $this->modified = $modified;
+        $this->completed = $completed;
+        $this->status = $status;
     }
 }

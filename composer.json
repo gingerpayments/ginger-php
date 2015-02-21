@@ -14,7 +14,9 @@
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": "~5.2",
         "beberlei/assert": "~2.3",
-        "mathiasverraes/classfunctions": "~1.1"
+        "mathiasverraes/classfunctions": "~1.1",
+        "ronanguilloux/isocodes": "~1.1",
+        "rhumsaa/uuid": "~2.8"
     },
     "autoload": {
         "psr-4": {

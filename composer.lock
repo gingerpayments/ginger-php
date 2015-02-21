@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0624e5d82418e15ca7b8299f5ecf9472",
+    "hash": "3b0f87ef45433dd4d275b43a5fbd2735",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -307,6 +307,146 @@
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
             "time": "2014-12-30 13:32:42"
+        },
+        {
+            "name": "rhumsaa/uuid",
+            "version": "2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/cca98c652cac412c9c2f109c69e5532f313435fc",
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/dbal": ">=2.3",
+                "moontoast/math": "~1.1",
+                "phpunit/phpunit": "~4.1",
+                "satooshi/php-coveralls": "~0.6",
+                "symfony/console": "~2.3"
+            },
+            "suggest": {
+                "doctrine/dbal": "Allow the use of a UUID as doctrine field type.",
+                "moontoast/math": "Support for converting UUID to 128-bit integer (in string form).",
+                "symfony/console": "Support for use of the bin/uuid command line tool."
+            },
+            "bin": [
+                "bin/uuid"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rhumsaa\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Huizendveld",
+                    "email": "marijn.huizendveld@gmail.com"
+                },
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ramsey/uuid",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "time": "2014-11-09 18:42:56"
+        },
+        {
+            "name": "ronanguilloux/isocodes",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ronanguilloux/IsoCodes.git",
+                "reference": "e7b731831f6e2103744749c573ba55dcb089edb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ronanguilloux/IsoCodes/zipball/e7b731831f6e2103744749c573ba55dcb089edb3",
+                "reference": "e7b731831f6e2103744749c573ba55dcb089edb3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "@stable",
+                "pdepend/pdepend": "2.0.*",
+                "phploc/phploc": "*",
+                "phpmd/phpmd": "2.0.*",
+                "phpunit/phpunit": "~4.4",
+                "satooshi/php-coveralls": "dev-master",
+                "sebastian/phpcpd": "*",
+                "squizlabs/php_codesniffer": "2.0.x-dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "IsoCodes": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ronan Guilloux",
+                    "email": "ronan.guilloux@gmail.com",
+                    "homepage": "http://github.com/ronanguilloux",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP library, validating various ISO codes, such as IBAN, SWIFT/BIC, BBAN, RIB, Credit Card number, INSEE, VAT, NSS, Siren, Siret, Ssn, NINO, Zipcode (US, Canada, France...), EAN13, Spanish CIF & NIF",
+            "homepage": "https://github.com/ronanguilloux/IsoCodes",
+            "keywords": [
+                "BBAN",
+                "BIC",
+                "CIF",
+                "Credit Card number",
+                "EAN13",
+                "IBAN",
+                "INSEE",
+                "ISO codes",
+                "NIF",
+                "NINO",
+                "NSS",
+                "RIB",
+                "Siren",
+                "Siret",
+                "Ssn",
+                "swift",
+                "vat",
+                "zipcode"
+            ],
+            "time": "2012-10-10 00:00:00"
         }
     ],
     "packages-dev": [],
