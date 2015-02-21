@@ -19,8 +19,8 @@ try {
         1234,
         'EUR',
         'INGBNL2A',
-        'order-1234567',
-        'My order description',
+        'Order description',
+        'merchant-order-id-' . uniqid(),
         'http://example.com'
     );
 
@@ -43,7 +43,7 @@ try {
     echo $response . "\n\n";
 
     var_dump(\GingerPayments\Payment\Order::fromArray($response->json()));
-    
+
 } catch (\GuzzleHttp\Exception\RequestException $e) {
     echo $e->getMessage() . "\n\n";
     echo $e->getRequest() . "\n";
