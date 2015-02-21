@@ -36,6 +36,11 @@ final class Order
     private $merchantOrderId;
 
     /**
+     * @var Uuid|null
+     */
+    private $projectId;
+
+    /**
      * @var Status|null
      */
     private $status;
@@ -194,6 +199,7 @@ final class Order
             array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null,
             array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
             array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
+            array_key_exists('project_id', $order) ? Uuid::fromString($order['project_id']) : null,
             array_key_exists('created', $order) ? new \DateTimeImmutable($order['created']) : null,
             array_key_exists('modified', $order) ? new \DateTimeImmutable($order['modified']) : null,
             array_key_exists('completed', $order) ? new \DateTimeImmutable($order['completed']) : null,
@@ -211,6 +217,7 @@ final class Order
             'amount' => $this->amount()->toInteger(),
             'transactions' => $this->transactions()->toArray(),
             'id' => ($this->id() !== null) ? $this->id()->toString() : null,
+            'project_id' => ($this->projectId() !== null) ? $this->projectId()->toString() : null,
             'created' => ($this->created() !== null) ? $this->created()->format('c') : null,
             'modified' => ($this->modified() !== null) ? $this->modified()->format('c') : null,
             'completed' => ($this->completed() !== null) ? $this->completed()->format('c') : null,
@@ -252,6 +259,14 @@ final class Order
     public function completed()
     {
         return $this->completed;
+    }
+
+    /**
+     * @return Uuid|null
+     */
+    public function projectId()
+    {
+        return $this->projectId;
     }
 
     /**
@@ -327,6 +342,7 @@ final class Order
      * @param Url $returnUrl
      * @param \DateInterval $expirationPeriod
      * @param Uuid $id
+     * @param Uuid $projectId
      * @param \DateTimeImmutable $created
      * @param \DateTimeImmutable $modified
      * @param \DateTimeImmutable $completed
@@ -341,6 +357,7 @@ final class Order
         Url $returnUrl = null,
         \DateInterval $expirationPeriod = null,
         Uuid $id = null,
+        Uuid $projectId = null,
         \DateTimeImmutable $created = null,
         \DateTimeImmutable $modified = null,
         \DateTimeImmutable $completed = null,
@@ -354,6 +371,7 @@ final class Order
         $this->returnUrl = $returnUrl;
         $this->expirationPeriod = $expirationPeriod;
         $this->id = $id;
+        $this->projectId = $projectId;
         $this->created = $created;
         $this->modified = $modified;
         $this->completed = $completed;
