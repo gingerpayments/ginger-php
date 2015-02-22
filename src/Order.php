@@ -3,9 +3,13 @@
 namespace GingerPayments\Payment;
 
 use Assert\Assertion as Guard;
-use GingerPayments\Payment\Order\MerchantIdentifier;
+use GingerPayments\Payment\Order\Amount;
+use GingerPayments\Payment\Order\Description;
+use GingerPayments\Payment\Order\MerchantOrderId;
 use GingerPayments\Payment\Order\Status;
-use GingerPayments\Payment\Transaction\PaymentMethod;
+use GingerPayments\Payment\Order\Transaction;
+use GingerPayments\Payment\Order\Transaction\PaymentMethod;
+use GingerPayments\Payment\Order\Transactions;
 use Rhumsaa\Uuid\Uuid;
 
 final class Order
@@ -31,7 +35,7 @@ final class Order
     private $completed;
 
     /**
-     * @var MerchantIdentifier|null
+     * @var MerchantOrderId|null
      */
     private $merchantOrderId;
 
@@ -174,7 +178,7 @@ final class Order
             Amount::fromInteger($amount),
             Currency::fromString($currency),
             ($description !== null) ? Description::fromString($description) : null,
-            ($merchantOrderId !== null) ? MerchantIdentifier::fromString($merchantOrderId) : null,
+            ($merchantOrderId !== null) ? MerchantOrderId::fromString($merchantOrderId) : null,
             ($returnUrl !== null) ? Url::fromString($returnUrl) : null,
             ($expirationPeriod !== null) ? new \DateInterval($expirationPeriod) : null
         );
@@ -195,7 +199,7 @@ final class Order
             Amount::fromInteger($order['amount']),
             Currency::fromString($order['currency']),
             array_key_exists('description', $order) ? Description::fromString($order['description']) : null,
-            array_key_exists('merchant_order_id', $order) ? MerchantIdentifier::fromString($order['merchant_order_id']) : null,
+            array_key_exists('merchant_order_id', $order) ? MerchantOrderId::fromString($order['merchant_order_id']) : null,
             array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null,
             array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
             array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
@@ -270,7 +274,7 @@ final class Order
     }
 
     /**
-     * @return MerchantIdentifier|null
+     * @return MerchantOrderId|null
      */
     public function merchantOrderId()
     {
@@ -338,7 +342,7 @@ final class Order
      * @param Amount $amount
      * @param Currency $currency
      * @param Description $description
-     * @param MerchantIdentifier $merchantOrderId
+     * @param MerchantOrderId $merchantOrderId
      * @param Url $returnUrl
      * @param \DateInterval $expirationPeriod
      * @param Uuid $id
@@ -353,7 +357,7 @@ final class Order
         Amount $amount,
         Currency $currency,
         Description $description = null,
-        MerchantIdentifier $merchantOrderId = null,
+        MerchantOrderId $merchantOrderId = null,
         Url $returnUrl = null,
         \DateInterval $expirationPeriod = null,
         Uuid $id = null,

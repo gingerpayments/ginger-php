@@ -1,8 +1,8 @@
 <?php
 
-namespace GingerPayments\Payment\Transaction\PaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
-use GingerPayments\Payment\Transaction\PaymentMethod;
+use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 
 final class PaymentMethodDetailsFactory
 {

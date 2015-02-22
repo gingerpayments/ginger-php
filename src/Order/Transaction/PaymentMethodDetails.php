@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment\Transaction;
+namespace GingerPayments\Payment\Order\Transaction;
 
 interface PaymentMethodDetails
 {

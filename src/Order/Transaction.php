@@ -1,13 +1,17 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
-use GingerPayments\Payment\Transaction\Balance;
-use GingerPayments\Payment\Transaction\PaymentMethod;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails;
-use GingerPayments\Payment\Transaction\Reason;
-use GingerPayments\Payment\Transaction\Status;
+use GingerPayments\Payment\Order\Amount;
+use GingerPayments\Payment\Currency;
+use GingerPayments\Payment\Order\Description;
+use GingerPayments\Payment\Order\Transaction\Balance;
+use GingerPayments\Payment\Order\Transaction\PaymentMethod;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
+use GingerPayments\Payment\Order\Transaction\Reason;
+use GingerPayments\Payment\Order\Transaction\Status;
+use GingerPayments\Payment\Url;
 use Rhumsaa\Uuid\Uuid;
 
 final class Transaction

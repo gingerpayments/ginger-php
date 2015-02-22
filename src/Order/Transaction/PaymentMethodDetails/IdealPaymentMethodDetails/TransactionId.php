@@ -1,11 +1,11 @@
 <?php
 
-namespace GingerPayments\Payment\Order;
+namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails;
 
 use Assert\Assertion as Guard;
 use GingerPayments\Payment\Common\StringBasedValueObject;
 
-final class MerchantIdentifier
+final class TransactionId
 {
     use StringBasedValueObject;
 
@@ -14,7 +14,7 @@ final class MerchantIdentifier
      */
     private function __construct($value)
     {
-        Guard::notBlank($value, 'Merchant identifier cannot be blank');
+        Guard::notBlank($value, 'iDEAL transaction ID cannot be blank');
 
         $this->value = $value;
     }

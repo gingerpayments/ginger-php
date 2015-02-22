@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
 

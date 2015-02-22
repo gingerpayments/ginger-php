@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment\Transaction\PaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
 use GingerPayments\Payment\Transaction\PaymentMethodDetails;
 

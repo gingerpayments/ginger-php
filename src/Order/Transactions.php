@@ -1,8 +1,9 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
+use GingerPayments\Payment\Order\Transaction;
 
 final class Transactions implements \Iterator
 {
@@ -88,7 +89,7 @@ final class Transactions implements \Iterator
      */
     private function __construct(array $transactions = array())
     {
-        Guard::allIsInstanceOf($transactions, 'GingerPayments\Payment\Transaction');
+        Guard::allIsInstanceOf($transactions, 'GingerPayments\Payment\Order\Transaction');
 
         $this->transactions = $transactions;
     }

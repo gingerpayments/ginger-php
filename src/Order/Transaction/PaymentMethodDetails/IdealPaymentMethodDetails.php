@@ -1,16 +1,15 @@
 <?php
 
-namespace GingerPayments\Payment\Transaction\PaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
 use Assert\Assertion as Guard;
-use GingerPayments\Payment\Common\ArrayFunctions;
 use GingerPayments\Payment\Iban;
 use GingerPayments\Payment\SwiftBic;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCity;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerName;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\Status;
-use GingerPayments\Payment\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\TransactionId;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCity;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerName;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\Status;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\TransactionId;
 
 class IdealPaymentMethodDetails implements PaymentMethodDetails
 {
@@ -74,7 +73,7 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
     public function toArray()
     {
         return array(
-            'id' => $this->issuerId()->toString(),
+            'issuer_id' => $this->issuerId()->toString(),
             'transaction_id' => ($this->transactionId() !== null) ? $this->transactionId()->toString() : null,
             'consumer_name' => ($this->consumerName() !== null) ? $this->consumerName()->toString() : null,
             'consumer_city' => ($this->consumerCity() !== null) ? $this->consumerCity()->toString() : null,
