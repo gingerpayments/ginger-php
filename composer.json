@@ -1,5 +1,5 @@
 {
-    "name": "gingerpayments/payment",
+    "name": "gingerpayments/sdk",
     "description": "The official Ginger Payments PHP SDK",
     "keywords": ["payment", "pay", "merchant", "e-commerce"],
     "license": "MIT",
@@ -17,6 +17,9 @@
         "mathiasverraes/classfunctions": "~1.1",
         "ronanguilloux/isocodes": "~1.1",
         "rhumsaa/uuid": "~2.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
     },
     "autoload": {
         "psr-4": {
