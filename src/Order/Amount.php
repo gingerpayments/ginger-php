@@ -37,5 +37,4 @@ final class Amount
 
         $this->amount = $amount;
     }
-
 }

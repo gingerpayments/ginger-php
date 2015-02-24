@@ -2,7 +2,7 @@
 
 namespace GingerPayments\Payment\Tests\Common;
 
-use GingerPayments\Payment\Common\ChoiceBasedValueObject;
+use GingerPayments\Payment\Tests\Mock\FakeChoiceBasedValueObject;
 
 final class ChoiceBasedValueObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ final class ChoiceBasedValueObjectTest extends \PHPUnit_Framework_TestCase
         foreach (array('foo', 'bar', 'baz') as $choice) {
             $choiceValueObject = FakeChoiceBasedValueObject::create($choice);
             $this->assertInstanceOf(
-                'GingerPayments\Payment\Tests\Common\FakeChoiceBasedValueObject',
+                'GingerPayments\Payment\Tests\Mock\FakeChoiceBasedValueObject',
                 $choiceValueObject
             );
         }
@@ -27,20 +27,5 @@ final class ChoiceBasedValueObjectTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
         FakeChoiceBasedValueObject::create('invalid');
-    }
-}
-
-final class FakeChoiceBasedValueObject
-{
-    use ChoiceBasedValueObject;
-
-    public static function create($value)
-    {
-        return new FakeChoiceBasedValueObject($value);
-    }
-
-    public function possibleValues()
-    {
-        return array('foo', 'bar', 'baz');
     }
 }

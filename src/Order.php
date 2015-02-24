@@ -199,7 +199,9 @@ final class Order
             Amount::fromInteger($order['amount']),
             Currency::fromString($order['currency']),
             array_key_exists('description', $order) ? Description::fromString($order['description']) : null,
-            array_key_exists('merchant_order_id', $order) ? MerchantOrderId::fromString($order['merchant_order_id']) : null,
+            array_key_exists('merchant_order_id', $order)
+                ? MerchantOrderId::fromString($order['merchant_order_id'])
+                : null,
             array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null,
             array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
             array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
@@ -225,8 +227,12 @@ final class Order
             'created' => ($this->created() !== null) ? $this->created()->format('c') : null,
             'modified' => ($this->modified() !== null) ? $this->modified()->format('c') : null,
             'completed' => ($this->completed() !== null) ? $this->completed()->format('c') : null,
-            'expiration_period' => ($this->expirationPeriod() !== null) ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS') : null,
-            'merchant_order_id' => ($this->merchantOrderId() !== null) ? $this->merchantOrderId()->toString() : null,
+            'expiration_period' => ($this->expirationPeriod() !== null)
+                ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+                : null,
+            'merchant_order_id' => ($this->merchantOrderId() !== null)
+                ? $this->merchantOrderId()->toString()
+                : null,
             'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'description' => ($this->description() !== null) ? $this->description()->toString() : null,
             'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,

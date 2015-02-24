@@ -96,7 +96,10 @@ final class Transaction
             PaymentMethod::fromString($transaction['payment_method']),
             PaymentMethodDetails\PaymentMethodDetailsFactory::createFromArray(
                 PaymentMethod::fromString($transaction['payment_method']),
-                array_key_exists('payment_method_details', $transaction) ? $transaction['payment_method_details'] : array()
+                array_key_exists(
+                    'payment_method_details',
+                    $transaction
+                ) ? $transaction['payment_method_details'] : array()
             ),
             array_key_exists('id', $transaction) ? Uuid::fromString($transaction['id']) : null,
             array_key_exists('created', $transaction) ? new \DateTimeImmutable($transaction['created']) : null,
@@ -105,9 +108,15 @@ final class Transaction
             array_key_exists('status', $transaction) ? TransactionStatus::fromString($transaction['status']) : null,
             array_key_exists('reason', $transaction) ? Reason::fromString($transaction['reason']) : null,
             array_key_exists('currency', $transaction) ? Currency::fromString($transaction['currency']) : null,
-            array_key_exists('amount', $transaction) ? Amount::fromInteger($transaction['amount']) : null,
-            array_key_exists('expiration_period', $transaction) ? new \DateInterval($transaction['expiration_period']) : null,
-            array_key_exists('description', $transaction) ? Description::fromString($transaction['description']) : null,
+            array_key_exists('amount', $transaction)
+                ? Amount::fromInteger($transaction['amount'])
+                : null,
+            array_key_exists('expiration_period', $transaction)
+                ? new \DateInterval($transaction['expiration_period'])
+                : null,
+            array_key_exists('description', $transaction)
+                ? Description::fromString($transaction['description'])
+                : null,
             array_key_exists('balance', $transaction) ? Balance::fromString($transaction['balance']) : null,
             array_key_exists('payment_url', $transaction) ? Url::fromString($transaction['payment_url']) : null
         );
@@ -129,7 +138,9 @@ final class Transaction
             'reason' => ($this->reason() !== null) ? $this->reason()->toString() : null,
             'currency' => ($this->currency() !== null) ? $this->currency()->toString() : null,
             'amount' => ($this->amount() !== null) ? $this->amount()->toInteger() : null,
-            'expiration_period' => ($this->expirationPeriod() !== null) ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS') : null,
+            'expiration_period' => ($this->expirationPeriod() !== null)
+                ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+                : null,
             'description' => ($this->description() !== null) ? $this->description()->toString() : null,
             'balance' => ($this->balance() !== null) ? $this->balance()->toString() : null,
             'payment_url' => ($this->paymentUrl() !== null) ? $this->paymentUrl()->toString() : null

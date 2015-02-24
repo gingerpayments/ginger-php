@@ -2,7 +2,7 @@
 
 namespace GingerPayments\Payment\Tests\Common;
 
-use GingerPayments\Payment\Common\StringBasedValueObject;
+use GingerPayments\Payment\Tests\Mock\FakeStringBasedValueObject;
 
 final class StringBasedValueObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ final class StringBasedValueObjectTest extends \PHPUnit_Framework_TestCase
         $stringValueObject = FakeStringBasedValueObject::fromString('foobar');
 
         $this->assertInstanceOf(
-            'GingerPayments\Payment\Tests\Common\FakeStringBasedValueObject',
+            'GingerPayments\Payment\Tests\Mock\FakeStringBasedValueObject',
             $stringValueObject
         );
     }
@@ -41,15 +41,5 @@ final class StringBasedValueObjectTest extends \PHPUnit_Framework_TestCase
             $stringBasedValueObject->toString(),
             (string) $stringBasedValueObject
         );
-    }
-}
-
-final class FakeStringBasedValueObject
-{
-    use StringBasedValueObject;
-
-    private function __construct($value)
-    {
-        $this->value = $value;
     }
 }
