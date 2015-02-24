@@ -7,6 +7,11 @@ use Assert\Assertion as Guard;
 trait ChoiceBasedValueObject
 {
     /**
+     * @var string
+     */
+    private $value;
+
+    /**
      * @return array
      */
     public abstract function possibleValues();

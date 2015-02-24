@@ -2,12 +2,12 @@
 
 namespace GingerPayments\Payment\Order\Transaction;
 
-use Assert\Assertion as Guard;
+use GingerPayments\Payment\Common\ChoiceBasedValueObject;
 use GingerPayments\Payment\Common\StringBasedValueObject;
 
 final class Status
 {
-    use StringBasedValueObject;
+    use StringBasedValueObject, ChoiceBasedValueObject;
 
     /**
      * Possible transaction statuses
@@ -21,17 +21,20 @@ final class Status
     const EXPIRED = 'expired';
 
     /**
-     * @var array
+     * @return array
      */
-    private static $possibleValues = array(
-        self::BRAND_NEW,
-        self::PENDING,
-        self::PROCESSING,
-        self::ERROR,
-        self::COMPLETED,
-        self::CANCELLED,
-        self::EXPIRED
-    );
+    public function possibleValues()
+    {
+        return array(
+            self::BRAND_NEW,
+            self::PENDING,
+            self::PROCESSING,
+            self::ERROR,
+            self::COMPLETED,
+            self::CANCELLED,
+            self::EXPIRED
+        );
+    }
 
     /**
      * @return bool
@@ -87,19 +90,5 @@ final class Status
     public function isExpired()
     {
         return $this->value === self::EXPIRED;
-    }
-
-    /**
-     * @param string $value
-     */
-    private function __construct($value)
-    {
-        Guard::choice(
-            $value,
-            static::$possibleValues,
-            'Provided value must be one of ' . implode(', ', self::$possibleValues)
-        );
-
-        $this->value = $value;
     }
 }

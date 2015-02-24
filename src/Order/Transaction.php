@@ -3,14 +3,12 @@
 namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
-use GingerPayments\Payment\Order\Amount;
 use GingerPayments\Payment\Currency;
-use GingerPayments\Payment\Order\Description;
 use GingerPayments\Payment\Order\Transaction\Balance;
 use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 use GingerPayments\Payment\Order\Transaction\Reason;
-use GingerPayments\Payment\Order\Transaction\Status;
+use GingerPayments\Payment\Order\Transaction\Status as TransactionStatus;
 use GingerPayments\Payment\Url;
 use Rhumsaa\Uuid\Uuid;
 
@@ -37,7 +35,7 @@ final class Transaction
     private $completed;
 
     /**
-     * @var Status|null
+     * @var TransactionStatus|null
      */
     private $status;
 
@@ -104,7 +102,7 @@ final class Transaction
             array_key_exists('created', $transaction) ? new \DateTimeImmutable($transaction['created']) : null,
             array_key_exists('modified', $transaction) ? new \DateTimeImmutable($transaction['modified']) : null,
             array_key_exists('completed', $transaction) ? new \DateTimeImmutable($transaction['completed']) : null,
-            array_key_exists('status', $transaction) ? Status::fromString($transaction['status']) : null,
+            array_key_exists('status', $transaction) ? TransactionStatus::fromString($transaction['status']) : null,
             array_key_exists('reason', $transaction) ? Reason::fromString($transaction['reason']) : null,
             array_key_exists('currency', $transaction) ? Currency::fromString($transaction['currency']) : null,
             array_key_exists('amount', $transaction) ? Amount::fromInteger($transaction['amount']) : null,
@@ -171,7 +169,7 @@ final class Transaction
     }
 
     /**
-     * @return Status|null
+     * @return TransactionStatus|null
      */
     public function status()
     {
@@ -257,7 +255,7 @@ final class Transaction
      * @param \DateTimeImmutable $created
      * @param \DateTimeImmutable $modified
      * @param \DateTimeImmutable $completed
-     * @param Status $status
+     * @param TransactionStatus $status
      * @param Reason $reason
      * @param Currency $currency
      * @param Amount $amount
@@ -273,7 +271,7 @@ final class Transaction
         \DateTimeImmutable $created = null,
         \DateTimeImmutable $modified = null,
         \DateTimeImmutable $completed = null,
-        Status $status = null,
+        TransactionStatus $status = null,
         Reason $reason = null,
         Currency $currency = null,
         Amount $amount = null,
