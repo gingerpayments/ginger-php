@@ -23,7 +23,7 @@ final class Status
     /**
      * @return array
      */
-    public static function possibleValues()
+    public function possibleValues()
     {
         return array(
             self::BRAND_NEW,

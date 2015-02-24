@@ -18,7 +18,7 @@ final class PaymentMethod
     /**
      * @return array
      */
-    public static function possibleValues()
+    public function possibleValues()
     {
         return array(
             self::IDEAL,

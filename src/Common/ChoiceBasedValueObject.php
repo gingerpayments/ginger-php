@@ -9,17 +9,14 @@ trait ChoiceBasedValueObject
     /**
      * @return array
      */
-    public static function possibleValues()
-    {
-        return array();
-    }
+    public abstract function possibleValues();
 
     /**
      * @param string $value
      */
     private function __construct($value)
     {
-        Guard::choice($value, static::possibleValues());
+        Guard::choice($value, $this->possibleValues());
 
         $this->value = $value;
     }

@@ -19,7 +19,7 @@ final class Balance
     /**
      * @return array
      */
-    public static function possibleValues()
+    public function possibleValues()
     {
         return array(
             self::INTERNAL,

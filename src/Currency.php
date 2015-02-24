@@ -17,7 +17,7 @@ final class Currency
     /**
      * @return array
      */
-    public static function possibleValues()
+    public function possibleValues()
     {
         return array(
             self::EUR

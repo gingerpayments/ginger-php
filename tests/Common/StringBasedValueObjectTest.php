@@ -44,7 +44,7 @@ final class StringBasedValueObjectTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class FakeStringBasedValueObject
+final class FakeStringBasedValueObject
 {
     use StringBasedValueObject;
 
