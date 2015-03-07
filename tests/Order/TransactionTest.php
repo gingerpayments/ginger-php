@@ -45,7 +45,10 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($array['reason'], (string) $transaction->reason());
         $this->assertEquals($array['currency'], (string) $transaction->currency());
         $this->assertEquals($array['amount'], $transaction->amount()->toInteger());
-        $this->assertEquals($array['expiration_period'], $transaction->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS'));
+        $this->assertEquals(
+            $array['expiration_period'],
+            $transaction->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+        );
         $this->assertEquals($array['description'], (string) $transaction->description());
         $this->assertEquals($array['balance'], (string) $transaction->balance());
         $this->assertEquals($array['payment_url'], (string) $transaction->paymentUrl());
