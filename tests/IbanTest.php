@@ -9,7 +9,7 @@ final class IbanTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldInstantiateFromAValidSwiftCode()
+    public function itShouldInstantiateFromAValidString()
     {
         $this->assertInstanceOf(
             'GingerPayments\Payment\Iban',

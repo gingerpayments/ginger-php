@@ -2,7 +2,7 @@
 
 namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
-use GingerPayments\Payment\Transaction\PaymentMethodDetails;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
 final class CreditCardPaymentMethodDetails implements PaymentMethodDetails
 {

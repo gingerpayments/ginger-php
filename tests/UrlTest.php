@@ -9,7 +9,7 @@ final class UrlTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldInstantiateFromAValidUrl()
+    public function itShouldInstantiateFromAValidString()
     {
         $this->assertInstanceOf(
             'GingerPayments\Payment\Url',

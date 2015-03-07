@@ -75,6 +75,7 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
         return array(
             'issuer_id' => $this->issuerId()->toString(),
             'transaction_id' => ($this->transactionId() !== null) ? $this->transactionId()->toString() : null,
+            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'consumer_name' => ($this->consumerName() !== null) ? $this->consumerName()->toString() : null,
             'consumer_city' => ($this->consumerCity() !== null) ? $this->consumerCity()->toString() : null,
             'consumer_iban' => ($this->consumerIban() !== null) ? $this->consumerIban()->toString() : null,

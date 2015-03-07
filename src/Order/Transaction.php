@@ -4,7 +4,9 @@ namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
 use GingerPayments\Payment\Currency;
+use GingerPayments\Payment\Order\Transaction\Amount as TransactionAmount;
 use GingerPayments\Payment\Order\Transaction\Balance;
+use GingerPayments\Payment\Order\Transaction\Description as TransactionDescription;
 use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 use GingerPayments\Payment\Order\Transaction\Reason;
@@ -92,10 +94,11 @@ final class Transaction
     {
         Guard::keyExists($transaction, 'payment_method');
 
+        $paymentMethod = PaymentMethod::fromString($transaction['payment_method']);
         return new static(
-            PaymentMethod::fromString($transaction['payment_method']),
+            $paymentMethod,
             PaymentMethodDetails\PaymentMethodDetailsFactory::createFromArray(
-                PaymentMethod::fromString($transaction['payment_method']),
+                $paymentMethod,
                 array_key_exists(
                     'payment_method_details',
                     $transaction
@@ -109,13 +112,13 @@ final class Transaction
             array_key_exists('reason', $transaction) ? Reason::fromString($transaction['reason']) : null,
             array_key_exists('currency', $transaction) ? Currency::fromString($transaction['currency']) : null,
             array_key_exists('amount', $transaction)
-                ? Amount::fromInteger($transaction['amount'])
+                ? TransactionAmount::fromInteger($transaction['amount'])
                 : null,
             array_key_exists('expiration_period', $transaction)
                 ? new \DateInterval($transaction['expiration_period'])
                 : null,
             array_key_exists('description', $transaction)
-                ? Description::fromString($transaction['description'])
+                ? TransactionDescription::fromString($transaction['description'])
                 : null,
             array_key_exists('balance', $transaction) ? Balance::fromString($transaction['balance']) : null,
             array_key_exists('payment_url', $transaction) ? Url::fromString($transaction['payment_url']) : null
@@ -204,7 +207,7 @@ final class Transaction
     }
 
     /**
-     * @return Amount|null
+     * @return TransactionAmount|null
      */
     public function amount()
     {
@@ -220,7 +223,7 @@ final class Transaction
     }
 
     /**
-     * @return Description|null
+     * @return TransactionDescription|null
      */
     public function description()
     {
@@ -269,9 +272,9 @@ final class Transaction
      * @param TransactionStatus $status
      * @param Reason $reason
      * @param Currency $currency
-     * @param Amount $amount
+     * @param TransactionAmount $amount
      * @param \DateInterval $expirationPeriod
-     * @param Description $description
+     * @param TransactionDescription $description
      * @param Balance $balance
      * @param Url $paymentUrl
      */
@@ -285,9 +288,9 @@ final class Transaction
         TransactionStatus $status = null,
         Reason $reason = null,
         Currency $currency = null,
-        Amount $amount = null,
+        TransactionAmount $amount = null,
         \DateInterval $expirationPeriod = null,
-        Description $description = null,
+        TransactionDescription $description = null,
         Balance $balance = null,
         Url $paymentUrl = null
     ) {
