@@ -3,6 +3,7 @@
 namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
+use Carbon\Carbon;
 use GingerPayments\Payment\Currency;
 use GingerPayments\Payment\Order\Transaction\Amount as TransactionAmount;
 use GingerPayments\Payment\Order\Transaction\Balance;
@@ -22,17 +23,17 @@ final class Transaction
     private $id;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $created;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $modified;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $completed;
 
@@ -105,9 +106,9 @@ final class Transaction
                 ) ? $transaction['payment_method_details'] : array()
             ),
             array_key_exists('id', $transaction) ? Uuid::fromString($transaction['id']) : null,
-            array_key_exists('created', $transaction) ? new \DateTimeImmutable($transaction['created']) : null,
-            array_key_exists('modified', $transaction) ? new \DateTimeImmutable($transaction['modified']) : null,
-            array_key_exists('completed', $transaction) ? new \DateTimeImmutable($transaction['completed']) : null,
+            array_key_exists('created', $transaction) ? new Carbon($transaction['created']) : null,
+            array_key_exists('modified', $transaction) ? new Carbon($transaction['modified']) : null,
+            array_key_exists('completed', $transaction) ? new Carbon($transaction['completed']) : null,
             array_key_exists('status', $transaction) ? TransactionStatus::fromString($transaction['status']) : null,
             array_key_exists('reason', $transaction) ? Reason::fromString($transaction['reason']) : null,
             array_key_exists('currency', $transaction) ? Currency::fromString($transaction['currency']) : null,
@@ -134,9 +135,9 @@ final class Transaction
             'payment_method' => $this->paymentMethod()->toString(),
             'payment_method_details' => $this->paymentMethodDetails()->toArray(),
             'id' => ($this->id() !== null) ? $this->id()->toString() : null,
-            'created' => ($this->created() !== null) ? $this->created()->format('c') : null,
-            'modified' => ($this->modified() !== null) ? $this->modified()->format('c') : null,
-            'completed' => ($this->completed() !== null) ? $this->completed()->format('c') : null,
+            'created' => ($this->created() !== null) ? $this->created()->toIso8601String() : null,
+            'modified' => ($this->modified() !== null) ? $this->modified()->toIso8601String() : null,
+            'completed' => ($this->completed() !== null) ? $this->completed()->toIso8601String() : null,
             'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'reason' => ($this->reason() !== null) ? $this->reason()->toString() : null,
             'currency' => ($this->currency() !== null) ? $this->currency()->toString() : null,
@@ -159,7 +160,7 @@ final class Transaction
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function created()
     {
@@ -167,7 +168,7 @@ final class Transaction
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function modified()
     {
@@ -175,7 +176,7 @@ final class Transaction
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function completed()
     {
@@ -266,9 +267,9 @@ final class Transaction
      * @param PaymentMethod $paymentMethod
      * @param PaymentMethodDetails $paymentMethodDetails
      * @param Uuid $id
-     * @param \DateTimeImmutable $created
-     * @param \DateTimeImmutable $modified
-     * @param \DateTimeImmutable $completed
+     * @param Carbon $created
+     * @param Carbon $modified
+     * @param Carbon $completed
      * @param TransactionStatus $status
      * @param Reason $reason
      * @param Currency $currency
@@ -282,9 +283,9 @@ final class Transaction
         PaymentMethod $paymentMethod,
         PaymentMethodDetails $paymentMethodDetails,
         Uuid $id = null,
-        \DateTimeImmutable $created = null,
-        \DateTimeImmutable $modified = null,
-        \DateTimeImmutable $completed = null,
+        Carbon $created = null,
+        Carbon $modified = null,
+        Carbon $completed = null,
         TransactionStatus $status = null,
         Reason $reason = null,
         Currency $currency = null,

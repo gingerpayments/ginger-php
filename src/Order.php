@@ -3,6 +3,7 @@
 namespace GingerPayments\Payment;
 
 use Assert\Assertion as Guard;
+use Carbon\Carbon;
 use GingerPayments\Payment\Order\Amount;
 use GingerPayments\Payment\Order\Description;
 use GingerPayments\Payment\Order\MerchantOrderId;
@@ -20,17 +21,17 @@ final class Order
     private $id;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $created;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $modified;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var Carbon|null
      */
     private $completed;
 
@@ -206,9 +207,9 @@ final class Order
             array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
             array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
             array_key_exists('project_id', $order) ? Uuid::fromString($order['project_id']) : null,
-            array_key_exists('created', $order) ? new \DateTimeImmutable($order['created']) : null,
-            array_key_exists('modified', $order) ? new \DateTimeImmutable($order['modified']) : null,
-            array_key_exists('completed', $order) ? new \DateTimeImmutable($order['completed']) : null,
+            array_key_exists('created', $order) ? new Carbon($order['created']) : null,
+            array_key_exists('modified', $order) ? new Carbon($order['modified']) : null,
+            array_key_exists('completed', $order) ? new Carbon($order['completed']) : null,
             array_key_exists('status', $order) ? Status::fromString($order['status']) : null
         );
     }
@@ -224,9 +225,9 @@ final class Order
             'transactions' => $this->transactions()->toArray(),
             'id' => ($this->id() !== null) ? $this->id()->toString() : null,
             'project_id' => ($this->projectId() !== null) ? $this->projectId()->toString() : null,
-            'created' => ($this->created() !== null) ? $this->created()->format('c') : null,
-            'modified' => ($this->modified() !== null) ? $this->modified()->format('c') : null,
-            'completed' => ($this->completed() !== null) ? $this->completed()->format('c') : null,
+            'created' => ($this->created() !== null) ? $this->created()->toIso8601String() : null,
+            'modified' => ($this->modified() !== null) ? $this->modified()->toIso8601String() : null,
+            'completed' => ($this->completed() !== null) ? $this->completed()->toIso8601String() : null,
             'expiration_period' => ($this->expirationPeriod() !== null)
                 ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
                 : null,
@@ -248,7 +249,7 @@ final class Order
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function created()
     {
@@ -256,7 +257,7 @@ final class Order
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function modified()
     {
@@ -264,7 +265,7 @@ final class Order
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return Carbon|null
      */
     public function completed()
     {
@@ -353,9 +354,9 @@ final class Order
      * @param \DateInterval $expirationPeriod
      * @param Uuid $id
      * @param Uuid $projectId
-     * @param \DateTimeImmutable $created
-     * @param \DateTimeImmutable $modified
-     * @param \DateTimeImmutable $completed
+     * @param Carbon $created
+     * @param Carbon $modified
+     * @param Carbon $completed
      * @param Status $status
      */
     private function __construct(
@@ -368,9 +369,9 @@ final class Order
         \DateInterval $expirationPeriod = null,
         Uuid $id = null,
         Uuid $projectId = null,
-        \DateTimeImmutable $created = null,
-        \DateTimeImmutable $modified = null,
-        \DateTimeImmutable $completed = null,
+        Carbon $created = null,
+        Carbon $modified = null,
+        Carbon $completed = null,
         Status $status = null
     ) {
         $this->transactions = $transactions;
