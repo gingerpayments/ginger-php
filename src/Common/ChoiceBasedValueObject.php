@@ -6,6 +6,8 @@ use Assert\Assertion as Guard;
 
 trait ChoiceBasedValueObject
 {
+    use StringBasedValueObject;
+
     /**
      * @return array
      */

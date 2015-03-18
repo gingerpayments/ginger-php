@@ -3,11 +3,10 @@
 namespace GingerPayments\Payment;
 
 use GingerPayments\Payment\Common\ChoiceBasedValueObject;
-use GingerPayments\Payment\Common\StringBasedValueObject;
 
 final class Currency
 {
-    use StringBasedValueObject, ChoiceBasedValueObject;
+    use ChoiceBasedValueObject;
 
     /**
      * Possible currencies

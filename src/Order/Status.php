@@ -3,11 +3,10 @@
 namespace GingerPayments\Payment\Order;
 
 use GingerPayments\Payment\Common\ChoiceBasedValueObject;
-use GingerPayments\Payment\Common\StringBasedValueObject;
 
 final class Status
 {
-    use StringBasedValueObject, ChoiceBasedValueObject;
+    use ChoiceBasedValueObject;
 
     /**
      * Possible order statuses

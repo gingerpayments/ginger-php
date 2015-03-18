@@ -17,7 +17,7 @@ trait StringBasedValueObject
      */
     public static function fromString($value)
     {
-        return new static((string) $value);
+        return new self((string) $value);
     }
 
     /**

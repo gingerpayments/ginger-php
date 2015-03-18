@@ -152,7 +152,7 @@ final class Transaction
     }
 
     /**
-     * @return null|Uuid
+     * @return Uuid|null
      */
     public function id()
     {
