@@ -3,7 +3,6 @@
 namespace GingerPayments\Payment\Order;
 
 use Assert\Assertion as Guard;
-use GingerPayments\Payment\Order\Transaction;
 
 final class Transactions implements \Iterator
 {
