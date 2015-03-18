@@ -13,6 +13,14 @@ final class Transactions implements \Iterator
     private $transactions;
 
     /**
+     * @return Transactions
+     */
+    public static function create()
+    {
+        return new static([]);
+    }
+
+    /**
      * @param array $transactions
      * @return Transactions
      */
