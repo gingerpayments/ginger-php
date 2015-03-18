@@ -15,9 +15,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
             'payment_method' => 'cc',
             'payment_method_details' => array(),
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
-            'created' => '2015-03-07T20:58:35+01:00',
-            'modified' => '2015-03-07T21:58:35+01:00',
-            'completed' => '2015-03-07T22:58:35+01:00',
+            'created' => '2015-03-07T20:58:35+0100',
+            'modified' => '2015-03-07T21:58:35+0100',
+            'completed' => '2015-03-07T22:58:35+0100',
             'status' => 'new',
             'reason' => 'A great reason',
             'currency' => 'EUR',
@@ -38,9 +38,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($array['payment_method'], (string) $transaction->paymentMethod());
         $this->assertEquals($array['payment_method_details'], $transaction->paymentMethodDetails()->toArray());
         $this->assertEquals($array['id'], (string) $transaction->id());
-        $this->assertEquals($array['created'], $transaction->created()->format('c'));
-        $this->assertEquals($array['modified'], $transaction->modified()->format('c'));
-        $this->assertEquals($array['completed'], $transaction->completed()->format('c'));
+        $this->assertEquals($array['created'], $transaction->created()->toIso8601String());
+        $this->assertEquals($array['modified'], $transaction->modified()->toIso8601String());
+        $this->assertEquals($array['completed'], $transaction->completed()->toIso8601String());
         $this->assertEquals($array['status'], (string) $transaction->status());
         $this->assertEquals($array['reason'], (string) $transaction->reason());
         $this->assertEquals($array['currency'], (string) $transaction->currency());
@@ -98,9 +98,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
             'payment_method' => 'cc',
             'payment_method_details' => array(),
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
-            'created' => '2015-03-07T20:58:35+01:00',
-            'modified' => '2015-03-07T21:58:35+01:00',
-            'completed' => '2015-03-07T22:58:35+01:00',
+            'created' => '2015-03-07T20:58:35+0100',
+            'modified' => '2015-03-07T21:58:35+0100',
+            'completed' => '2015-03-07T22:58:35+0100',
             'status' => 'new',
             'reason' => 'A great reason',
             'currency' => 'EUR',
