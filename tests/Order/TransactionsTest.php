@@ -25,8 +25,7 @@ final class TransactionsTest extends \PHPUnit_Framework_TestCase
     {
         $array = array(
             array(
-                'payment_method' => 'credit-card',
-                'payment_method_details' => array()
+                'payment_method' => 'credit-card'
             )
         );
 
@@ -77,10 +76,7 @@ final class TransactionsTest extends \PHPUnit_Framework_TestCase
 
         $transactions->add(
             Transaction::fromArray(
-                array(
-                    'payment_method' => 'credit-card',
-                    'payment_method_details' => array()
-                )
+                array('payment_method' => 'credit-card')
             )
         );
 
@@ -93,14 +89,8 @@ final class TransactionsTest extends \PHPUnit_Framework_TestCase
     public function itShouldBeTraversable()
     {
         $array = array(
-            array(
-                'payment_method' => 'credit-card',
-                'payment_method_details' => array()
-            ),
-            array(
-                'payment_method' => 'credit-card',
-                'payment_method_details' => array()
-            )
+            array('payment_method' => 'credit-card'),
+            array('payment_method' => 'credit-card')
         );
 
         $transactions = Transactions::fromArray($array);

@@ -187,7 +187,7 @@ final class Order
 
     /**
      * @param array $order
-     * @return Transaction
+     * @return Order
      */
     public static function fromArray(array $order)
     {
