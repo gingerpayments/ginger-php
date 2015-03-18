@@ -49,11 +49,13 @@ final class Transactions implements \Iterator
     }
 
     /**
-     * @param Transaction $transaction
+     * @return \GingerPayments\Payment\Url|null
      */
-    public function add(Transaction $transaction)
+    public function firstPaymentUrl()
     {
-        $this->transactions[] = $transaction;
+        return array_key_exists(0, $this->transactions)
+            ? $this->transactions[0]->paymentUrl()
+            : null;
     }
 
     /**

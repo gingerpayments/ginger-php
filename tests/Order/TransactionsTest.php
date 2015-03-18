@@ -65,21 +65,6 @@ final class TransactionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldAddTransactions()
-    {
-        $transactions = Transactions::create();
-        $this->assertCount(0, $transactions->toArray());
-
-        $transactions->add(
-            Transaction::fromArray(['payment_method' => 'credit-card'])
-        );
-
-        $this->assertCount(1, $transactions->toArray());
-    }
-
-    /**
-     * @test
-     */
     public function itShouldBeTraversable()
     {
         $array = [
@@ -95,5 +80,16 @@ final class TransactionsTest extends \PHPUnit_Framework_TestCase
             $iterations++;
         }
         $this->assertEquals(2, $iterations);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldGetTheFirstPaymentUrl()
+    {
+        $transactions = Transactions::fromArray(
+            [['payment_method' => 'credit-card', 'payment_url' => 'http://www.example.com']]
+        );
+        $this->assertEquals('http://www.example.com', $transactions->firstPaymentUrl());
     }
 }
