@@ -13,7 +13,7 @@ final class PaymentMethod
      * Possible payment methods
      */
     const IDEAL = 'ideal';
-    const CREDIT_CARD = 'cc';
+    const CREDIT_CARD = 'credit-card';
 
     /**
      * @return array

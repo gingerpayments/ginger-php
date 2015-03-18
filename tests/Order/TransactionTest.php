@@ -12,7 +12,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
     public function itShouldCreateFromAnArray()
     {
         $array = array(
-            'payment_method' => 'cc',
+            'payment_method' => 'credit-card',
             'payment_method_details' => array(),
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
             'created' => '2015-03-07T20:58:35+0100',
@@ -70,7 +70,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
     {
         $transaction = Transaction::fromArray(
             array(
-                'payment_method' => 'cc'
+                'payment_method' => 'credit-card'
             )
         );
 
@@ -95,7 +95,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
     public function itShouldConvertToArray()
     {
         $array = array(
-            'payment_method' => 'cc',
+            'payment_method' => 'credit-card',
             'payment_method_details' => array(),
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
             'created' => '2015-03-07T20:58:35+0100',
