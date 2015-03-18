@@ -95,7 +95,7 @@ final class Transactions implements \Iterator
     /**
      * @param Transaction[] $transactions
      */
-    private function __construct(array $transactions = array())
+    private function __construct(array $transactions = [])
     {
         Guard::allIsInstanceOf($transactions, 'GingerPayments\Payment\Order\Transaction');
 

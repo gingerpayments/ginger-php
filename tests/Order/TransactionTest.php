@@ -11,9 +11,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateFromAnArray()
     {
-        $array = array(
+        $array = [
             'payment_method' => 'credit-card',
-            'payment_method_details' => array(),
+            'payment_method_details' => [],
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
             'created' => '2015-03-07T20:58:35+0100',
             'modified' => '2015-03-07T21:58:35+0100',
@@ -26,7 +26,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
             'description' => 'A transaction',
             'balance' => 'internal',
             'payment_url' => 'http://www.example.com'
-        );
+        ];
 
         $transaction = Transaction::fromArray($array);
 
@@ -60,7 +60,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
     public function itShouldGuardAgainstMissingPaymentMethod()
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
-        Transaction::fromArray(array());
+        Transaction::fromArray([]);
     }
 
     /**
@@ -68,13 +68,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSetMissingValuesToNull()
     {
-        $transaction = Transaction::fromArray(
-            array(
-                'payment_method' => 'credit-card'
-            )
-        );
+        $transaction = Transaction::fromArray(['payment_method' => 'credit-card']);
 
-        $this->assertEquals(array(), $transaction->paymentMethodDetails()->toArray());
+        $this->assertEquals([], $transaction->paymentMethodDetails()->toArray());
         $this->assertNull($transaction->id());
         $this->assertNull($transaction->created());
         $this->assertNull($transaction->modified());
@@ -94,9 +90,9 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldConvertToArray()
     {
-        $array = array(
+        $array = [
             'payment_method' => 'credit-card',
-            'payment_method_details' => array(),
+            'payment_method_details' => [],
             'id' => '5ac3eb32-384d-4d61-a797-9f44b1cd70e5',
             'created' => '2015-03-07T20:58:35+0100',
             'modified' => '2015-03-07T21:58:35+0100',
@@ -109,7 +105,7 @@ final class TransactionTest extends \PHPUnit_Framework_TestCase
             'description' => 'A transaction',
             'balance' => 'internal',
             'payment_url' => 'http://www.example.com'
-        );
+        ];
 
         $this->assertEquals(
             $array,

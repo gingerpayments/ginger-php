@@ -35,4 +35,12 @@ trait StringBasedValueObject
     {
         return $this->toString();
     }
+
+    /**
+     * @param string $value
+     */
+    private function __construct($value)
+    {
+        $this->value = $value;
+    }
 }

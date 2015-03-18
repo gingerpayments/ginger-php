@@ -161,7 +161,7 @@ final class Order
         $amount,
         $currency,
         $paymentMethod,
-        array $paymentMethodDetails = array(),
+        array $paymentMethodDetails = [],
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
@@ -169,12 +169,12 @@ final class Order
     ) {
         return new static(
             Transactions::fromArray(
-                array(
-                    array(
+                [
+                    [
                         'payment_method' => $paymentMethod,
                         'payment_method_details' => $paymentMethodDetails
-                    )
-                )
+                    ]
+                ]
             ),
             Amount::fromInteger($amount),
             Currency::fromString($currency),
@@ -219,7 +219,7 @@ final class Order
      */
     public function toArray()
     {
-        return array(
+        return [
             'currency' => $this->currency()->toString(),
             'amount' => $this->amount()->toInteger(),
             'transactions' => $this->transactions()->toArray(),
@@ -237,7 +237,7 @@ final class Order
             'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'description' => ($this->description() !== null) ? $this->description()->toString() : null,
             'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,
-        );
+        ];
     }
 
     /**

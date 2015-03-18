@@ -24,7 +24,7 @@ final class Status
      */
     public function possibleValues()
     {
-        return array(
+        return [
             self::BRAND_NEW,
             self::PROCESSING,
             self::ERROR,
@@ -32,7 +32,7 @@ final class Status
             self::CANCELLED,
             self::EXPIRED,
             self::SEE_TRANSACTIONS
-        );
+        ];
     }
 
     /**

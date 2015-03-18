@@ -20,6 +20,6 @@ final class CreditCardPaymentMethodDetails implements PaymentMethodDetails
      */
     public function toArray()
     {
-        return array();
+        return [];
     }
 }

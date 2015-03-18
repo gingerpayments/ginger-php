@@ -12,7 +12,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
     public function itShouldCreateFromAnArray()
     {
         $paymentDetails = IdealPaymentMethodDetails::fromArray(
-            array(
+            [
                 'issuer_id' => 'ABNANL2A',
                 'status' => 'completed',
                 'transaction_id' => 'some-unique-id-abc123',
@@ -20,7 +20,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
                 'consumer_city' => 'Amsterdam',
                 'consumer_iban' => 'NL91ABNA0417164300',
                 'consumer_bic' => 'ABNANL2A'
-            )
+            ]
         );
 
         $this->assertInstanceOf(
@@ -43,7 +43,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
     public function itShouldGuardAgainstMissingIssuerId()
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
-        IdealPaymentMethodDetails::fromArray(array());
+        IdealPaymentMethodDetails::fromArray([]);
     }
 
     /**
@@ -52,9 +52,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
     public function itShouldSetMissingValuesToNull()
     {
         $paymentDetails = IdealPaymentMethodDetails::fromArray(
-            array(
-                'issuer_id' => 'ABNANL2A'
-            )
+            ['issuer_id' => 'ABNANL2A']
         );
 
         $this->assertNull($paymentDetails->status());
@@ -70,7 +68,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldConvertToArray()
     {
-        $array = array(
+        $array = [
             'issuer_id' => 'ABNANL2A',
             'status' => 'completed',
             'transaction_id' => 'some-unique-id-abc123',
@@ -78,7 +76,7 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
             'consumer_city' => 'Amsterdam',
             'consumer_iban' => 'NL91ABNA0417164300',
             'consumer_bic' => 'ABNANL2A'
-        );
+        ];
 
         $this->assertEquals(
             $array,

@@ -16,7 +16,7 @@ final class PaymentMethodDetailsFactoryTest extends \PHPUnit_Framework_TestCase
             'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails',
             PaymentMethodDetailsFactory::createFromArray(
                 PaymentMethod::fromString(PaymentMethod::IDEAL),
-                array('issuer_id' => 'ABNANL2A')
+                ['issuer_id' => 'ABNANL2A']
             )
         );
     }
@@ -30,7 +30,7 @@ final class PaymentMethodDetailsFactoryTest extends \PHPUnit_Framework_TestCase
             'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\CreditCardPaymentMethodDetails',
             PaymentMethodDetailsFactory::createFromArray(
                 PaymentMethod::fromString(PaymentMethod::CREDIT_CARD),
-                array()
+                []
             )
         );
     }
@@ -48,6 +48,6 @@ final class PaymentMethodDetailsFactoryTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty->setValue($paymentMethod, 'very-unsupported-method');
 
         $this->setExpectedException('InvalidArgumentException');
-        PaymentMethodDetailsFactory::createFromArray($paymentMethod, array());
+        PaymentMethodDetailsFactory::createFromArray($paymentMethod, []);
     }
 }

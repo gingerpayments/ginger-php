@@ -18,8 +18,6 @@ final class Currency
      */
     public function possibleValues()
     {
-        return array(
-            self::EUR
-        );
+        return [self::EUR];
     }
 }

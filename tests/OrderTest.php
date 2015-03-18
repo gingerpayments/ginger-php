@@ -16,7 +16,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             6500,
             'EUR',
             'credit-card',
-            array(),
+            [],
             'My description',
             'my-order-id',
             'http://www.example.com',
@@ -37,7 +37,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
         foreach ($order->transactions() as $transaction) {
             $this->assertEquals('credit-card', (string) $transaction->paymentMethod());
             $this->assertEquals(
-                array(),
+                [],
                 $transaction->paymentMethodDetails()->toArray()
             );
         }
@@ -71,7 +71,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
         foreach ($order->transactions() as $transaction) {
             $this->assertEquals('credit-card', (string) $transaction->paymentMethod());
             $this->assertEquals(
-                array(),
+                [],
                 $transaction->paymentMethodDetails()->toArray()
             );
         }
@@ -106,9 +106,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
         foreach ($order->transactions() as $transaction) {
             $this->assertEquals('ideal', (string) $transaction->paymentMethod());
             $this->assertArraySubset(
-                array(
-                    'issuer_id' => 'ABNANL2A'
-                ),
+                ['issuer_id' => 'ABNANL2A'],
                 $transaction->paymentMethodDetails()->toArray()
             );
         }
@@ -119,8 +117,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateFromAnArray()
     {
-        $array = array(
-            'transactions' => array(),
+        $array = [
+            'transactions' => [],
             'amount' => 6200,
             'currency' => 'EUR',
             'description' => 'My amazing order',
@@ -133,7 +131,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new'
-        );
+        ];
 
         $order = Order::fromArray($array);
         $this->assertInstanceOf(
@@ -168,7 +166,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
     public function itShouldGuardAgainstMissingTransactions()
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
-        Order::fromArray(array());
+        Order::fromArray([]);
     }
 
     /**
@@ -178,9 +176,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
         Order::fromArray(
-            array(
-                'transactions' => array()
-            )
+            ['transactions' => []]
         );
     }
 
@@ -191,10 +187,10 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
         Order::fromArray(
-            array(
-                'transactions' => array(),
+            [
+                'transactions' => [],
                 'amount' => 1234
-            )
+            ]
         );
     }
 
@@ -203,11 +199,11 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldSetMissingValuesToNull()
     {
-        $array = array(
-            'transactions' => array(),
+        $array = [
+            'transactions' => [],
             'amount' => 6200,
             'currency' => 'EUR'
-        );
+        ];
 
         $order = Order::fromArray($array);
         $this->assertNull($order->description());
@@ -227,8 +223,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldConvertToArray()
     {
-        $array = array(
-            'transactions' => array(),
+        $array = [
+            'transactions' => [],
             'amount' => 6200,
             'currency' => 'EUR',
             'description' => 'My amazing order',
@@ -241,7 +237,7 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new'
-        );
+        ];
 
         $this->assertEquals(
             $array,

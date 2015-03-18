@@ -11,26 +11,26 @@ final class ArrayFunctionsTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldRemoveNullValues()
     {
-        $array = array(
+        $array = [
             0 => 'foo',
             1 => 'bar',
             2 => null,
-            3 => array(
+            3 => [
                 0 => 'foo',
                 1 => null,
                 2 => 'bar'
-            ),
+            ],
             4 => null
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             0 => 'foo',
             1 => 'bar',
-            3 => array(
+            3 => [
                 0 => 'foo',
                 2 => 'bar'
-            )
-        );
+            ]
+        ];
 
         $this->assertEquals($expected, ArrayFunctions::withoutNullValues($array));
     }

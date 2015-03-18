@@ -103,7 +103,7 @@ final class Transaction
                 array_key_exists(
                     'payment_method_details',
                     $transaction
-                ) ? $transaction['payment_method_details'] : array()
+                ) ? $transaction['payment_method_details'] : []
             ),
             array_key_exists('id', $transaction) ? Uuid::fromString($transaction['id']) : null,
             array_key_exists('created', $transaction) ? new Carbon($transaction['created']) : null,
@@ -131,7 +131,7 @@ final class Transaction
      */
     public function toArray()
     {
-        return array(
+        return [
             'payment_method' => $this->paymentMethod()->toString(),
             'payment_method_details' => $this->paymentMethodDetails()->toArray(),
             'id' => ($this->id() !== null) ? $this->id()->toString() : null,
@@ -148,7 +148,7 @@ final class Transaction
             'description' => ($this->description() !== null) ? $this->description()->toString() : null,
             'balance' => ($this->balance() !== null) ? $this->balance()->toString() : null,
             'payment_url' => ($this->paymentUrl() !== null) ? $this->paymentUrl()->toString() : null
-        );
+        ];
     }
 
     /**

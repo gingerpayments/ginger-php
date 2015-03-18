@@ -15,6 +15,6 @@ final class FakeChoiceBasedValueObject
 
     public function possibleValues()
     {
-        return array('foo', 'bar', 'baz');
+        return ['foo', 'bar', 'baz'];
     }
 }

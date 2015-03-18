@@ -20,11 +20,11 @@ final class Balance
      */
     public function possibleValues()
     {
-        return array(
+        return [
             self::INTERNAL,
             self::EXTERNAL,
             self::TEST
-        );
+        ];
     }
 
     /**

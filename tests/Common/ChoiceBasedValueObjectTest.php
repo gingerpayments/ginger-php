@@ -11,7 +11,7 @@ final class ChoiceBasedValueObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldAcceptValidChoices()
     {
-        foreach (array('foo', 'bar', 'baz') as $choice) {
+        foreach (['foo', 'bar', 'baz'] as $choice) {
             $choiceValueObject = FakeChoiceBasedValueObject::create($choice);
             $this->assertInstanceOf(
                 'GingerPayments\Payment\Tests\Mock\FakeChoiceBasedValueObject',

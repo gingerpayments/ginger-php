@@ -13,7 +13,7 @@ final class CreditCardPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCa
     {
         $this->assertInstanceOf(
             'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\CreditCardPaymentMethodDetails',
-            CreditCardPaymentMethodDetails::fromArray(array())
+            CreditCardPaymentMethodDetails::fromArray([])
         );
     }
 
@@ -23,8 +23,8 @@ final class CreditCardPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCa
     public function itShouldConvertToArray()
     {
         $this->assertEquals(
-            array(),
-            CreditCardPaymentMethodDetails::fromArray(array())->toArray()
+            [],
+            CreditCardPaymentMethodDetails::fromArray([])->toArray()
         );
     }
 }

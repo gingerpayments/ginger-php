@@ -12,7 +12,7 @@ final class ArrayFunctions
      */
     public static function withoutNullValues(array $array)
     {
-        $result = array();
+        $result = [];
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {

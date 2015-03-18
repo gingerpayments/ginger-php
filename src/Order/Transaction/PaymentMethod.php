@@ -19,10 +19,10 @@ final class PaymentMethod
      */
     public function possibleValues()
     {
-        return array(
+        return [
             self::IDEAL,
             self::CREDIT_CARD
-        );
+        ];
     }
 
     /**

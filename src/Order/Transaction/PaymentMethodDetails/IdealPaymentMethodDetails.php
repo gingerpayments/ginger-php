@@ -72,7 +72,7 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
      */
     public function toArray()
     {
-        return array(
+        return [
             'issuer_id' => $this->issuerId()->toString(),
             'transaction_id' => ($this->transactionId() !== null) ? $this->transactionId()->toString() : null,
             'status' => ($this->status() !== null) ? $this->status()->toString() : null,
@@ -80,7 +80,7 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
             'consumer_city' => ($this->consumerCity() !== null) ? $this->consumerCity()->toString() : null,
             'consumer_iban' => ($this->consumerIban() !== null) ? $this->consumerIban()->toString() : null,
             'consumer_bic' => ($this->consumerBic() !== null) ? $this->consumerBic()->toString() : null
-        );
+        ];
     }
 
     /**
