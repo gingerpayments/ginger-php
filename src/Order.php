@@ -345,6 +345,14 @@ final class Order
     }
 
     /**
+     * @return Url|null
+     */
+    public function firstTransactionPaymentUrl()
+    {
+        return $this->transactions()->firstPaymentUrl();
+    }
+
+    /**
      * @param Transactions $transactions
      * @param Amount $amount
      * @param Currency $currency

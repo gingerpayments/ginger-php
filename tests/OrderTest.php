@@ -244,4 +244,24 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             Order::fromArray($array)->toArray()
         );
     }
+
+    /**
+     * @test
+     */
+    public function itShouldGetTheFirstTransactionPaymentUrl()
+    {
+        $array = [
+            'transactions' => [
+                [
+                    'payment_method' => 'credit-card',
+                    'payment_url' => 'http://www.example.com'
+                ]
+            ],
+            'amount' => 6200,
+            'currency' => 'EUR'
+        ];
+
+        $order = Order::fromArray($array);
+        $this->assertEquals('http://www.example.com', $order->firstTransactionPaymentUrl());
+    }
 }
