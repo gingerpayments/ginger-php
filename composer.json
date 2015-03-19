@@ -1,5 +1,5 @@
 {
-    "name": "gingerpayments/php-sdk",
+    "name": "gingerpayments/ginger-php",
     "description": "The official Ginger Payments PHP SDK",
     "keywords": ["payment", "pay", "merchant", "e-commerce"],
     "license": "MIT",
