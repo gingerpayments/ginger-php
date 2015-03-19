@@ -1,9 +1,9 @@
-# Ginger Payments PHP SDK
+# Ginger Payments PHP Bindings
 
-[![Build Status](https://travis-ci.org/gingerpayments/php-sdk.svg)](https://travis-ci.org/gingerpayments/php-sdk)
-[![Code Coverage](https://scrutinizer-ci.com/g/gingerpayments/php-sdk/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gingerpayments/php-sdk/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gingerpayments/php-sdk/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gingerpayments/php-sdk/?branch=master)
-[![MIT License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gingerpayments/php-sdk/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/gingerpayments/ginger-php.svg)](https://travis-ci.org/gingerpayments/ginger-php)
+[![Code Coverage](https://scrutinizer-ci.com/g/gingerpayments/ginger-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gingerpayments/ginger-php/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gingerpayments/ginger-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gingerpayments/ginger-php/?branch=master)
+[![MIT License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gingerpayments/ginger-php/blob/master/LICENSE)
 
 You can sign up for a Ginger Payments account at https://www.gingerpayments.com
 
@@ -16,7 +16,7 @@ You can sign up for a Ginger Payments account at https://www.gingerpayments.com
 You can install the PHP SDK using composer:
 
 ```
-composer require gingerpayments/php-sdk
+composer require gingerpayments/ginger-php
 ```
 
 You can also use the PHP SDK without using Composer by registering an autoloader function:
@@ -30,7 +30,7 @@ spl_autoload_register(function($class) {
     }
 
     $class = substr($class, strlen($prefix));
-    $location = __DIR__ . 'path/to/gingerpayments/php-sdk/src/' . str_replace('\\', '/', $class) . '.php';
+    $location = __DIR__ . 'path/to/gingerpayments/ginger-php/src/' . str_replace('\\', '/', $class) . '.php';
 
     if (is_file($location)) {
         require_once($location);
