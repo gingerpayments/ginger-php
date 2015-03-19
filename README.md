@@ -13,13 +13,13 @@ You can sign up for a Ginger Payments account at https://www.gingerpayments.com
 
 ## Installation
 
-You can install the PHP SDK using composer:
+You can install the PHP bindings using composer:
 
 ```
 composer require gingerpayments/ginger-php
 ```
 
-You can also use the PHP SDK without using Composer by registering an autoloader function:
+You can also use the PHP bindings without using Composer by registering an autoloader function:
 
 ```php
 spl_autoload_register(function($class) {
