@@ -131,7 +131,7 @@ You can access other information related to order transactions as well. Inspect 
 ### Getting the iDEAL issuers
 
 When you create an order with the iDEAL payment method, you need to provide an issuer ID. The issuer ID is an identifier
-of the bank the user has selected. You can retrieve all possible issuers by using the `getIssuers` method:
+of the bank the user has selected. You can retrieve all possible issuers by using the `getIdealIssuers` method:
 
 ```php
 $issuers = $client->getIdealIssuers();
