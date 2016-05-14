@@ -16,7 +16,9 @@ final class ArrayFunctions
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $result[$key] = ArrayFunctions::withoutNullValues($value);
+                if (count($value) > 0) {
+                    $result[$key] = ArrayFunctions::withoutNullValues($value);
+                }
                 continue;
             }
 

@@ -92,6 +92,34 @@ $order = $client->createCreditCardOrder(
 );
 ```
 
+Or the `createSepaOrder` method if you need to create a Bank Transfer order:
+
+```php
+$order = $client->createSepaOrder(
+    2500,                           // The amount in cents
+    'EUR',                          // The currency
+    [],                             // Array of payment method details
+    'Bank Transfer order',          // A description (optional)
+    'order-234192',                 // Your identifier for the order (optional)
+    'http://www.example.com',       // The return URL (optional)
+    'PT15M'                         // The expiration period in ISO 8601 format (optional)
+);
+```
+
+Or the `createSofortOrder` method if you need to create SOFORT order:
+
+```php
+$order = $client->createSofortOrder(
+    2500,                           // The amount in cents
+    'EUR',                          // The currency
+    [],                             // Array of payment method details
+    'SOFORT order',                 // A description (optional)
+    'order-234192',                 // Your identifier for the order (optional)
+    'http://www.example.com',       // The return URL (optional)
+    'PT15M'                         // The expiration period in ISO 8601 format (optional)
+);
+```
+
 Once you've created your order, a transaction is created and associated with it. You will need to redirect the user to
 the transaction's payment URL, which you can retrieve as follows:
 
@@ -124,9 +152,21 @@ foreach ($order->transactions() as $transaction) {
     $transaction->amount(); // How much paid
 }
 ```
-
 You can access other information related to order transactions as well. Inspect the
 `GingerPayments\Payment\Order\Transaction` class for more information.
+
+### Updating an order
+
+Some fields in Ginger Payments API are not read-only and you are able to update them after order has been created using `updateOrder` method:
+```php
+$order = $client->getOrder($orderId);
+$order->description("New Order Description");
+$updatedOrder->updateOrder($order);
+```
+After successful PUT request API will return updated order data:
+```php
+var_dump($updatedOrder->toArray());
+```
 
 ### Getting the iDEAL issuers
 
@@ -156,4 +196,3 @@ Then run the test suite:
 ```
 ./vendor/bin/phpunit
 ```
-

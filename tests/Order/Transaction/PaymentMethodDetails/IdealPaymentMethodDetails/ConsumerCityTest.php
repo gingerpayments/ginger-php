@@ -16,13 +16,4 @@ final class ConsumerCityTest extends \PHPUnit_Framework_TestCase
             ConsumerCity::fromString('Amsterdam')
         );
     }
-
-    /**
-     * @test
-     */
-    public function itShouldGuardAgainstEmptyValue()
-    {
-        $this->setExpectedException('Assert\InvalidArgumentException');
-        ConsumerCity::fromString('');
-    }
 }

@@ -2,37 +2,31 @@
 
 namespace GingerPayments\Payment\Tests\Order\Transaction\PaymentMethodDetails;
 
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\SofortPaymentMethodDetails;
 
-final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
+final class SofortPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function itShouldCreateFromAnArray()
     {
-        $paymentDetails = IdealPaymentMethodDetails::fromArray(
+        $paymentDetails = SofortPaymentMethodDetails::fromArray(
             [
-                'issuer_id' => 'ABNANL2A',
-                'status' => 'completed',
                 'transaction_id' => 'some-unique-id-abc123',
                 'consumer_name' => 'FA de Vries',
-                'consumer_city' => 'Amsterdam',
                 'consumer_iban' => 'NL91ABNA0417164300',
                 'consumer_bic' => 'ABNANL2A'
             ]
         );
 
         $this->assertInstanceOf(
-            'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails',
+            'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\SofortPaymentMethodDetails',
             $paymentDetails
         );
 
-        $this->assertEquals('ABNANL2A', (string) $paymentDetails->issuerId());
-        $this->assertEquals('completed', (string) $paymentDetails->status());
         $this->assertEquals('some-unique-id-abc123', (string) $paymentDetails->transactionId());
         $this->assertEquals('FA de Vries', (string) $paymentDetails->consumerName());
-        $this->assertEquals('Amsterdam', (string) $paymentDetails->consumerCity());
         $this->assertEquals('NL91ABNA0417164300', (string) $paymentDetails->consumerIban());
         $this->assertEquals('ABNANL2A', (string) $paymentDetails->consumerBic());
     }
@@ -40,25 +34,12 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldGuardAgainstMissingIssuerId()
-    {
-        $this->setExpectedException('Assert\InvalidArgumentException');
-        IdealPaymentMethodDetails::fromArray([]);
-    }
-
-    /**
-     * @test
-     */
     public function itShouldSetMissingValuesToNull()
     {
-        $paymentDetails = IdealPaymentMethodDetails::fromArray(
-            ['issuer_id' => 'ABNANL2A']
-        );
+        $paymentDetails = SofortPaymentMethodDetails::fromArray([]);
 
-        $this->assertNull($paymentDetails->status());
         $this->assertNull($paymentDetails->transactionId());
         $this->assertNull($paymentDetails->consumerName());
-        $this->assertNull($paymentDetails->consumerCity());
         $this->assertNull($paymentDetails->consumerIban());
         $this->assertNull($paymentDetails->consumerBic());
     }
@@ -69,20 +50,15 @@ final class IdealPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
     public function itShouldConvertToArray()
     {
         $array = [
-            'issuer_id' => 'ABNANL2A',
-            'status' => 'completed',
             'transaction_id' => 'some-unique-id-abc123',
             'consumer_name' => 'FA de Vries',
-            'consumer_address' => 'Jacob van Campenstraat 123',
-            'consumer_city' => 'Amsterdam',
-            'consumer_country' => 'NL',
             'consumer_iban' => 'NL91ABNA0417164300',
             'consumer_bic' => 'ABNANL2A'
         ];
 
         $this->assertEquals(
             $array,
-            IdealPaymentMethodDetails::fromArray($array)->toArray()
+            SofortPaymentMethodDetails::fromArray($array)->toArray()
         );
     }
 }

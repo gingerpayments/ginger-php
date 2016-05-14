@@ -20,7 +20,8 @@ final class ArrayFunctionsTest extends \PHPUnit_Framework_TestCase
                 1 => null,
                 2 => 'bar'
             ],
-            4 => null
+            4 => null,
+            5 => []
         ];
 
         $expected = [

@@ -54,6 +54,8 @@ final class Client
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
      * @return Order The newly created order.
      */
     public function createIdealOrder(
@@ -63,7 +65,8 @@ final class Client
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return $this->postOrder(
             Order::createWithIdeal(
@@ -73,7 +76,84 @@ final class Client
                 $description,
                 $merchantOrderId,
                 $returnUrl,
-                $expirationPeriod
+                $expirationPeriod,
+                $customer
+            )
+        );
+    }
+
+    /**
+     * Create a new SEPA order.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param array $paymentMethodDetails An array of extra payment method details.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
+     * @return Order The newly created order.
+     */
+    public function createSepaOrder(
+        $amount,
+        $currency,
+        array $paymentMethodDetails = [],
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null,
+        $customer = null
+    ) {
+        return $this->postOrder(
+            Order::createWithSepa(
+                $amount,
+                $currency,
+                $paymentMethodDetails,
+                $description,
+                $merchantOrderId,
+                $returnUrl,
+                $expirationPeriod,
+                $customer
+            )
+        );
+    }
+
+    /**
+     * Create a new SOFORT order.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param array $paymentMethodDetails An array of extra payment method details.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
+     * @return Order The newly created order.
+     */
+    public function createSofortOrder(
+        $amount,
+        $currency,
+        array $paymentMethodDetails = [],
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null,
+        $customer = null
+    ) {
+        return $this->postOrder(
+            Order::createWithSofort(
+                $amount,
+                $currency,
+                $paymentMethodDetails,
+                $description,
+                $merchantOrderId,
+                $returnUrl,
+                $expirationPeriod,
+                $customer
             )
         );
     }
@@ -87,6 +167,8 @@ final class Client
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
      * @return Order The newly created order.
      */
     public function createCreditCardOrder(
@@ -95,7 +177,8 @@ final class Client
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return $this->postOrder(
             Order::createWithCreditCard(
@@ -104,7 +187,8 @@ final class Client
                 $description,
                 $merchantOrderId,
                 $returnUrl,
-                $expirationPeriod
+                $expirationPeriod,
+                $customer
             )
         );
     }
@@ -120,6 +204,8 @@ final class Client
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
      * @return Order The newly created order.
      */
     public function createOrder(
@@ -130,7 +216,8 @@ final class Client
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return $this->postOrder(
             Order::create(
@@ -141,7 +228,8 @@ final class Client
                 $description,
                 $merchantOrderId,
                 $returnUrl,
-                $expirationPeriod
+                $expirationPeriod,
+                $customer
             )
         );
     }
@@ -162,13 +250,22 @@ final class Client
             if ($exception->getCode() == 404) {
                 throw new OrderNotFoundException('No order with that ID was found.', 404, $exception);
             }
-
             throw new ClientException(
                 'An error occurred while getting the order: ' . $exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
         }
+    }
+
+    /**
+     * Update an existing order.
+     *
+     * @param Order $order
+     * @return Order
+     */
+    public function updateOrder(Order $order) {
+        return $this->putOrder($order);
     }
 
     /**
@@ -199,5 +296,35 @@ final class Client
         }
 
         return Order::fromArray($response->json());
+    }
+
+    /**
+     * PUT order data to Ginger API.
+     *
+     * @param Order $order
+     * @return Order
+     */
+    private function putOrder(Order $order)
+    {
+        try {
+            return Order::fromArray(
+                $this->httpClient->put(
+                    "orders/" . $order->id() . "/",
+                    [
+                        "timeout" => 3,
+                        "json" => $order->toArray()
+                    ]
+                )->json()
+            );
+        } catch (RequestException $exception) {
+            if ($exception->getCode() == 404) {
+                throw new OrderNotFoundException('No order with that ID was found.', 404, $exception);
+            }
+            throw new ClientException(
+                'An error occurred while updating the order: ' . $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
+        }
     }
 }

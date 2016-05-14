@@ -1,11 +1,10 @@
 <?php
 
-namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Customer;
 
-use Assert\Assertion as Guard;
 use GingerPayments\Payment\Common\StringBasedValueObject;
 
-final class ConsumerCity
+final class MerchantCustomerId
 {
     use StringBasedValueObject;
 
