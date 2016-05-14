@@ -11,6 +11,7 @@ use GingerPayments\Payment\Order\Status;
 use GingerPayments\Payment\Order\Transaction;
 use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 use GingerPayments\Payment\Order\Transactions;
+use GingerPayments\Payment\Order\Customer;
 use Rhumsaa\Uuid\Uuid;
 
 final class Order
@@ -81,6 +82,11 @@ final class Order
     private $transactions;
 
     /**
+     * @var Customer|null
+     */
+    private $customer;
+
+    /**
      * Create a new Order with the iDEAL payment method.
      *
      * @param integer $amount Amount in cents.
@@ -90,6 +96,8 @@ final class Order
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
+     *
      * @return Order
      */
     public static function createWithIdeal(
@@ -99,7 +107,8 @@ final class Order
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return static::create(
             $amount,
@@ -109,7 +118,8 @@ final class Order
             $description,
             $merchantOrderId,
             $returnUrl,
-            $expirationPeriod
+            $expirationPeriod,
+            $customer
         );
     }
 
@@ -122,6 +132,7 @@ final class Order
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
      * @return Order
      */
     public static function createWithCreditCard(
@@ -130,7 +141,8 @@ final class Order
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return static::create(
             $amount,
@@ -140,7 +152,79 @@ final class Order
             $description,
             $merchantOrderId,
             $returnUrl,
-            $expirationPeriod
+            $expirationPeriod,
+            $customer
+        );
+    }
+
+    /**
+     * Create a new Order with the SEPA payment method.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param array $paymentMethodDetails An array of extra payment method details.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
+     * @param array $customer Customer information
+     * @return Order
+     */
+    public static function createWithSepa(
+        $amount,
+        $currency,
+        array $paymentMethodDetails = [],
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null,
+        $customer = null
+    ) {
+        return static::create(
+            $amount,
+            $currency,
+            PaymentMethod::BANK_TRANSFER,
+            $paymentMethodDetails,
+            $description,
+            $merchantOrderId,
+            $returnUrl,
+            $expirationPeriod,
+            $customer
+        );
+    }
+    /**
+     * Create a new Order with the SOFORT payment method.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param array $paymentMethodDetails An array of extra payment method details.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
+     * @param array $customer Customer information.
+     * @return Order
+     */
+    public static function createWithSofort(
+        $amount,
+        $currency,
+        array $paymentMethodDetails = [],
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null,
+        $customer = null
+    ) {
+        return static::create(
+            $amount,
+            $currency,
+            PaymentMethod::SOFORT,
+            $paymentMethodDetails,
+            $description,
+            $merchantOrderId,
+            $returnUrl,
+            $expirationPeriod,
+            $customer
         );
     }
 
@@ -155,6 +239,7 @@ final class Order
      * @param string $merchantOrderId A merchant-defined order identifier.
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
+     * @param array $customer Customer information.
      * @return Order
      */
     public static function create(
@@ -165,7 +250,8 @@ final class Order
         $description = null,
         $merchantOrderId = null,
         $returnUrl = null,
-        $expirationPeriod = null
+        $expirationPeriod = null,
+        $customer = null
     ) {
         return new static(
             Transactions::fromArray(
@@ -181,7 +267,14 @@ final class Order
             ($description !== null) ? Description::fromString($description) : null,
             ($merchantOrderId !== null) ? MerchantOrderId::fromString($merchantOrderId) : null,
             ($returnUrl !== null) ? Url::fromString($returnUrl) : null,
-            ($expirationPeriod !== null) ? new \DateInterval($expirationPeriod) : null
+            ($expirationPeriod !== null) ? new \DateInterval($expirationPeriod) : null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            ($customer !== null) ? Customer::fromArray($customer) : null
         );
     }
 
@@ -210,7 +303,8 @@ final class Order
             array_key_exists('created', $order) ? new Carbon($order['created']) : null,
             array_key_exists('modified', $order) ? new Carbon($order['modified']) : null,
             array_key_exists('completed', $order) ? new Carbon($order['completed']) : null,
-            array_key_exists('status', $order) ? Status::fromString($order['status']) : null
+            array_key_exists('status', $order) ? Status::fromString($order['status']) : null,
+            array_key_exists('customer', $order) && $order['customer'] !== null ? Customer::fromArray($order['customer']) : null
         );
     }
 
@@ -237,6 +331,7 @@ final class Order
             'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'description' => ($this->description() !== null) ? $this->description()->toString() : null,
             'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,
+            'customer' => ($this->customer() !== null) ? $this->customer()->toArray() : null
         ];
     }
 
@@ -281,10 +376,15 @@ final class Order
     }
 
     /**
+     * @param string $merchantOrderId
      * @return MerchantOrderId|null
      */
-    public function merchantOrderId()
+    public function merchantOrderId($merchantOrderId = null)
     {
+        if ($merchantOrderId) {
+            $this->merchantOrderId = MerchantOrderId::fromString($merchantOrderId);
+        }
+
         return $this->merchantOrderId;
     }
 
@@ -297,42 +397,68 @@ final class Order
     }
 
     /**
+     * @param string $currency
      * @return Currency
      */
-    public function currency()
+    public function currency($currency = null)
     {
+        if ($currency) {
+            $this->currency = Currency::fromString($currency);
+        }
+
         return $this->currency;
     }
 
     /**
+     * @param int $amount
      * @return Amount
      */
-    public function amount()
+    public function amount($amount = null)
     {
+        if ($amount) {
+            $this->amount = Amount::fromInteger($amount);
+        }
+
         return $this->amount;
     }
 
     /**
+     * Time interval (ISO 8601 / RFC 3339)
+     * @param string $expirationPeriod
      * @return \DateInterval|null
      */
-    public function expirationPeriod()
+    public function expirationPeriod($expirationPeriod = null)
     {
+        if ($expirationPeriod) {
+            $this->expirationPeriod =  new \DateInterval($expirationPeriod);
+        }
+
         return $this->expirationPeriod;
     }
 
     /**
+     * @param string $description
      * @return Description|null
      */
-    public function description()
+    public function description($description = null)
     {
+        if ($description) {
+            $this->description = Description::fromString($description);
+        }
+
         return $this->description;
     }
 
     /**
+     * @param string $returnUrl
      * @return Url|null
      */
-    public function returnUrl()
+    public function returnUrl($returnUrl = null)
     {
+        if ($returnUrl) {
+            $this->returnUrl = Url::fromString($returnUrl);
+        }
+
         return $this->returnUrl;
     }
 
@@ -353,6 +479,14 @@ final class Order
     }
 
     /**
+     * @return Customer|null
+     */
+    public function customer()
+    {
+        return $this->customer;
+    }
+
+    /**
      * @param Transactions $transactions
      * @param Amount $amount
      * @param Currency $currency
@@ -366,6 +500,7 @@ final class Order
      * @param Carbon $modified
      * @param Carbon $completed
      * @param Status $status
+     * @param Customer $customer
      */
     private function __construct(
         Transactions $transactions,
@@ -380,7 +515,8 @@ final class Order
         Carbon $created = null,
         Carbon $modified = null,
         Carbon $completed = null,
-        Status $status = null
+        Status $status = null,
+        Customer $customer = null
     ) {
         $this->transactions = $transactions;
         $this->amount = $amount;
@@ -395,5 +531,6 @@ final class Order
         $this->modified = $modified;
         $this->completed = $completed;
         $this->status = $status;
+        $this->customer = $customer;
     }
 }

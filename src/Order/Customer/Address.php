@@ -1,11 +1,10 @@
 <?php
 
-namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Customer;
 
-use Assert\Assertion as Guard;
 use GingerPayments\Payment\Common\StringBasedValueObject;
 
-final class ConsumerName
+final class Address
 {
     use StringBasedValueObject;
 
@@ -14,8 +13,6 @@ final class ConsumerName
      */
     private function __construct($value)
     {
-        Guard::notBlank($value, 'iDEAL consumer name cannot be blank');
-
         $this->value = $value;
     }
 }

@@ -2,33 +2,31 @@
 
 namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 
-use Assert\Assertion as Guard;
 use GingerPayments\Payment\Iban;
+use GingerPayments\Payment\Order\Transaction\Reference;
 use GingerPayments\Payment\SwiftBic;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\ConsumerName;
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCity;
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\Status;
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\TransactionId;
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCountry;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerAddress;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCity;
+use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCountry;
 
-class IdealPaymentMethodDetails implements PaymentMethodDetails
+final class SepaPaymentMethodDetails implements PaymentMethodDetails
 {
     /**
-     * @var SwiftBic
+     * @var Reference
      */
-    private $issuerId;
+    private $reference;
 
     /**
-     * @var Status|null
+     * @var Iban|null
      */
-    private $status;
-
+    private $consumerIban;
+    
     /**
-     * @var TransactionId|null
+     * @var SwiftBic|null
      */
-    private $transactionId;
+    private $consumerBic;
 
     /**
      * @var ConsumerName|null
@@ -51,33 +49,19 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
     private $consumerCountry;
 
     /**
-     * @var Iban|null
-     */
-    private $consumerIban;
-
-    /**
-     * @var SwiftBic|null
-     */
-    private $consumerBic;
-
-    /**
      * @param array $details
-     * @return IdealPaymentMethodDetails
+     * @return SepaPaymentMethodDetails
      */
     public static function fromArray(array $details)
     {
-        Guard::keyExists($details, 'issuer_id');
-
         return new static(
-            SwiftBic::fromString($details['issuer_id']),
-            array_key_exists('status', $details) ? Status::fromString($details['status']) : null,
-            array_key_exists('transaction_id', $details) ? TransactionId::fromString($details['transaction_id']) : null,
             array_key_exists('consumer_name', $details) ? ConsumerName::fromString($details['consumer_name']) : null,
             array_key_exists('consumer_address', $details) ? ConsumerAddress::fromString($details['consumer_address']) : null,
             array_key_exists('consumer_city', $details) ? ConsumerCity::fromString($details['consumer_city']) : null,
             array_key_exists('consumer_country', $details) ? ConsumerCountry::fromString($details['consumer_country']) : null,
             array_key_exists('consumer_iban', $details) ? Iban::fromString($details['consumer_iban']) : null,
-            array_key_exists('consumer_bic', $details) ? SwiftBic::fromString($details['consumer_bic']) : null
+            array_key_exists('consumer_bic', $details) ? SwiftBic::fromString($details['consumer_bic']) : null,
+            array_key_exists('reference', $details) ? Reference::fromString($details['reference']) : null
         );
     }
 
@@ -87,48 +71,46 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
     public function toArray()
     {
         return [
-            'issuer_id' => $this->issuerId()->toString(),
-            'transaction_id' => ($this->transactionId() !== null) ? $this->transactionId()->toString() : null,
-            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
             'consumer_name' => ($this->consumerName() !== null) ? $this->consumerName()->toString() : null,
             'consumer_address' => ($this->consumerAddress() !== null) ? $this->consumerAddress()->toString() : null,
             'consumer_city' => ($this->consumerCity() !== null) ? $this->consumerCity()->toString() : null,
             'consumer_country' => ($this->consumerCountry() !== null) ? $this->consumerCountry()->toString() : null,
             'consumer_iban' => ($this->consumerIban() !== null) ? $this->consumerIban()->toString() : null,
-            'consumer_bic' => ($this->consumerBic() !== null) ? $this->consumerBic()->toString() : null
+            'consumer_bic' => ($this->consumerBic() !== null) ? $this->consumerBic()->toString() : null,
+            'reference' => ($this->reference() !== null) ? $this->reference()->toString() : null
         ];
     }
 
     /**
-     * @return SwiftBic
+     * @return SwiftBic|null
      */
-    public function issuerId()
+    public function consumerBic()
     {
-        return $this->issuerId;
+        return $this->consumerBic;
     }
 
     /**
-     * @return Status|null
+     * @return Iban|null
      */
-    public function status()
+    public function consumerIban()
     {
-        return $this->status;
+        return $this->consumerIban;
     }
 
     /**
-     * @return TransactionId|null
-     */
-    public function transactionId()
-    {
-        return $this->transactionId;
-    }
-
-    /**
-     * @return ConsumerName|null
+     * @return consumerName|null
      */
     public function consumerName()
     {
         return $this->consumerName;
+    }
+
+    /**
+     * @return Reference
+     */
+    public function reference()
+    {
+        return $this->reference;
     }
 
     /**
@@ -156,51 +138,29 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
     }
 
     /**
-     * @return Iban|null
-     */
-    public function consumerIban()
-    {
-        return $this->consumerIban;
-    }
-
-    /**
-     * @return SwiftBic|null
-     */
-    public function consumerBic()
-    {
-        return $this->consumerBic;
-    }
-
-    /**
-     * @param SwiftBic $issuerId
-     * @param Status $status
-     * @param TransactionId $transactionId
      * @param ConsumerName $consumerName
      * @param ConsumerAddress $consumerAddress
      * @param ConsumerCity $consumerCity
      * @param ConsumerCountry $consumerCountry
      * @param Iban $consumerIban
      * @param SwiftBic $consumerBic
+     * @param Reference $reference
      */
     private function __construct(
-        SwiftBic $issuerId,
-        Status $status = null,
-        TransactionId $transactionId = null,
         ConsumerName $consumerName = null,
         ConsumerAddress $consumerAddress = null,
         ConsumerCity $consumerCity = null,
         ConsumerCountry $consumerCountry = null,
         Iban $consumerIban = null,
-        SwiftBic $consumerBic = null
+        SwiftBic $consumerBic = null,
+        Reference $reference = null
     ) {
-        $this->issuerId = $issuerId;
-        $this->status = $status;
-        $this->transactionId = $transactionId;
         $this->consumerName = $consumerName;
         $this->consumerAddress = $consumerAddress;
         $this->consumerCity = $consumerCity;
         $this->consumerCountry = $consumerCountry;
         $this->consumerIban = $consumerIban;
         $this->consumerBic = $consumerBic;
+        $this->reference = $reference;
     }
 }
