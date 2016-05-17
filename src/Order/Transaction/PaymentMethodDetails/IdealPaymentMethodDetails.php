@@ -70,14 +70,22 @@ class IdealPaymentMethodDetails implements PaymentMethodDetails
 
         return new static(
             SwiftBic::fromString($details['issuer_id']),
-            array_key_exists('status', $details) ? Status::fromString($details['status']) : null,
-            array_key_exists('transaction_id', $details) ? TransactionId::fromString($details['transaction_id']) : null,
-            array_key_exists('consumer_name', $details) ? ConsumerName::fromString($details['consumer_name']) : null,
-            array_key_exists('consumer_address', $details) ? ConsumerAddress::fromString($details['consumer_address']) : null,
-            array_key_exists('consumer_city', $details) ? ConsumerCity::fromString($details['consumer_city']) : null,
-            array_key_exists('consumer_country', $details) ? ConsumerCountry::fromString($details['consumer_country']) : null,
-            array_key_exists('consumer_iban', $details) ? Iban::fromString($details['consumer_iban']) : null,
-            array_key_exists('consumer_bic', $details) ? SwiftBic::fromString($details['consumer_bic']) : null
+            array_key_exists('status', $details)
+                ? Status::fromString($details['status']) : null,
+            array_key_exists('transaction_id', $details)
+                ? TransactionId::fromString($details['transaction_id']) : null,
+            array_key_exists('consumer_name', $details)
+                ? ConsumerName::fromString($details['consumer_name']) : null,
+            array_key_exists('consumer_address', $details)
+                ? ConsumerAddress::fromString($details['consumer_address']) : null,
+            array_key_exists('consumer_city', $details)
+                ? ConsumerCity::fromString($details['consumer_city']) : null,
+            array_key_exists('consumer_country', $details)
+                ? ConsumerCountry::fromString($details['consumer_country']) : null,
+            array_key_exists('consumer_iban', $details)
+                ? Iban::fromString($details['consumer_iban']) : null,
+            array_key_exists('consumer_bic', $details)
+                ? SwiftBic::fromString($details['consumer_bic']) : null
         );
     }
 

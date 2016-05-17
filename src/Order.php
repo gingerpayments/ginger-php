@@ -304,7 +304,8 @@ final class Order
             array_key_exists('modified', $order) ? new Carbon($order['modified']) : null,
             array_key_exists('completed', $order) ? new Carbon($order['completed']) : null,
             array_key_exists('status', $order) ? Status::fromString($order['status']) : null,
-            array_key_exists('customer', $order) && $order['customer'] !== null ? Customer::fromArray($order['customer']) : null
+            array_key_exists('customer', $order) && $order['customer'] !== null
+                ? Customer::fromArray($order['customer']) : null
         );
     }
 

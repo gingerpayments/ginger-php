@@ -264,7 +264,8 @@ final class Client
      * @param Order $order
      * @return Order
      */
-    public function updateOrder(Order $order) {
+    public function updateOrder(Order $order)
+    {
         return $this->putOrder($order);
     }
 

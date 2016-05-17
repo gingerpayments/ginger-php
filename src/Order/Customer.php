@@ -13,7 +13,6 @@ use GingerPayments\Payment\Order\Customer\Housenumber;
 use GingerPayments\Payment\Order\Customer\Country;
 use GingerPayments\Payment\Order\Customer\PhoneNumbers;
 
-
 final class Customer
 {
     /**
@@ -73,7 +72,8 @@ final class Customer
     public static function fromArray(array $details)
     {
         return new static(
-            array_key_exists('merchant_customer_id', $details) ? MerchantCustomerId::fromString($details['merchant_customer_id']) : null,
+            array_key_exists('merchant_customer_id', $details)
+                ? MerchantCustomerId::fromString($details['merchant_customer_id']) : null,
             array_key_exists('email_address', $details) ? EmailAddress::fromString($details['email_address']) : null,
             array_key_exists('first_name', $details) ? FirstName::fromString($details['first_name']) : null,
             array_key_exists('last_name', $details) ? LastName::fromString($details['last_name']) : null,
@@ -92,7 +92,8 @@ final class Customer
     public function toArray()
     {
         return [
-            'merchant_customer_id' => ($this->merchantCustomerId() !== null) ? $this->merchantCustomerId()->toString() : null,
+            'merchant_customer_id' => ($this->merchantCustomerId() !== null)
+                ? $this->merchantCustomerId()->toString() : null,
             'email_address' => ($this->emailAddress() !== null) ? $this->emailAddress()->toString() : null,
             'first_name' => ($this->firstName() !== null) ? $this->firstName()->toString() : null,
             'last_name' => ($this->lastName() !== null) ? $this->lastName()->toString() : null,

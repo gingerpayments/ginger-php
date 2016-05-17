@@ -32,7 +32,6 @@ final class SepaPaymentMethodDetailsTest extends \PHPUnit_Framework_TestCase
                 'consumer_bic' => null,
                 'reference' => null
             ],
-
             SepaPaymentMethodDetails::fromArray([])->toArray()
         );
     }
