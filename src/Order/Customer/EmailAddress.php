@@ -1,12 +1,11 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace GingerPayments\Payment\Order\Customer;
 
 use Assert\Assertion as Guard;
 use GingerPayments\Payment\Common\StringBasedValueObject;
-use IsoCodes\Iban as IbanValidator;
 
-final class Iban
+final class EmailAddress
 {
     use StringBasedValueObject;
 
@@ -15,10 +14,9 @@ final class Iban
      */
     private function __construct($value)
     {
-        Guard::true(
-            empty($value) || IbanValidator::validate($value),
-            'Must be a valid IBAN (ISO 13616:2007)'
-        );
+        if (!empty($value)) {
+            Guard::email($value, 'Email Address is invalid');
+        }
 
         $this->value = $value;
     }

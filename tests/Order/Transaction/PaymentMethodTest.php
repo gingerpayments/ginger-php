@@ -15,6 +15,7 @@ final class PaymentMethodTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($paymentMethod->isIdeal());
         $this->assertFalse($paymentMethod->isCreditCard());
+        $this->assertFalse($paymentMethod->isBankTransfer());
     }
 
     /**
@@ -24,7 +25,20 @@ final class PaymentMethodTest extends \PHPUnit_Framework_TestCase
     {
         $paymentMethod = PaymentMethod::fromString(PaymentMethod::CREDIT_CARD);
 
-        $this->assertFalse($paymentMethod->isIdeal());
         $this->assertTrue($paymentMethod->isCreditCard());
+        $this->assertFalse($paymentMethod->isIdeal());
+        $this->assertFalse($paymentMethod->isBankTransfer());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldBeBankTransfer()
+    {
+        $paymentMethod = PaymentMethod::fromString(PaymentMethod::BANK_TRANSFER);
+
+        $this->assertTrue($paymentMethod->isBankTransfer());
+        $this->assertFalse($paymentMethod->isIdeal());
+        $this->assertFalse($paymentMethod->isCreditCard());
     }
 }

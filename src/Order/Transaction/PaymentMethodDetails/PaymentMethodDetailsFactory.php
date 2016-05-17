@@ -16,6 +16,14 @@ final class PaymentMethodDetailsFactory
             return CreditCardPaymentMethodDetails::fromArray($paymentMethodDetails);
         }
 
+        if ($paymentMethod->isBankTransfer()) {
+            return SepaPaymentMethodDetails::fromArray($paymentMethodDetails);
+        }
+
+        if ($paymentMethod->isSofort()) {
+            return SofortPaymentMethodDetails::fromArray($paymentMethodDetails);
+        }
+
         throw new \InvalidArgumentException('Provided payment method not supported.');
     }
 }

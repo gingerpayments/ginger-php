@@ -38,6 +38,34 @@ final class PaymentMethodDetailsFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldCreateASepaPaymentMethodDetails()
+    {
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\SepaPaymentMethodDetails',
+            PaymentMethodDetailsFactory::createFromArray(
+                PaymentMethod::fromString(PaymentMethod::BANK_TRANSFER),
+                []
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldCreateASofortPaymentMethodDetails()
+    {
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\SofortPaymentMethodDetails',
+            PaymentMethodDetailsFactory::createFromArray(
+                PaymentMethod::fromString(PaymentMethod::SOFORT),
+                []
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
     public function itShouldFailWhenAnUnsupportedPaymentMethodIsProvided()
     {
         $paymentMethod = PaymentMethod::fromString(PaymentMethod::IDEAL);

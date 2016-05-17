@@ -200,7 +200,6 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
                 'orders/',
                 m::on(
                     function (array $options) use ($order) {
-                        $this->assertEquals(3, $options['timeout']);
                         $this->assertEquals('application/json', $options['headers']['Content-Type']);
                         $this->assertEquals(
                             ArrayFunctions::withoutNullValues($order->toArray()),
@@ -223,6 +222,206 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
                 'EUR',
                 'ABNANL2A',
                 'A nice description',
+                'my-order-id',
+                'http://www.example.com',
+                'PT10M'
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldCreateABankTransferOrder()
+    {
+        $order = Order::create(
+            1234,
+            'EUR',
+            'sepa-debit-transfer',
+            [],
+            'Bank Transfer order description',
+            'my-order-id',
+            'http://www.example.com',
+            'PT10M'
+        );
+
+        $this->httpClient->shouldReceive('post')
+            ->once()
+            ->with(
+                'orders/',
+                m::on(
+                    function (array $options) use ($order) {
+                        $this->assertEquals('application/json', $options['headers']['Content-Type']);
+                        $this->assertEquals(
+                            ArrayFunctions::withoutNullValues($order->toArray()),
+                            json_decode($options['body'], true)
+                        );
+                        return true;
+                    }
+                )
+            )
+            ->andReturn($this->httpResponse);
+
+        $this->httpResponse->shouldReceive('json')
+            ->once()
+            ->andReturn(ArrayFunctions::withoutNullValues($order->toArray()));
+
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order',
+            $this->client->createSepaOrder(
+                1234,
+                'EUR',
+                [],
+                'Bank Transfer order description',
+                'my-order-id',
+                'http://www.example.com',
+                'PT10M'
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldUpdateOrder()
+    {
+        $orderData = [
+            'transactions' => [['payment_method' => 'credit-card']],
+            'amount' => 9999,
+            'currency' => 'EUR',
+            'id' => 'c384b47e-7a5e-4c91-ab65-c4eed7f26e85',
+            'expiration_period' => 'PT10M',
+            'merchant_order_id' => '123',
+            'description' => "Test",
+            'return_url' => "http://example.com",
+        ];
+
+        $order = Order::fromArray($orderData);
+
+        $this->httpClient->shouldReceive('put')
+            ->once()
+            ->with(
+                'orders/c384b47e-7a5e-4c91-ab65-c4eed7f26e85/',
+                m::on(
+                    function (array $options) use ($order) {
+                        $this->assertEquals(
+                            $order->toArray(),
+                            $options['json']
+                        );
+                        return true;
+                    }
+                )
+            )
+            ->andReturn($this->httpResponse);
+
+        $this->httpResponse->shouldReceive('json')
+            ->once()
+            ->andReturn(ArrayFunctions::withoutNullValues($order->toArray()));
+
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order',
+            $this->client->updateOrder($order)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldThrowAnOrderNotFoundExceptionWhenUpdatingOrder()
+    {
+        $orderData = [
+            'transactions' => [['payment_method' => 'credit-card']],
+            'amount' => 9999,
+            'currency' => 'EUR',
+            'id' => 'c384b47e-7a5e-4c91-ab65-c4eed7f26e85',
+            'expiration_period' => 'PT10M',
+            'merchant_order_id' => '123',
+            'description' => "Test",
+            'return_url' => "http://example.com",
+        ];
+
+        $request = m::mock('GuzzleHttp\Message\Request');
+        $response = m::mock('GuzzleHttp\Message\Response');
+        $response->shouldReceive('getStatusCode')->andReturn(404);
+
+        $this->httpClient->shouldReceive('put')
+            ->once()
+            ->andThrow(new HttpClientException('Something happened', $request, $response));
+
+        $this->setExpectedException('GingerPayments\Payment\Client\OrderNotFoundException');
+        $this->client->updateOrder(Order::fromArray($orderData));
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldThrowAClientExceptionWhenUpdatingOrder()
+    {
+        $orderData = [
+            'transactions' => [['payment_method' => 'credit-card']],
+            'amount' => 9999,
+            'currency' => 'EUR',
+            'id' => 'c384b47e-7a5e-4c91-ab65-c4eed7f26e85',
+            'expiration_period' => 'PT10M',
+            'merchant_order_id' => '123',
+            'description' => "Test",
+            'return_url' => "http://example.com",
+        ];
+
+        $request = m::mock('GuzzleHttp\Message\Request');
+
+        $this->httpClient->shouldReceive('put')
+            ->once()
+            ->andThrow(new HttpClientException('Something happened', $request));
+
+        $this->setExpectedException('GingerPayments\Payment\Client\ClientException');
+        $this->client->updateOrder(Order::fromArray($orderData));
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldCreateASofortOrder()
+    {
+        $order = Order::create(
+            1234,
+            'EUR',
+            'sofort',
+            [],
+            'Sofort Transfer order description',
+            'my-order-id',
+            'http://www.example.com',
+            'PT10M'
+        );
+
+        $this->httpClient->shouldReceive('post')
+            ->once()
+            ->with(
+                'orders/',
+                m::on(
+                    function (array $options) use ($order) {
+                        $this->assertEquals('application/json', $options['headers']['Content-Type']);
+                        $this->assertEquals(
+                            ArrayFunctions::withoutNullValues($order->toArray()),
+                            json_decode($options['body'], true)
+                        );
+                        return true;
+                    }
+                )
+            )
+            ->andReturn($this->httpResponse);
+
+        $this->httpResponse->shouldReceive('json')
+            ->once()
+            ->andReturn(ArrayFunctions::withoutNullValues($order->toArray()));
+
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order',
+            $this->client->createSofortOrder(
+                1234,
+                'EUR',
+                [],
+                'Sofort Transfer order description',
                 'my-order-id',
                 'http://www.example.com',
                 'PT10M'

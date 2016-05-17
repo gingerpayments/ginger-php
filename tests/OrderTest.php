@@ -12,6 +12,19 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreate()
     {
+        $customer = [
+            'address' => "Radarweg 29 A-12 1043 NX Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Name",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["01234567890"],
+            'postal_code' => "1043 NX",
+            'housenumber' => "29 A-12"
+        ];
+
         $order = Order::create(
             6500,
             'EUR',
@@ -20,7 +33,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'My description',
             'my-order-id',
             'http://www.example.com',
-            'P0Y0M0DT1H0M0S'
+            'P0Y0M0DT1H0M0S',
+            $customer
         );
 
         $this->assertEquals(6500, $order->amount()->toInteger());
@@ -48,13 +62,27 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateWithCreditCard()
     {
+        $customer = [
+            'address' => "Radarweg 29 A-12 1043 NX Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Firstname",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["0123456789"],
+            'postal_code' => "1043 NX",
+            'housenumber' => "29 A-12"
+        ];
+
         $order = Order::createWithCreditCard(
             6500,
             'EUR',
             'My description',
             'my-order-id',
             'http://www.example.com',
-            'P0Y0M0DT1H0M0S'
+            'P0Y0M0DT1H0M0S',
+            $customer
         );
 
         $this->assertEquals(6500, $order->amount()->toInteger());
@@ -82,6 +110,19 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateWithIdeal()
     {
+        $customer = [
+            'address' => "Radarweg 29 A-12 1043 NX Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Firstname",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["0123456789"],
+            'postal_code' => "1043 NX",
+            'housenumber' => "29 A-12"
+        ];
+
         $order = Order::createWithIdeal(
             6500,
             'EUR',
@@ -89,7 +130,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'My description',
             'my-order-id',
             'http://www.example.com',
-            'P0Y0M0DT1H0M0S'
+            'P0Y0M0DT1H0M0S',
+            $customer
         );
 
         $this->assertEquals(6500, $order->amount()->toInteger());
@@ -117,6 +159,19 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateFromAnArray()
     {
+        $customer = [
+            'address' => "Radarweg 29 A-12 1043 NX Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Firstname",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["0123456789"],
+            'postal_code' => "1043 NX",
+            'housenumber' => "29 A-12"
+        ];
+
         $array = [
             'transactions' => [],
             'amount' => 6200,
@@ -130,7 +185,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'created' => '2015-03-07T20:58:35+0100',
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
-            'status' => 'new'
+            'status' => 'new',
+            'customer' => $customer
         ];
 
         $order = Order::fromArray($array);
@@ -223,6 +279,19 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldConvertToArray()
     {
+        $customer = [
+            'address' => "Radarweg 29 A-12 1043 NX Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Firstname",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["0123456789"],
+            'postal_code' => null,
+            'housenumber' => null
+        ];
+
         $array = [
             'transactions' => [],
             'amount' => 6200,
@@ -236,7 +305,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'created' => '2015-03-07T20:58:35+0100',
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
-            'status' => 'new'
+            'status' => 'new',
+            'customer' => $customer
         ];
 
         $this->assertEquals(
@@ -263,5 +333,108 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
 
         $order = Order::fromArray($array);
         $this->assertEquals('http://www.example.com', $order->firstTransactionPaymentUrl());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldUpdateFieldsThatAreNotReadOnly()
+    {
+        $customer = [
+            'address' => "Radarweg 29 A-12 Amsterdam",
+            'address_type' => "customer",
+            'country' => "NL",
+            'email_address' => "email@example.com",
+            'first_name' => "Firstname",
+            'last_name' => "Lastname",
+            'merchant_customer_id' => "2",
+            'phone_numbers' => ["0123456789"],
+            'postal_code' => "1043 NX",
+            'housenumber' => "29"
+        ];
+
+        $array = [
+            'transactions' => [],
+            'amount' => 6200,
+            'currency' => 'EUR',
+            'description' => 'My amazing order',
+            'merchant_order_id' => 'my-order-id',
+            'return_url' => 'http://www.example.com',
+            'expiration_period' => 'P0Y0M0DT1H0M0S',
+            'id' => '6cc8bc83-c14a-4871-b91e-a8575db5556d',
+            'project_id' => '4e8207ef-caf2-429e-a8e1-be8d628beccb',
+            'created' => '2015-03-07T20:58:35+0100',
+            'modified' => '2015-03-07T20:58:35+0100',
+            'completed' => '2015-03-07T20:58:35+0100',
+            'status' => 'new',
+            'customer' => $customer
+        ];
+
+        $updatedOrder = [
+            'transactions' => [],
+            'amount' => 9999,
+            'currency' => 'EUR',
+            'description' => 'New Order Description',
+            'merchant_order_id' => 'NEW_MERCHANT_ORDER_ID',
+            'return_url' => 'http://www.example.com/API',
+            'expiration_period' => 'P0Y0M0DT2H0M0S',
+            'id' => '6cc8bc83-c14a-4871-b91e-a8575db5556d',
+            'project_id' => '4e8207ef-caf2-429e-a8e1-be8d628beccb',
+            'created' => '2015-03-07T20:58:35+0100',
+            'modified' => '2015-03-07T20:58:35+0100',
+            'completed' => '2015-03-07T20:58:35+0100',
+            'status' => 'new',
+            'customer' => $customer
+        ];
+
+
+        $order = Order::fromArray($array);
+
+        $this->assertEquals(
+            $order->toArray(),
+            $array
+        );
+
+        $order->merchantOrderId("NEW_MERCHANT_ORDER_ID");
+
+        $this->assertNotEquals(
+            $order->toArray(),
+            $array
+        );
+
+        $this->assertEquals(
+            $order->merchantOrderId("NEW_MERCHANT_ORDER_ID")->toString(),
+            "NEW_MERCHANT_ORDER_ID"
+        );
+
+        $this->assertEquals(
+            $order->currency("EUR")->toString(),
+            "EUR"
+        );
+
+        $this->assertEquals(
+            $order->amount(9999)->toInteger(),
+            9999
+        );
+
+        $this->assertEquals(
+            $order->expirationPeriod("P0Y0M0DT2H0M0S")->format('P%yY%mM%dDT%hH%iM%sS'),
+            "P0Y0M0DT2H0M0S"
+        );
+
+        $this->assertEquals(
+            $order->description("New Order Description")->toString(),
+            "New Order Description"
+        );
+
+        $this->assertEquals(
+            $order->returnUrl("http://www.example.com/API")->toString(),
+            "http://www.example.com/API"
+        );
+
+        $this->assertEquals(
+            $order->toArray(),
+            $updatedOrder
+        );
     }
 }

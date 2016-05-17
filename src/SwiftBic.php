@@ -16,7 +16,7 @@ final class SwiftBic
     private function __construct($value)
     {
         Guard::true(
-            SwiftBicValidator::validate($value),
+            empty($value) || SwiftBicValidator::validate($value),
             'Must be a valid BIC/SWIFT code (ISO-9362)'
         );
 

@@ -13,6 +13,8 @@ final class PaymentMethod
      */
     const IDEAL = 'ideal';
     const CREDIT_CARD = 'credit-card';
+    const BANK_TRANSFER = 'sepa-debit-transfer';
+    const SOFORT = 'sofort';
 
     /**
      * @return array
@@ -21,7 +23,9 @@ final class PaymentMethod
     {
         return [
             self::IDEAL,
-            self::CREDIT_CARD
+            self::CREDIT_CARD,
+            self::BANK_TRANSFER,
+            self::SOFORT
         ];
     }
 
@@ -39,5 +43,21 @@ final class PaymentMethod
     public function isCreditCard()
     {
         return $this->value === self::CREDIT_CARD;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBankTransfer()
+    {
+        return $this->value === self::BANK_TRANSFER;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSofort()
+    {
+        return $this->value === self::SOFORT;
     }
 }
