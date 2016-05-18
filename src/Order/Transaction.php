@@ -53,7 +53,7 @@ final class Transaction
     private $currency;
 
     /**
-     * @var Amount|null
+     * @var TransactionAmount|null
      */
     private $amount;
 
@@ -63,7 +63,7 @@ final class Transaction
     private $expirationPeriod;
 
     /**
-     * @var Description|null
+     * @var TransactionDescription|null
      */
     private $description;
 
