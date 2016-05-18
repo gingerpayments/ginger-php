@@ -37,7 +37,7 @@ final class Client
             );
         } catch (RequestException $exception) {
             throw new ClientException(
-                'An error occurred while processing the request: ' . $exception->getMessage(),
+                'An error occurred while processing the request: '.$exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
@@ -251,7 +251,7 @@ final class Client
                 throw new OrderNotFoundException('No order with that ID was found.', 404, $exception);
             }
             throw new ClientException(
-                'An error occurred while getting the order: ' . $exception->getMessage(),
+                'An error occurred while getting the order: '.$exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
@@ -290,7 +290,7 @@ final class Client
             );
         } catch (RequestException $exception) {
             throw new ClientException(
-                'An error occurred while posting the order: ' . $exception->getMessage(),
+                'An error occurred while posting the order: '.$exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );
@@ -310,7 +310,7 @@ final class Client
         try {
             return Order::fromArray(
                 $this->httpClient->put(
-                    "orders/" . $order->id() . "/",
+                    "orders/".$order->id()."/",
                     [
                         "timeout" => 3,
                         "json" => $order->toArray()
@@ -322,7 +322,7 @@ final class Client
                 throw new OrderNotFoundException('No order with that ID was found.', 404, $exception);
             }
             throw new ClientException(
-                'An error occurred while updating the order: ' . $exception->getMessage(),
+                'An error occurred while updating the order: '.$exception->getMessage(),
                 $exception->getCode(),
                 $exception
             );

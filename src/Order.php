@@ -8,7 +8,6 @@ use GingerPayments\Payment\Order\Amount;
 use GingerPayments\Payment\Order\Description;
 use GingerPayments\Payment\Order\MerchantOrderId;
 use GingerPayments\Payment\Order\Status;
-use GingerPayments\Payment\Order\Transaction;
 use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 use GingerPayments\Payment\Order\Transactions;
 use GingerPayments\Payment\Order\Customer;
@@ -431,7 +430,7 @@ final class Order
     public function expirationPeriod($expirationPeriod = null)
     {
         if ($expirationPeriod) {
-            $this->expirationPeriod =  new \DateInterval($expirationPeriod);
+            $this->expirationPeriod = new \DateInterval($expirationPeriod);
         }
 
         return $this->expirationPeriod;
