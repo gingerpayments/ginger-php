@@ -84,7 +84,7 @@ final class PhoneNumbers implements \Iterator
     }
 
     /**
-     * @param PhoneNumber[] $phoneNumbers
+     * @param array $phoneNumbers
      */
     private function __construct(array $phoneNumbers = [])
     {

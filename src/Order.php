@@ -381,7 +381,7 @@ final class Order
      */
     public function merchantOrderId($merchantOrderId = null)
     {
-        if ($merchantOrderId) {
+        if ($merchantOrderId !== null) {
             $this->merchantOrderId = MerchantOrderId::fromString($merchantOrderId);
         }
 
@@ -402,7 +402,7 @@ final class Order
      */
     public function currency($currency = null)
     {
-        if ($currency) {
+        if ($currency !== null) {
             $this->currency = Currency::fromString($currency);
         }
 
@@ -415,7 +415,7 @@ final class Order
      */
     public function amount($amount = null)
     {
-        if ($amount) {
+        if ($amount !== null) {
             $this->amount = Amount::fromInteger($amount);
         }
 
@@ -429,7 +429,7 @@ final class Order
      */
     public function expirationPeriod($expirationPeriod = null)
     {
-        if ($expirationPeriod) {
+        if ($expirationPeriod !== null) {
             $this->expirationPeriod = new \DateInterval($expirationPeriod);
         }
 
@@ -442,7 +442,7 @@ final class Order
      */
     public function description($description = null)
     {
-        if ($description) {
+        if ($description !== null) {
             $this->description = Description::fromString($description);
         }
 
@@ -455,7 +455,7 @@ final class Order
      */
     public function returnUrl($returnUrl = null)
     {
-        if ($returnUrl) {
+        if ($returnUrl !== null) {
             $this->returnUrl = Url::fromString($returnUrl);
         }
 
