@@ -27,7 +27,7 @@ final class PhoneNumbers implements \Iterator
     {
         return new static(
             array_map(
-                function ($phoneNumber) {
+                function($phoneNumber) {
                     return PhoneNumber::fromString($phoneNumber);
                 },
                 $phoneNumbers
@@ -41,7 +41,7 @@ final class PhoneNumbers implements \Iterator
     public function toArray()
     {
         return array_map(
-            function (PhoneNumber $phoneNumber) {
+            function(PhoneNumber $phoneNumber) {
                 return $phoneNumber->toString();
             },
             $this->phoneNumbers

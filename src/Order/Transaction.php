@@ -208,7 +208,7 @@ final class Transaction
     }
 
     /**
-     * @return TransactionAmount|null
+     * @return Amount|null
      */
     public function amount()
     {
@@ -224,7 +224,7 @@ final class Transaction
     }
 
     /**
-     * @return TransactionDescription|null
+     * @return Description|null
      */
     public function description()
     {
@@ -248,7 +248,7 @@ final class Transaction
     }
 
     /**
-     * @return PaymentMethodDetails|null
+     * @return PaymentMethodDetails
      */
     public function paymentMethodDetails()
     {

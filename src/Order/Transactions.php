@@ -27,7 +27,7 @@ final class Transactions implements \Iterator
     {
         return new static(
             array_map(
-                function ($transaction) {
+                function($transaction) {
                     return Transaction::fromArray($transaction);
                 },
                 $transactions
@@ -41,7 +41,7 @@ final class Transactions implements \Iterator
     public function toArray()
     {
         return array_map(
-            function (Transaction $transaction) {
+            function(Transaction $transaction) {
                 return $transaction->toArray();
             },
             $this->transactions

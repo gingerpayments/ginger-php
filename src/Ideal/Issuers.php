@@ -27,7 +27,7 @@ final class Issuers implements \Iterator
     {
         return new Issuers(
             array_map(
-                function ($issuer) {
+                function($issuer) {
                     return Issuer::fromArray($issuer);
                 },
                 $issuers
@@ -41,7 +41,7 @@ final class Issuers implements \Iterator
     public function toArray()
     {
         return array_map(
-            function (Issuer $issuer) {
+            function(Issuer $issuer) {
                 return $issuer->toArray();
             },
             $this->issuers

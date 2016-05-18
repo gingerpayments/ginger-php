@@ -35,7 +35,7 @@ final class Ginger
                     'base_url' => [self::ENDPOINT, ['version' => self::API_VERSION]],
                     'defaults' => [
                         'headers' => [
-                            'User-Agent' => 'ginger-php/' . self::CLIENT_VERSION,
+                            'User-Agent' => 'ginger-php/'.self::CLIENT_VERSION,
                             'X-PHP-Version' => PHP_VERSION
                         ],
                         'auth' => [$apiKey, '']
