@@ -314,25 +314,137 @@ final class Order
     public function toArray()
     {
         return [
-            'currency' => $this->currency()->toString(),
-            'amount' => $this->amount()->toInteger(),
-            'transactions' => $this->transactions()->toArray(),
-            'id' => ($this->id() !== null) ? $this->id()->toString() : null,
-            'project_id' => ($this->projectId() !== null) ? $this->projectId()->toString() : null,
-            'created' => ($this->created() !== null) ? $this->created()->toIso8601String() : null,
-            'modified' => ($this->modified() !== null) ? $this->modified()->toIso8601String() : null,
-            'completed' => ($this->completed() !== null) ? $this->completed()->toIso8601String() : null,
-            'expiration_period' => ($this->expirationPeriod() !== null)
-                ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
-                : null,
-            'merchant_order_id' => ($this->merchantOrderId() !== null)
-                ? $this->merchantOrderId()->toString()
-                : null,
-            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
-            'description' => ($this->description() !== null) ? $this->description()->toString() : null,
-            'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,
-            'customer' => ($this->customer() !== null) ? $this->customer()->toArray() : null
+            'currency' => $this->getCurrency(),
+            'amount' => $this->getAmount(),
+            'transactions' => $this->getTransactions(),
+            'id' => $this->getId(),
+            'project_id' => $this->getProjectId(),
+            'created' => $this->getCreated(),
+            'modified' => $this->getModified(),
+            'completed' => $this->getCompleted(),
+            'expiration_period' => $this->getExpirationPeriod(),
+            'merchant_order_id' => $this->getMerchantOrderId(),
+            'status' => $this->getStatus(),
+            'description' => $this->getDescription(),
+            'return_url' => $this->getReturnUrl(),
+            'customer' => $this->getCustomer()
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransactions()
+    {
+        return $this->transactions()->toArray();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency()->toString();
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->amount()->toInteger();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getId()
+    {
+        return ($this->id() !== null) ? $this->id()->toString() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getProjectId()
+    {
+        return ($this->projectId() !== null) ? $this->projectId()->toString() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCreated()
+    {
+        return ($this->created() !== null) ? $this->created()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getModified()
+    {
+        return ($this->modified() !== null) ? $this->modified()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCompleted()
+    {
+        return ($this->completed() !== null) ? $this->completed()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getExpirationPeriod()
+    {
+        return ($this->expirationPeriod() !== null)
+            ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+            : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return ($this->description() !== null) ? $this->description()->toString() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus()
+    {
+        return  ($this->status() !== null) ? $this->status()->toString() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMerchantOrderId()
+    {
+        return ($this->merchantOrderId() !== null)
+            ? $this->merchantOrderId()->toString()
+            : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReturnUrl()
+    {
+        return ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCustomer()
+    {
+        return ($this->customer() !== null) ? $this->customer()->toArray() : null;
     }
 
     /**
