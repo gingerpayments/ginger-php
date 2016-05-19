@@ -132,23 +132,135 @@ final class Transaction
     public function toArray()
     {
         return [
-            'payment_method' => $this->paymentMethod()->toString(),
-            'payment_method_details' => $this->paymentMethodDetails()->toArray(),
-            'id' => ($this->id() !== null) ? $this->id()->toString() : null,
-            'created' => ($this->created() !== null) ? $this->created()->toIso8601String() : null,
-            'modified' => ($this->modified() !== null) ? $this->modified()->toIso8601String() : null,
-            'completed' => ($this->completed() !== null) ? $this->completed()->toIso8601String() : null,
-            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
-            'reason' => ($this->reason() !== null) ? $this->reason()->toString() : null,
-            'currency' => ($this->currency() !== null) ? $this->currency()->toString() : null,
-            'amount' => ($this->amount() !== null) ? $this->amount()->toInteger() : null,
-            'expiration_period' => ($this->expirationPeriod() !== null)
-                ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
-                : null,
-            'description' => ($this->description() !== null) ? $this->description()->toString() : null,
-            'balance' => ($this->balance() !== null) ? $this->balance()->toString() : null,
-            'payment_url' => ($this->paymentUrl() !== null) ? $this->paymentUrl()->toString() : null
+            'payment_method' => $this->getPaymentMethod(),
+            'payment_method_details' => $this->getPaymentMethodDetails(),
+            'id' => $this->getId(),
+            'created' => $this->getCreated(),
+            'modified' => $this->getModified(),
+            'completed' => $this->getCompleted(),
+            'status' => $this->getStatus(),
+            'reason' => $this->getReason(),
+            'currency' => $this->getCurrency(),
+            'amount' => $this->getAmount(),
+            'expiration_period' => $this->getExpirationPeriod(),
+            'description' => $this->getDescription(),
+            'balance' => $this->getBalance(),
+            'payment_url' => $this->getPaymentUrl()
         ];
+    }
+    
+    /**
+     * @return TransactionStatus|null
+     */
+    public function getStatus()
+    {
+        return ($this->status() !== null) ? $this->status()->toString() : null;
+    }
+
+    /**
+     * @return Reason|null
+     */
+    public function getReason()
+    {
+        return ($this->reason() !== null) ? $this->reason()->toString() : null;
+    }
+
+    /**
+     * @return Url|null
+     */
+    public function getPaymentUrl()
+    {
+        return ($this->paymentUrl() !== null) ? $this->paymentUrl()->toString() : null;
+    }
+
+    /**
+     * @return PaymentMethodDetails
+     */
+    public function getPaymentMethodDetails()
+    {
+        return $this->paymentMethodDetails()->toArray();
+    }
+
+    /**
+     * @return PaymentMethod
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod()->toString();
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getModified()
+    {
+        return ($this->modified() !== null) ? $this->modified()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|Uuid
+     */
+    public function getId()
+    {
+        return ($this->id() !== null) ? $this->id()->toString() : null;
+    }
+
+    /**
+     * @return \DateInterval|null
+     */
+    public function getExpirationPeriod()
+    {
+        return ($this->expirationPeriod() !== null)
+            ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+            : null;
+    }
+
+    /**
+     * @return TransactionDescription|null
+     */
+    public function getDescription()
+    {
+        return ($this->description() !== null) ? $this->description()->toString() : null;
+    }
+
+    /**
+     * @return TransactionAmount|null
+     */
+    public function getAmount()
+    {
+        return ($this->amount() !== null) ? $this->amount()->toInteger() : null;
+    }
+
+    /**
+     * @return Balance|null
+     */
+    public function getBalance()
+    {
+        return ($this->balance() !== null) ? $this->balance()->toString() : null;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getCompleted()
+    {
+        return  ($this->completed() !== null) ? $this->completed()->toIso8601String() : null;
+    }
+
+    /**
+     * @return Carbon|null
+     */
+    public function getCreated()
+    {
+        return ($this->created() !== null) ? $this->created()->toIso8601String() : null;
+    }
+
+    /**
+     * @return Currency|null
+     */
+    public function getCurrency()
+    {
+        return ($this->currency() !== null) ? $this->currency()->toString() : null;
     }
 
     /**
