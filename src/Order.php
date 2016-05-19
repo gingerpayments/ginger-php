@@ -191,6 +191,7 @@ final class Order
             $customer
         );
     }
+
     /**
      * Create a new Order with the SOFORT payment method.
      *
@@ -291,21 +292,121 @@ final class Order
             Transactions::fromArray($order['transactions']),
             Amount::fromInteger($order['amount']),
             Currency::fromString($order['currency']),
-            array_key_exists('description', $order) ? Description::fromString($order['description']) : null,
-            array_key_exists('merchant_order_id', $order)
-                ? MerchantOrderId::fromString($order['merchant_order_id'])
-                : null,
-            array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null,
-            array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null,
-            array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null,
-            array_key_exists('project_id', $order) ? Uuid::fromString($order['project_id']) : null,
-            array_key_exists('created', $order) ? new Carbon($order['created']) : null,
-            array_key_exists('modified', $order) ? new Carbon($order['modified']) : null,
-            array_key_exists('completed', $order) ? new Carbon($order['completed']) : null,
-            array_key_exists('status', $order) ? Status::fromString($order['status']) : null,
-            array_key_exists('customer', $order) && $order['customer'] !== null
-                ? Customer::fromArray($order['customer']) : null
+            static::createDescription($order),
+            static::createMerchantOrderId($order),
+            static::createReturnUrl($order),
+            static::createExpirationPeriod($order),
+            static::createId($order),
+            static::createProjectId($order),
+            static::createCompletedDate($order),
+            static::createModifiedDate($order),
+            static::createCompletedDate($order),
+            static::createStatus($order),
+            static::createCustomer($order)
         );
+    }
+
+    /**
+     * @param array $order
+     * @return null|Customer
+     */
+    public static function createCustomer(array $order)
+    {
+        return (array_key_exists('customer', $order) && $order['customer'] !== null)
+            ? Customer::fromArray($order['customer'])
+            : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Carbon
+     */
+    public static function createStatus(array $order)
+    {
+        return array_key_exists('status', $order) ? Status::fromString($order['status']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Carbon
+     */
+    public static function createCompletedDate(array $order)
+    {
+        return array_key_exists('completed', $order) ? new Carbon($order['completed']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Carbon
+     */
+    public static function createModifiedDate(array $order)
+    {
+        return array_key_exists('modified', $order) ? new Carbon($order['modified']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Carbon
+     */
+    public static function createCreatedDate(array $order)
+    {
+        return array_key_exists('created', $order) ? new Carbon($order['created']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Uuid
+     */
+    public static function createProjectId(array $order)
+    {
+        return array_key_exists('project_id', $order) ? Uuid::fromString($order['project_id']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Uuid
+     */
+    public static function createId(array $order)
+    {
+        return array_key_exists('id', $order) ? Uuid::fromString($order['id']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|\DateInterval
+     */
+    public static function createExpirationPeriod(array $order)
+    {
+        return array_key_exists('expiration_period', $order) ? new \DateInterval($order['expiration_period']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Url
+     */
+    public static function createReturnUrl(array $order)
+    {
+        return array_key_exists('return_url', $order) ? Url::fromString($order['return_url']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|Description
+     */
+    public static function createDescription(array $order)
+    {
+        return array_key_exists('description', $order) ? Description::fromString($order['description']) : null;
+    }
+
+    /**
+     * @param array $order
+     * @return null|MerchantOrderId
+     */
+    public static function createMerchantOrderId(array $order)
+    {
+        return array_key_exists('merchant_order_id', $order)
+            ? MerchantOrderId::fromString($order['merchant_order_id'])
+            : null;
     }
 
     /**
@@ -314,25 +415,137 @@ final class Order
     public function toArray()
     {
         return [
-            'currency' => $this->currency()->toString(),
-            'amount' => $this->amount()->toInteger(),
-            'transactions' => $this->transactions()->toArray(),
-            'id' => ($this->id() !== null) ? $this->id()->toString() : null,
-            'project_id' => ($this->projectId() !== null) ? $this->projectId()->toString() : null,
-            'created' => ($this->created() !== null) ? $this->created()->toIso8601String() : null,
-            'modified' => ($this->modified() !== null) ? $this->modified()->toIso8601String() : null,
-            'completed' => ($this->completed() !== null) ? $this->completed()->toIso8601String() : null,
-            'expiration_period' => ($this->expirationPeriod() !== null)
-                ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
-                : null,
-            'merchant_order_id' => ($this->merchantOrderId() !== null)
-                ? $this->merchantOrderId()->toString()
-                : null,
-            'status' => ($this->status() !== null) ? $this->status()->toString() : null,
-            'description' => ($this->description() !== null) ? $this->description()->toString() : null,
-            'return_url' => ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null,
-            'customer' => ($this->customer() !== null) ? $this->customer()->toArray() : null
+            'id' => $this->getId(),
+            'currency' => $this->getCurrency(),
+            'amount' => $this->getAmount(),
+            'transactions' => $this->getTransactions(),
+            'project_id' => $this->getProjectId(),
+            'created' => $this->getCreated(),
+            'modified' => $this->getModified(),
+            'completed' => $this->getCompleted(),
+            'status' => $this->getStatus(),
+            'description' => $this->getDescription(),
+            'return_url' => $this->getReturnUrl(),
+            'customer' => $this->getCustomer(),
+            'expiration_period' => $this->getExpirationPeriod(),
+            'merchant_order_id' => $this->getMerchantOrderId(),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransactions()
+    {
+        return $this->transactions()->toArray();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency()->toString();
+    }
+
+    /**
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->amount()->toInteger();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getId()
+    {
+        return ($this->id() !== null) ? $this->id()->toString() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getProjectId()
+    {
+        return ($this->projectId() !== null) ? $this->projectId()->toString() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCreated()
+    {
+        return ($this->created() !== null) ? $this->created()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getModified()
+    {
+        return ($this->modified() !== null) ? $this->modified()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCompleted()
+    {
+        return ($this->completed() !== null) ? $this->completed()->toIso8601String() : null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getExpirationPeriod()
+    {
+        return ($this->expirationPeriod() !== null)
+            ? $this->expirationPeriod()->format('P%yY%mM%dDT%hH%iM%sS')
+            : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return ($this->description() !== null) ? $this->description()->toString() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus()
+    {
+        return ($this->status() !== null) ? $this->status()->toString() : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMerchantOrderId()
+    {
+        return ($this->merchantOrderId() !== null)
+            ? $this->merchantOrderId()->toString()
+            : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReturnUrl()
+    {
+        return ($this->returnUrl() !== null) ? $this->returnUrl()->toString() : null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCustomer()
+    {
+        return ($this->customer() !== null) ? $this->customer()->toArray() : null;
     }
 
     /**
