@@ -15,6 +15,7 @@ final class PaymentMethod
     const CREDIT_CARD = 'credit-card';
     const BANK_TRANSFER = 'sepa-debit-transfer';
     const SOFORT = 'sofort';
+    const BANCONTACT = 'bancontact';
 
     /**
      * @return array
@@ -25,7 +26,8 @@ final class PaymentMethod
             self::IDEAL,
             self::CREDIT_CARD,
             self::BANK_TRANSFER,
-            self::SOFORT
+            self::SOFORT,
+            self::BANCONTACT
         ];
     }
 
@@ -59,5 +61,13 @@ final class PaymentMethod
     public function isSofort()
     {
         return $this->value === self::SOFORT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBancontact()
+    {
+        return $this->value === self::BANCONTACT;
     }
 }

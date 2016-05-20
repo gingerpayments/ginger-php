@@ -191,6 +191,7 @@ final class Order
             $customer
         );
     }
+
     /**
      * Create a new Order with the SOFORT payment method.
      *
@@ -219,6 +220,40 @@ final class Order
             $currency,
             PaymentMethod::SOFORT,
             $paymentMethodDetails,
+            $description,
+            $merchantOrderId,
+            $returnUrl,
+            $expirationPeriod,
+            $customer
+        );
+    }
+
+    /**
+     * Create a new Order with the Bancontact payment method.
+     *
+     * @param integer $amount Amount in cents.
+     * @param string $currency A valid currency code.
+     * @param string $description A description of the order.
+     * @param string $merchantOrderId A merchant-defined order identifier.
+     * @param string $returnUrl The return URL.
+     * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
+     * @param array $customer Customer information.
+     * @return Order
+     */
+    public static function createWithBancontact(
+        $amount,
+        $currency,
+        $description = null,
+        $merchantOrderId = null,
+        $returnUrl = null,
+        $expirationPeriod = null,
+        $customer = null
+    ) {
+        return static::create(
+            $amount,
+            $currency,
+            PaymentMethod::BANCONTACT,
+            [],
             $description,
             $merchantOrderId,
             $returnUrl,

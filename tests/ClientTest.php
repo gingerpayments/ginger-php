@@ -283,6 +283,56 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldCreateBancontactOrder()
+    {
+        $order = Order::create(
+            1234,
+            'EUR',
+            'bancontact',
+            [],
+            'Bancontact order description',
+            'my-order-id',
+            'http://www.example.com',
+            'PT10M'
+        );
+
+        $this->httpClient->shouldReceive('post')
+            ->once()
+            ->with(
+                'orders/',
+                m::on(
+                    function (array $options) use ($order) {
+                        $this->assertEquals('application/json', $options['headers']['Content-Type']);
+                        $this->assertEquals(
+                            ArrayFunctions::withoutNullValues($order->toArray()),
+                            json_decode($options['body'], true)
+                        );
+                        return true;
+                    }
+                )
+            )
+            ->andReturn($this->httpResponse);
+
+        $this->httpResponse->shouldReceive('json')
+            ->once()
+            ->andReturn(ArrayFunctions::withoutNullValues($order->toArray()));
+
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order',
+            $this->client->createBancontactOrder(
+                1234,
+                'EUR',
+                'Bancontact order description',
+                'my-order-id',
+                'http://www.example.com',
+                'PT10M'
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
     public function itShouldUpdateOrder()
     {
         $orderData = [
