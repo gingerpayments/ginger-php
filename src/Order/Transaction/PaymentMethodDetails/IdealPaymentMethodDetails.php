@@ -6,7 +6,6 @@ use Assert\Assertion as Guard;
 use GingerPayments\Payment\Iban;
 use GingerPayments\Payment\SwiftBic;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
-use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\ConsumerName;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\ConsumerCity;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\Status;
 use GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\IdealPaymentMethodDetails\TransactionId;

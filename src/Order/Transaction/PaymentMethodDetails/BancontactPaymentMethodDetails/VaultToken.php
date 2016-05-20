@@ -1,10 +1,10 @@
 <?php
 
-namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails;
+namespace GingerPayments\Payment\Order\Transaction\PaymentMethodDetails\BancontactPaymentMethodDetails;
 
 use GingerPayments\Payment\Common\StringBasedValueObject;
 
-final class ConsumerName
+final class VaultToken
 {
     use StringBasedValueObject;
 

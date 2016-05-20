@@ -24,6 +24,10 @@ final class PaymentMethodDetailsFactory
             return SofortPaymentMethodDetails::fromArray($paymentMethodDetails);
         }
 
+        if ($paymentMethod->isBancontact()) {
+            return BancontactPaymentMethodDetails::fromArray($paymentMethodDetails);
+        }
+
         throw new \InvalidArgumentException('Provided payment method not supported.');
     }
 }
