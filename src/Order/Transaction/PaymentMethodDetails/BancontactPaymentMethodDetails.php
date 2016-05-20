@@ -10,17 +10,17 @@ use Carbon\Carbon;
 final class BancontactPaymentMethodDetails implements PaymentMethodDetails
 {
     /**
-     * @var TransactionId|null
+     * @var Carbon|null
      */
     private $datetimeLocal;
 
     /**
-     * @var Iban|null
+     * @var SetupToken|null
      */
     private $setupToken;
 
     /**
-     * @var SwiftBic|null
+     * @var VaultToken|null
      */
     private $vaultToken;
 
