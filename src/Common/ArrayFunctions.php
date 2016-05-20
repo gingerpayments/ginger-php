@@ -12,21 +12,18 @@ final class ArrayFunctions
      */
     public static function withoutNullValues(array $array)
     {
-        $result = [];
+        static $fn = __FUNCTION__;
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                if (count($value) > 0) {
-                    $result[$key] = ArrayFunctions::withoutNullValues($value);
-                }
-                continue;
+                $array[$key] = self::$fn($array[$key]);
             }
 
-            if ($value !== null) {
-                $result[$key] = $value;
+            if (empty($array[$key])) {
+                unset($array[$key]);
             }
         }
 
-        return $result;
+        return $array;
     }
 }
