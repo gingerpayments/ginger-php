@@ -120,6 +120,19 @@ $order = $client->createSofortOrder(
 );
 ```
 
+Or the `createBancontactOrder` method if you need to create a Bancontact order:
+
+```php
+$order = $client->createBancontactOrder(
+    2500,                           // The amount in cents
+    'EUR',                          // The currency
+    'Bancontact order',             // A description (optional)
+    'order-234192',                 // Your identifier for the order (optional)
+    'http://www.example.com',       // The return URL (optional)
+    'PT15M'                         // The expiration period in ISO 8601 format (optional)
+);
+```
+
 Once you've created your order, a transaction is created and associated with it. You will need to redirect the user to
 the transaction's payment URL, which you can retrieve as follows:
 
