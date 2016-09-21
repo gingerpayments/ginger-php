@@ -34,6 +34,5 @@ final class GingerTest extends \PHPUnit_Framework_TestCase
             ['my-api-key', ''],
             $httpClient->getDefaultOption('auth')
         );
-
     }
 }
