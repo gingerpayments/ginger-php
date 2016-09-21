@@ -9,6 +9,6 @@ final class FallbackTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldGetValidModulus()
     {
-        $this->assertEquals(bcmod("7044060001970316212900", 150), "50");
+        $this->assertEquals(my_bcmod("7044060001970316212900", 150), "50");
     }
 }
