@@ -3,7 +3,7 @@
 /**
  * Declare bcmod function in case when BCMath extension is not installed
  */
-if (!function_exists('my_bcmod')) {
+if (!function_exists('bcmod')) {
     /**
      * http://php.net/manual/en/function.bcmod.php
      *
