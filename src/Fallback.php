@@ -11,7 +11,7 @@ if (!function_exists('bcmod')) {
      * @param int  $y
      * @return string modulus
      */
-    function my_bcmod($x, $y)
+    function bcmod($x, $y)
     {
         $take = 5;
         $mod = '';
