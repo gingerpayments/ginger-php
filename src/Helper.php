@@ -3,7 +3,7 @@
 /**
  * Declare bcmod function in case when BCMath extension is not installed
  */
-if (!function_exists('bcmod')) {
+if (!function_exists('my_bcmod')) {
     /**
      * http://php.net/manual/en/function.bcmod.php
      *
@@ -11,7 +11,7 @@ if (!function_exists('bcmod')) {
      * @param int  $y
      * @return string modulus
      */
-    function bcmod($x, $y)
+    function my_bcmod($x, $y)
     {
         $take = 5;
         $mod = '';

@@ -1,5 +1,7 @@
 <?php
 
+namespace GingerPayments\Payment\Tests;
+
 final class HelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
