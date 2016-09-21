@@ -28,7 +28,7 @@
         "squizlabs/php_codesniffer": "~2.2"
     },
     "autoload": {
-        "files": ["src/Helper.php"],
+        "files": ["src/Fallback.php"],
         "psr-4": {
             "GingerPayments\\Payment\\": "src"
         }
