@@ -60,13 +60,10 @@ final class Ginger
     public static function apiKeyToUuid($apiKey)
     {
         return substr_replace(
-            substr_replace(
-                substr_replace(
-                    substr_replace($apiKey,
-                        '-', 8, 0),
-                    '-', 13, 0),
-                '-', 18, 0),
-            '-', 23, 0
+            substr_replace(substr_replace(substr_replace($apiKey, '-', 8, 0), '-', 13, 0), '-', 18, 0),
+            '-',
+            23,
+            0
         );
     }
 }
