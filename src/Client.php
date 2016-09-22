@@ -25,6 +25,20 @@ final class Client
     }
 
     /**
+     * Set httpClient default SSL validation using cURL CA bundle.
+     * http://curl.haxx.se/docs/caextract.html
+     *
+     * @return void
+     */
+    public function useBundledCA()
+    {
+        $this->httpClient->setDefaultOption(
+            'verify',
+            '../assets/cacert.pem'
+        );
+    }
+
+    /**
      * Get possible iDEAL issuers.
      *
      * @return Issuers
