@@ -3,6 +3,7 @@
 namespace GingerPayments\Payment;
 
 use GuzzleHttp\Client as HttpClient;
+use Assert\Assertion as Guard;
 
 final class Ginger
 {
@@ -29,6 +30,11 @@ final class Ginger
      */
     public static function createClient($apiKey)
     {
+        Guard::uuid(
+            static::apiKeyToUuid($apiKey),
+            'Ginger API key is invalid: '.$apiKey
+        );
+
         return new Client(
             new HttpClient(
                 [
@@ -42,6 +48,25 @@ final class Ginger
                     ]
                 ]
             )
+        );
+    }
+
+    /**
+     * Method restores dashes in Ginger API key in order to validate UUID.
+     *
+     * @param string $apiKey
+     * @return string UUID
+     */
+    public static function apiKeyToUuid($apiKey)
+    {
+        return substr_replace(
+            substr_replace(
+                substr_replace(
+                    substr_replace($apiKey,
+                        '-', 8, 0),
+                    '-', 13, 0),
+                '-', 18, 0),
+            '-', 23, 0
         );
     }
 }

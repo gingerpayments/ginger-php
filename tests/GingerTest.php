@@ -15,7 +15,7 @@ final class GingerTest extends \PHPUnit_Framework_TestCase
         $reflectionProperty = $reflectionClass->getProperty('httpClient');
         $reflectionProperty->setAccessible(true);
 
-        $client = Ginger::createClient('my-api-key');
+        $client = Ginger::createClient('f47ac10b58cc4372a5670e02b2c3d479');
 
         /** @var \GuzzleHttp\Client $httpClient */
         $httpClient = $reflectionProperty->getValue($client);
@@ -31,8 +31,28 @@ final class GingerTest extends \PHPUnit_Framework_TestCase
             $httpClient->getDefaultOption('headers')
         );
         $this->assertEquals(
-            ['my-api-key', ''],
+            ['f47ac10b58cc4372a5670e02b2c3d479', ''],
             $httpClient->getDefaultOption('auth')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldFailWithIncorrectAPIkey()
+    {
+        $this->setExpectedException('Assert\InvalidArgumentException');
+        Ginger::createClient('my-api-key');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldCreateAValidUUD()
+    {
+        $this->assertEquals(
+            Ginger::apiKeyToUuid('f47ac10b58cc4372a5670e02b2c3d479'),
+            'f47ac10b-58cc-4372-a567-0e02b2c3d479'
         );
     }
 }
