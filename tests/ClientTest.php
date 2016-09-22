@@ -35,6 +35,19 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldVerifySSLUsingBundledCA()
+    {
+        $this->httpClient->shouldReceive('setDefaultOption')
+            ->once()
+            ->with('verify', '../assets/cacert.pem')
+            ->andReturn(null);
+
+        $this->client->useBundledCA();
+    }
+
+    /**
+     * @test
+     */
     public function itShouldGetIdealIssuers()
     {
         $this->httpClient->shouldReceive('get')
