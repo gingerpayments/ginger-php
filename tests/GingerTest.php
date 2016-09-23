@@ -48,7 +48,7 @@ final class GingerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldCreateAValidUUID()
+    public function itShouldCreateAValidUuid()
     {
         $this->assertEquals(
             Ginger::apiKeyToUuid('f47ac10b58cc4372a5670e02b2c3d479'),
