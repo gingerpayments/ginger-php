@@ -306,7 +306,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
-            'customer' => $customer
+            'customer' => $customer,
+            'extra' => null
         ];
 
         $this->assertEquals(
@@ -367,7 +368,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
-            'customer' => $customer
+            'customer' => $customer,
+            'extra' => null
         ];
 
         $updatedOrder = [
@@ -384,7 +386,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'modified' => '2015-03-07T20:58:35+0100',
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
-            'customer' => $customer
+            'customer' => $customer,
+            'extra' => null
         ];
 
 
