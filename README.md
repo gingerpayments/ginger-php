@@ -38,6 +38,12 @@ spl_autoload_register(function($class) {
 });
 ```
 
+Or you could just include the composer generated autoloader:
+
+```php
+include_ondce 'ginger-php/vendor/autoload.php';
+```
+
 ## Getting started
 
 First create a new API client with your API key:
@@ -46,6 +52,12 @@ First create a new API client with your API key:
 use \GingerPayments\Payment\Ginger;
 
 $client = Ginger::createClient('your-api-key');
+```
+
+If your PHP.ini *curl.cainfo* is not set and you get the **cURL: code 60 error** then use `useBundledCA` flag:
+
+```php
+$client->useBundledCA();
 ```
 
 ### Create a new order
