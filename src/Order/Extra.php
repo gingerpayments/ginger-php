@@ -2,14 +2,12 @@
 
 namespace GingerPayments\Payment\Order;
 
-use GingerPayments\Payment\Order\Extra\Plugin;
-
 final class Extra
 {
     /**
-     * @var Plugin|null
+     * @var array|null
      */
-    private $plugin;
+    private $extra;
 
     /**
      * @param array $details
@@ -17,9 +15,7 @@ final class Extra
      */
     public static function fromArray(array $details)
     {
-        return new static(
-            array_key_exists('plugin', $details) ? Plugin::fromString($details['plugin']) : null
-        );
+        return new static($details);
     }
 
     /**
@@ -27,24 +23,22 @@ final class Extra
      */
     public function toArray()
     {
-        return [
-            'plugin' => ($this->plugin() !== null) ? $this->plugin()->toString() : null
-        ];
+        return $this->extra();
     }
 
     /**
-     * @return Plugin|null
+     * @return array|null
      */
-    public function plugin()
+    public function extra()
     {
-        return $this->plugin;
+        return $this->extra;
     }
 
     /**
-     * @param Plugin $plugin
+     * @param array $extra
      */
-    private function __construct(Plugin $plugin = null)
+    private function __construct(array $extra = null)
     {
-        $this->plugin = $plugin;
+        $this->extra = $extra;
     }
 }

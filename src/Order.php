@@ -88,6 +88,8 @@ final class Order
     private $customer;
 
     /**
+     * Used for adding extra information to the order.
+     *
      * @var Extra|null
      */
     private $extra;

@@ -13,6 +13,8 @@ final class ExtraTest extends \PHPUnit_Framework_TestCase
     {
         $array = [
             'plugin' => 'Ginger WooCommerce v1.2',
+            'other_info' => [],
+            'dummy'
         ];
 
         $extra = Extra::fromArray($array);
@@ -22,12 +24,11 @@ final class ExtraTest extends \PHPUnit_Framework_TestCase
             $extra
         );
 
-        $this->assertEquals($array['plugin'], (string)$extra->plugin());
+        $this->assertEquals($array, $extra->extra());
 
         $this->assertEquals(
             $array,
             Extra::fromArray($array)->toArray()
         );
     }
-
 }
