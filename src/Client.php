@@ -69,6 +69,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -80,7 +81,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::createWithIdeal(
@@ -91,7 +93,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }
@@ -107,6 +110,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -118,7 +122,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::createWithSepa(
@@ -129,7 +134,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }
@@ -145,6 +151,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -156,7 +163,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::createWithSofort(
@@ -167,7 +175,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }
@@ -182,6 +191,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -192,7 +202,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::createWithCreditCard(
@@ -202,7 +213,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }
@@ -217,6 +229,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -227,7 +240,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::createWithBancontact(
@@ -237,7 +251,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }
@@ -254,6 +269,7 @@ final class Client
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order The newly created order.
      */
@@ -266,7 +282,8 @@ final class Client
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return $this->postOrder(
             Order::create(
@@ -278,7 +295,8 @@ final class Client
                 $merchantOrderId,
                 $returnUrl,
                 $expirationPeriod,
-                $customer
+                $customer,
+                $extra
             )
         );
     }

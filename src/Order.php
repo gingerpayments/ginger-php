@@ -11,6 +11,8 @@ use GingerPayments\Payment\Order\Status;
 use GingerPayments\Payment\Order\Transaction\PaymentMethod;
 use GingerPayments\Payment\Order\Transactions;
 use GingerPayments\Payment\Order\Customer;
+use GingerPayments\Payment\Order\Extra;
+
 use Rhumsaa\Uuid\Uuid;
 
 final class Order
@@ -86,6 +88,13 @@ final class Order
     private $customer;
 
     /**
+     * Used for adding extra information to the order.
+     *
+     * @var Extra|null
+     */
+    private $extra;
+
+    /**
      * Create a new Order with the iDEAL payment method.
      *
      * @param integer $amount Amount in cents.
@@ -96,6 +105,7 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
      *
      * @return Order
      */
@@ -107,7 +117,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return static::create(
             $amount,
@@ -118,7 +129,8 @@ final class Order
             $merchantOrderId,
             $returnUrl,
             $expirationPeriod,
-            $customer
+            $customer,
+            $extra
         );
     }
 
@@ -274,6 +286,8 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
+     *
      * @return Order
      */
     public static function create(
@@ -285,7 +299,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return new static(
             Transactions::fromArray(
@@ -308,7 +323,8 @@ final class Order
             null,
             null,
             null,
-            ($customer !== null) ? Customer::fromArray($customer) : null
+            ($customer !== null) ? Customer::fromArray($customer) : null,
+            ($extra !== null) ? Extra::fromArray($extra) : null
         );
     }
 
@@ -339,7 +355,9 @@ final class Order
             array_key_exists('completed', $order) ? new Carbon($order['completed']) : null,
             array_key_exists('status', $order) ? Status::fromString($order['status']) : null,
             array_key_exists('customer', $order) && $order['customer'] !== null
-                ? Customer::fromArray($order['customer']) : null
+                ? Customer::fromArray($order['customer']) : null,
+            array_key_exists('extra', $order) && $order['extra'] !== null
+                ? Extra::fromArray($order['extra']) : null
         );
     }
 
@@ -362,7 +380,8 @@ final class Order
             'status' => $this->getStatus(),
             'description' => $this->getDescription(),
             'return_url' => $this->getReturnUrl(),
-            'customer' => $this->getCustomer()
+            'customer' => $this->getCustomer(),
+            'extra' => $this->getExtra()
         ];
     }
 
@@ -480,6 +499,22 @@ final class Order
     public function getCustomer()
     {
         return ($this->customer() !== null) ? $this->customer()->toArray() : null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getExtra()
+    {
+        return ($this->extra() !== null) ? $this->extra()->toArray() : null;
+    }
+
+    /**
+     * @return Extra|null
+     */
+    public function extra()
+    {
+        return $this->extra;
     }
 
     /**
@@ -648,6 +683,7 @@ final class Order
      * @param Carbon $completed
      * @param Status $status
      * @param Customer $customer
+     * @param Extra $extra
      */
     private function __construct(
         Transactions $transactions,
@@ -663,7 +699,8 @@ final class Order
         Carbon $modified = null,
         Carbon $completed = null,
         Status $status = null,
-        Customer $customer = null
+        Customer $customer = null,
+        Extra $extra = null
     ) {
         $this->transactions = $transactions;
         $this->amount = $amount;
@@ -679,5 +716,6 @@ final class Order
         $this->completed = $completed;
         $this->status = $status;
         $this->customer = $customer;
+        $this->extra = $extra;
     }
 }
