@@ -41,7 +41,7 @@ spl_autoload_register(function($class) {
 Or you could just include the composer generated autoloader:
 
 ```php
-include_ondce 'ginger-php/vendor/autoload.php';
+include_once 'ginger-php/vendor/autoload.php';
 ```
 
 ## Getting started
