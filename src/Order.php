@@ -144,6 +144,8 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
+     *
      * @return Order
      */
     public static function createWithCreditCard(
@@ -153,7 +155,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return static::create(
             $amount,
@@ -164,7 +167,8 @@ final class Order
             $merchantOrderId,
             $returnUrl,
             $expirationPeriod,
-            $customer
+            $customer,
+            $extra
         );
     }
 
@@ -179,6 +183,8 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information
+     * @param array $extra Extra information.
+     *
      * @return Order
      */
     public static function createWithSepa(
@@ -189,7 +195,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return static::create(
             $amount,
@@ -200,7 +207,8 @@ final class Order
             $merchantOrderId,
             $returnUrl,
             $expirationPeriod,
-            $customer
+            $customer,
+            $extra
         );
     }
 
@@ -215,6 +223,8 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
+     *
      * @return Order
      */
     public static function createWithSofort(
@@ -225,7 +235,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return static::create(
             $amount,
@@ -236,7 +247,8 @@ final class Order
             $merchantOrderId,
             $returnUrl,
             $expirationPeriod,
-            $customer
+            $customer,
+            $extra
         );
     }
 
@@ -250,6 +262,8 @@ final class Order
      * @param string $returnUrl The return URL.
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information.
+     * @param array $extra Extra information.
+     *
      * @return Order
      */
     public static function createWithBancontact(
@@ -259,7 +273,8 @@ final class Order
         $merchantOrderId = null,
         $returnUrl = null,
         $expirationPeriod = null,
-        $customer = null
+        $customer = null,
+        $extra = null
     ) {
         return static::create(
             $amount,
@@ -270,7 +285,8 @@ final class Order
             $merchantOrderId,
             $returnUrl,
             $expirationPeriod,
-            $customer
+            $customer,
+            $extra
         );
     }
 
