@@ -39,7 +39,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->httpClient->shouldReceive('setDefaultOption')
             ->once()
-            ->with('verify', '../assets/cacert.pem')
+            ->with('verify', realpath(dirname(__FILE__).'/../assets/cacert.pem'))
             ->andReturn(null);
 
         $this->client->useBundledCA();

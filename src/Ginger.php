@@ -10,7 +10,7 @@ final class Ginger
     /**
      * The library version.
      */
-    const CLIENT_VERSION = '1.2.0';
+    const CLIENT_VERSION = '1.2.1';
 
     /**
      * The API version.
