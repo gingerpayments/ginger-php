@@ -34,7 +34,7 @@ final class Client
     {
         $this->httpClient->setDefaultOption(
             'verify',
-            '../assets/cacert.pem'
+            realpath(dirname(__FILE__).'/../assets/cacert.pem')
         );
     }
 
