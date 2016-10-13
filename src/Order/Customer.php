@@ -227,8 +227,7 @@ final class Customer
         Country $country = null,
         PhoneNumbers $phoneNumbers = null,
         Locale $locale = null
-    )
-    {
+    ) {
         $this->merchantCustomerId = $merchantCustomerId;
         $this->emailAddress = $emailAddress;
         $this->firstName = $firstName;
