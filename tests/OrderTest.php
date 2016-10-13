@@ -289,7 +289,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'merchant_customer_id' => "2",
             'phone_numbers' => ["0123456789"],
             'postal_code' => null,
-            'housenumber' => null
+            'housenumber' => null,
+            'locale' => null
         ];
 
         $array = [
@@ -351,7 +352,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'merchant_customer_id' => "2",
             'phone_numbers' => ["0123456789"],
             'postal_code' => "1043 NX",
-            'housenumber' => "29"
+            'housenumber' => "29",
+            'locale' => "en_US"
         ];
 
         $array = [

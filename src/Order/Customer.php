@@ -12,6 +12,7 @@ use GingerPayments\Payment\Order\Customer\PostalCode;
 use GingerPayments\Payment\Order\Customer\Housenumber;
 use GingerPayments\Payment\Order\Customer\Country;
 use GingerPayments\Payment\Order\Customer\PhoneNumbers;
+use GingerPayments\Payment\Order\Customer\Locale;
 
 final class Customer
 {
@@ -66,6 +67,11 @@ final class Customer
     private $phoneNumbers;
 
     /**
+     * @var Locale|null
+     */
+    private $locale;
+
+    /**
      * @param array $details
      * @return Customer
      */
@@ -82,7 +88,8 @@ final class Customer
             array_key_exists('postal_code', $details) ? PostalCode::fromString($details['postal_code']) : null,
             array_key_exists('housenumber', $details) ? Housenumber::fromString($details['housenumber']) : null,
             array_key_exists('country', $details) ? Country::fromString($details['country']) : null,
-            array_key_exists('phone_numbers', $details) ? PhoneNumbers::fromArray($details['phone_numbers']) : null
+            array_key_exists('phone_numbers', $details) ? PhoneNumbers::fromArray($details['phone_numbers']) : null,
+            array_key_exists('locale', $details) ? Locale::fromString($details['locale']) : null
         );
     }
 
@@ -102,7 +109,8 @@ final class Customer
             'postal_code' => ($this->postalCode() !== null) ? $this->postalCode()->toString() : null,
             'housenumber' => ($this->housenumber() !== null) ? $this->housenumber()->toString() : null,
             'country' => ($this->country() !== null) ? $this->country()->toString() : null,
-            'phone_numbers' => ($this->phoneNumbers() !== null) ? $this->phoneNumbers()->toArray() : []
+            'phone_numbers' => ($this->phoneNumbers() !== null) ? $this->phoneNumbers()->toArray() : [],
+            'locale' => ($this->locale() !== null) ? $this->locale()->toString() : null
         ];
     }
 
@@ -187,6 +195,14 @@ final class Customer
     }
 
     /**
+     * @return Locale|null
+     */
+    public function locale()
+    {
+        return $this->locale;
+    }
+
+    /**
      * @param MerchantCustomerId $merchantCustomerId
      * @param EmailAddress $emailAddress
      * @param FirstName $firstName
@@ -197,6 +213,7 @@ final class Customer
      * @param Housenumber $housenumber
      * @param Country $country
      * @param PhoneNumbers $phoneNumbers
+     * @param Locale $locale
      */
     private function __construct(
         MerchantCustomerId $merchantCustomerId = null,
@@ -208,8 +225,10 @@ final class Customer
         PostalCode $postalCode = null,
         Housenumber $housenumber = null,
         Country $country = null,
-        PhoneNumbers $phoneNumbers = null
-    ) {
+        PhoneNumbers $phoneNumbers = null,
+        Locale $locale = null
+    )
+    {
         $this->merchantCustomerId = $merchantCustomerId;
         $this->emailAddress = $emailAddress;
         $this->firstName = $firstName;
@@ -220,5 +239,6 @@ final class Customer
         $this->housenumber = $housenumber;
         $this->country = $country;
         $this->phoneNumbers = $phoneNumbers;
+        $this->locale = $locale;
     }
 }
