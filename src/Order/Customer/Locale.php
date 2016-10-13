@@ -15,7 +15,7 @@ final class Locale
     private function __construct($value)
     {
         if (!empty($value)) {
-            Guard::regex($value, '/^[a-zA-Z]{2}(_[a-zA-Z]{2})?$/', "Locale : ".$value);
+            Guard::regex($value, '/^[a-zA-Z]{2}(_[a-zA-Z]{2})?$/', "Locale is invalid: ".$value);
         }
 
         $this->value = $value;
