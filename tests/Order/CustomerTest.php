@@ -21,7 +21,8 @@ final class CustomerTest extends \PHPUnit_Framework_TestCase
             'postal_code' => '1043 NX',
             'housenumber' => '29 A-12',
             'country' => 'NL',
-            'phone_numbers' => []
+            'phone_numbers' => [],
+            'locale' => null
         ];
 
         $customer = Customer::fromArray($array);
@@ -58,7 +59,8 @@ final class CustomerTest extends \PHPUnit_Framework_TestCase
             'postal_code' => '1043 NX',
             'housenumber' => '29 A-12',
             'country' => 'NL',
-            'phone_numbers' => []
+            'phone_numbers' => [],
+            'locale' => null
         ];
 
         $this->assertEquals(
