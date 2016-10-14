@@ -31,7 +31,10 @@ final class LocaleTest extends \PHPUnit_Framework_TestCase
     public function itShouldFailOnIncorrectLocale()
     {
         $this->setExpectedException('Assert\InvalidArgumentException');
-        Locale::fromString('en_US');
+        Locale::fromString('en');
+
+        $this->setExpectedException('Assert\InvalidArgumentException');
+        Locale::fromString('en_us');
 
         $this->setExpectedException('Assert\InvalidArgumentException');
         Locale::fromString('eng_US');
