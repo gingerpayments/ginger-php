@@ -15,6 +15,11 @@ final class LocaleTest extends \PHPUnit_Framework_TestCase
             'GingerPayments\Payment\Order\Customer\Locale',
             Locale::fromString('en_US')
         );
+
+        $this->assertInstanceOf(
+            'GingerPayments\Payment\Order\Customer\Locale',
+            Locale::fromString('en')
+        );
     }
 
     /**
@@ -30,9 +35,6 @@ final class LocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldFailOnIncorrectLocale()
     {
-        $this->setExpectedException('Assert\InvalidArgumentException');
-        Locale::fromString('en');
-
         $this->setExpectedException('Assert\InvalidArgumentException');
         Locale::fromString('en_us');
 
