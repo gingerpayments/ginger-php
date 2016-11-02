@@ -308,7 +308,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
             'customer' => $customer,
-            'extra' => null
+            'extra' => null,
+            'webhook_url' => 'http://www.example.com'
         ];
 
         $this->assertEquals(
@@ -371,7 +372,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
             'customer' => $customer,
-            'extra' => null
+            'extra' => null,
+            'webhook_url' => 'http://www.example.com'
         ];
 
         $updatedOrder = [
@@ -389,7 +391,8 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
             'completed' => '2015-03-07T20:58:35+0100',
             'status' => 'new',
             'customer' => $customer,
-            'extra' => null
+            'extra' => null,
+            'webhook_url' => 'http://www.example.com/WEBHOOK'
         ];
 
 
@@ -435,6 +438,11 @@ final class OrderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $order->returnUrl("http://www.example.com/API")->toString(),
             "http://www.example.com/API"
+        );
+
+        $this->assertEquals(
+            $order->webhookUrl("http://www.example.com/WEBHOOK")->toString(),
+            "http://www.example.com/WEBHOOK"
         );
 
         $this->assertEquals(
