@@ -82,7 +82,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::createWithIdeal(
@@ -94,7 +95,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }
@@ -123,7 +125,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::createWithSepa(
@@ -135,7 +138,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }
@@ -164,7 +168,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::createWithSofort(
@@ -176,7 +181,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }
@@ -203,7 +209,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::createWithCreditCard(
@@ -214,7 +221,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }
@@ -241,7 +249,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::createWithBancontact(
@@ -252,7 +261,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }
@@ -270,6 +280,7 @@ final class Client
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order The newly created order.
      */
@@ -283,7 +294,8 @@ final class Client
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return $this->postOrder(
             Order::create(
@@ -296,7 +308,8 @@ final class Client
                 $returnUrl,
                 $expirationPeriod,
                 $customer,
-                $extra
+                $extra,
+                $webhookUrl
             )
         );
     }

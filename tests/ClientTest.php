@@ -357,6 +357,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
             'merchant_order_id' => '123',
             'description' => "Test",
             'return_url' => "http://example.com",
+            'webhook_url' => "http://example.com/webhook",
         ];
 
         $order = Order::fromArray($orderData);

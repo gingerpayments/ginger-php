@@ -95,6 +95,13 @@ final class Order
     private $extra;
 
     /**
+     * Webhook URL is used for transaction information updates.
+     *
+     * @var Url|null
+     */
+    private $webhookUrl;
+
+    /**
      * Create a new Order with the iDEAL payment method.
      *
      * @param integer $amount Amount in cents.
@@ -106,6 +113,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -118,7 +126,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return static::create(
             $amount,
@@ -130,7 +139,8 @@ final class Order
             $returnUrl,
             $expirationPeriod,
             $customer,
-            $extra
+            $extra,
+            $webhookUrl
         );
     }
 
@@ -145,6 +155,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -156,7 +167,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return static::create(
             $amount,
@@ -168,7 +180,8 @@ final class Order
             $returnUrl,
             $expirationPeriod,
             $customer,
-            $extra
+            $extra,
+            $webhookUrl
         );
     }
 
@@ -184,6 +197,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -196,7 +210,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return static::create(
             $amount,
@@ -208,7 +223,8 @@ final class Order
             $returnUrl,
             $expirationPeriod,
             $customer,
-            $extra
+            $extra,
+            $webhookUrl
         );
     }
 
@@ -224,6 +240,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -236,7 +253,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return static::create(
             $amount,
@@ -248,7 +266,8 @@ final class Order
             $returnUrl,
             $expirationPeriod,
             $customer,
-            $extra
+            $extra,
+            $webhookUrl
         );
     }
 
@@ -263,6 +282,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration.
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -274,7 +294,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return static::create(
             $amount,
@@ -286,7 +307,8 @@ final class Order
             $returnUrl,
             $expirationPeriod,
             $customer,
-            $extra
+            $extra,
+            $webhookUrl
         );
     }
 
@@ -303,6 +325,7 @@ final class Order
      * @param string $expirationPeriod The expiration period as an ISO 8601 duration
      * @param array $customer Customer information.
      * @param array $extra Extra information.
+     * @param string $webhookUrl The webhook URL.
      *
      * @return Order
      */
@@ -316,7 +339,8 @@ final class Order
         $returnUrl = null,
         $expirationPeriod = null,
         $customer = null,
-        $extra = null
+        $extra = null,
+        $webhookUrl = null
     ) {
         return new static(
             Transactions::fromArray(
@@ -340,7 +364,8 @@ final class Order
             null,
             null,
             ($customer !== null) ? Customer::fromArray($customer) : null,
-            ($extra !== null) ? Extra::fromArray($extra) : null
+            ($extra !== null) ? Extra::fromArray($extra) : null,
+            ($webhookUrl !== null) ? Url::fromString($webhookUrl) : null
         );
     }
 
@@ -373,7 +398,8 @@ final class Order
             array_key_exists('customer', $order) && $order['customer'] !== null
                 ? Customer::fromArray($order['customer']) : null,
             array_key_exists('extra', $order) && $order['extra'] !== null
-                ? Extra::fromArray($order['extra']) : null
+                ? Extra::fromArray($order['extra']) : null,
+            array_key_exists('webhook_url', $order) ? Url::fromString($order['webhook_url']) : null
         );
     }
 
@@ -397,8 +423,17 @@ final class Order
             'description' => $this->getDescription(),
             'return_url' => $this->getReturnUrl(),
             'customer' => $this->getCustomer(),
-            'extra' => $this->getExtra()
+            'extra' => $this->getExtra(),
+            'webhook_url' => $this->getWebhookUrl()
         ];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWebhookUrl()
+    {
+        return ($this->webhookUrl() !== null) ? $this->webhookUrl()->toString() : null;
     }
 
     /**
@@ -488,7 +523,7 @@ final class Order
      */
     public function getStatus()
     {
-        return  ($this->status() !== null) ? $this->status()->toString() : null;
+        return ($this->status() !== null) ? $this->status()->toString() : null;
     }
 
     /**
@@ -661,6 +696,19 @@ final class Order
     }
 
     /**
+     * @param string $webhookUrl
+     * @return Url|null
+     */
+    public function webhookUrl($webhookUrl = null)
+    {
+        if ($webhookUrl !== null) {
+            $this->webhookUrl = Url::fromString($webhookUrl);
+        }
+
+        return $this->webhookUrl;
+    }
+
+    /**
      * @return Transactions
      */
     public function transactions()
@@ -700,6 +748,7 @@ final class Order
      * @param Status $status
      * @param Customer $customer
      * @param Extra $extra
+     * @param Url $webhookUrl
      */
     private function __construct(
         Transactions $transactions,
@@ -716,7 +765,8 @@ final class Order
         Carbon $completed = null,
         Status $status = null,
         Customer $customer = null,
-        Extra $extra = null
+        Extra $extra = null,
+        Url $webhookUrl = null
     ) {
         $this->transactions = $transactions;
         $this->amount = $amount;
@@ -733,5 +783,6 @@ final class Order
         $this->status = $status;
         $this->customer = $customer;
         $this->extra = $extra;
+        $this->webhookUrl = $webhookUrl;
     }
 }
