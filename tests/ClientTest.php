@@ -369,7 +369,7 @@ final class ClientTest extends \PHPUnit_Framework_TestCase
                 m::on(
                     function (array $options) use ($order) {
                         $this->assertEquals(
-                            $order->toArray(),
+                            ArrayFunctions::withoutNullValues($order->toArray()),
                             $options['json']
                         );
                         return true;
