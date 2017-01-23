@@ -393,7 +393,7 @@ final class Client
                     "orders/".$order->id()."/",
                     [
                         "timeout" => 3,
-                        "json" => $order->toArray()
+                        "json" => ArrayFunctions::withoutNullValues($order->toArray())
                     ]
                 )->json()
             );
