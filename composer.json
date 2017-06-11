@@ -18,7 +18,7 @@
         "ronanguilloux/isocodes": "~1.1",
         "ramsey/uuid": "~2.8",
         "nesbot/carbon": "~1.16",
-        "alcohol/iso3166": "~3.0",
+        "league/iso3166": "1.0.1",
         "symfony/translation": "~2.8",
         "symfony/yaml": "~2.8"
     },
