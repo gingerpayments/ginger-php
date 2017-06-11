@@ -16,7 +16,7 @@ class ISO3166
     {
         try {
             $ISO3166 = new LeagueISO3166();
-            $ISO3166->alpha2($value);
+            $ISO3166->getByAlpha2($value);
             return true;
         } catch (\DomainException $e) {
             return false;

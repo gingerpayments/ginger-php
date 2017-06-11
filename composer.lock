@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "25e72c2e94c644072bb4e27f87ea3d9c",
+    "hash": "96811ddcbbcb5a84a305e80faa2198bc",
+    "content-hash": "d4974b9ee596f95c4d2bae6a9b81681f",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -57,7 +58,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2016-03-22T14:34:51+00:00"
+            "time": "2016-03-22 14:34:51"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -115,7 +116,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-05-20T03:47:55+00:00"
+            "time": "2015-05-20 03:47:55"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -166,7 +167,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-20T03:37:09+00:00"
+            "time": "2015-05-20 03:37:09"
         },
         {
             "name": "guzzlehttp/streams",
@@ -216,33 +217,32 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-10-12T19:18:40+00:00"
+            "time": "2014-10-12 19:18:40"
         },
         {
             "name": "league/iso3166",
-            "version": "2.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/iso3166.git",
-                "reference": "81c6a2c9250c2689460e5120a9b5952eedd927b0"
+                "reference": "bb2fdbd019354bcfb05f59a6566009493f05b879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/iso3166/zipball/81c6a2c9250c2689460e5120a9b5952eedd927b0",
-                "reference": "81c6a2c9250c2689460e5120a9b5952eedd927b0",
+                "url": "https://api.github.com/repos/thephpleague/iso3166/zipball/bb2fdbd019354bcfb05f59a6566009493f05b879",
+                "reference": "bb2fdbd019354bcfb05f59a6566009493f05b879",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^5.5 || ^7.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0@dev || ^2.0",
                 "phpunit/phpunit": "^4.6 || ^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -270,7 +270,7 @@
                 "iso",
                 "library"
             ],
-            "time": "2017-05-11T11:54:51+00:00"
+            "time": "2016-07-01 07:55:18"
         },
         {
             "name": "mathiasverraes/classfunctions",
@@ -321,7 +321,7 @@
                 "classes",
                 "utilities"
             ],
-            "time": "2014-07-28T14:39:20+00:00"
+            "time": "2014-07-28 14:39:20"
         },
         {
             "name": "nesbot/carbon",
@@ -368,7 +368,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-11-04T20:07:17+00:00"
+            "time": "2015-11-04 20:07:17"
         },
         {
             "name": "paragonie/random_compat",
@@ -416,7 +416,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-04-03T06:00:07+00:00"
+            "time": "2016-04-03 06:00:07"
         },
         {
             "name": "ramsey/uuid",
@@ -483,7 +483,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2016-03-22T18:20:19+00:00"
+            "time": "2016-03-22 18:20:19"
         },
         {
             "name": "react/promise",
@@ -527,7 +527,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2016-05-03T17:50:52+00:00"
+            "time": "2016-05-03 17:50:52"
         },
         {
             "name": "ronanguilloux/isocodes",
@@ -607,7 +607,7 @@
                 "vat",
                 "zipcode"
             ],
-            "time": "2015-06-22T19:37:41+00:00"
+            "time": "2015-06-22 19:37:41"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -666,7 +666,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18T14:26:46+00:00"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/translation",
@@ -730,7 +730,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-25T01:40:30+00:00"
+            "time": "2016-03-25 01:40:30"
         },
         {
             "name": "symfony/yaml",
@@ -779,7 +779,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-29T19:00:15+00:00"
+            "time": "2016-03-29 19:00:15"
         }
     ],
     "packages-dev": [
@@ -835,7 +835,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14T21:17:01+00:00"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -880,7 +880,7 @@
             "keywords": [
                 "test"
             ],
-            "time": "2015-05-11T14:41:42+00:00"
+            "time": "2015-05-11 14:41:42"
         },
         {
             "name": "mockery/mockery",
@@ -945,7 +945,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-05-22T21:52:33+00:00"
+            "time": "2016-05-22 21:52:33"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -994,7 +994,7 @@
                     "email": "mike.vanriel@naenius.com"
                 }
             ],
-            "time": "2015-02-03T12:10:50+00:00"
+            "time": "2015-02-03 12:10:50"
         },
         {
             "name": "phpspec/prophecy",
@@ -1056,7 +1056,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2016-02-15T07:46:21+00:00"
+            "time": "2016-02-15 07:46:21"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1118,7 +1118,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-06T15:47:00+00:00"
+            "time": "2015-10-06 15:47:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1165,7 +1165,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2015-06-21T13:08:43+00:00"
+            "time": "2015-06-21 13:08:43"
         },
         {
             "name": "phpunit/php-text-template",
@@ -1206,7 +1206,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2015-06-21T13:50:34+00:00"
+            "time": "2015-06-21 13:50:34"
         },
         {
             "name": "phpunit/php-timer",
@@ -1250,7 +1250,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2016-05-12T18:03:57+00:00"
+            "time": "2016-05-12 18:03:57"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -1299,7 +1299,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-09-15T10:49:45+00:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
@@ -1371,7 +1371,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-05-17T03:09:28+00:00"
+            "time": "2016-05-17 03:09:28"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1427,7 +1427,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-10-02T06:51:40+00:00"
+            "time": "2015-10-02 06:51:40"
         },
         {
             "name": "sebastian/comparator",
@@ -1491,7 +1491,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-07-26T15:48:44+00:00"
+            "time": "2015-07-26 15:48:44"
         },
         {
             "name": "sebastian/diff",
@@ -1543,7 +1543,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08T07:14:41+00:00"
+            "time": "2015-12-08 07:14:41"
         },
         {
             "name": "sebastian/environment",
@@ -1593,7 +1593,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-05-17T03:18:57+00:00"
+            "time": "2016-05-17 03:18:57"
         },
         {
             "name": "sebastian/exporter",
@@ -1659,7 +1659,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2015-06-21T07:55:53+00:00"
+            "time": "2015-06-21 07:55:53"
         },
         {
             "name": "sebastian/global-state",
@@ -1710,7 +1710,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2015-10-12T03:26:01+00:00"
+            "time": "2015-10-12 03:26:01"
         },
         {
             "name": "sebastian/recursion-context",
@@ -1763,7 +1763,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11T19:50:13+00:00"
+            "time": "2015-11-11 19:50:13"
         },
         {
             "name": "sebastian/version",
@@ -1798,7 +1798,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2015-06-21T13:59:46+00:00"
+            "time": "2015-06-21 13:59:46"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -1876,7 +1876,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-04-03T22:58:34+00:00"
+            "time": "2016-04-03 22:58:34"
         }
     ],
     "aliases": [],
