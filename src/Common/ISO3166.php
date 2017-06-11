@@ -2,7 +2,7 @@
 
 namespace GingerPayments\Payment\Common;
 
-use Alcohol;
+use League\ISO3166\ISO3166 as LeagueISO3166;
 
 class ISO3166
 {
@@ -15,8 +15,8 @@ class ISO3166
     public static function isValid($value)
     {
         try {
-            $ISO3166 = new Alcohol\ISO3166();
-            $ISO3166->getByAlpha2($value);
+            $ISO3166 = new LeagueISO3166();
+            $ISO3166->alpha2($value);
             return true;
         } catch (\DomainException $e) {
             return false;
