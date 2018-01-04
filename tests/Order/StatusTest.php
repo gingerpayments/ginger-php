@@ -20,6 +20,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -36,6 +37,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -52,6 +54,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -68,6 +71,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -84,6 +88,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -100,6 +105,7 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertTrue($status->isExpired());
         $this->assertFalse($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
     }
 
     /**
@@ -116,5 +122,23 @@ final class StatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($status->isCancelled());
         $this->assertFalse($status->isExpired());
         $this->assertTrue($status->isSeeTransactions());
+        $this->assertFalse($status->isDeclined());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldBeDeclined()
+    {
+        $status = Status::fromString(Status::DECLINED);
+
+        $this->assertFalse($status->isNew());
+        $this->assertFalse($status->isProcessing());
+        $this->assertFalse($status->isError());
+        $this->assertFalse($status->isCompleted());
+        $this->assertFalse($status->isCancelled());
+        $this->assertFalse($status->isExpired());
+        $this->assertFalse($status->isSeeTransactions());
+        $this->assertTrue($status->isDeclined());
     }
 }
