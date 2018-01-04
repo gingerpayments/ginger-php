@@ -18,6 +18,9 @@ final class Status
     const COMPLETED = 'completed';
     const CANCELLED = 'cancelled';
     const EXPIRED = 'expired';
+    const ACCEPTED = 'accepted';
+    const CAPTURED = 'captured';
+    const DECLINED = 'declined';
 
     /**
      * @return array
@@ -31,7 +34,10 @@ final class Status
             self::ERROR,
             self::COMPLETED,
             self::CANCELLED,
-            self::EXPIRED
+            self::EXPIRED,
+            self::ACCEPTED,
+            self::CAPTURED,
+            self::DECLINED
         ];
     }
 
@@ -89,5 +95,29 @@ final class Status
     public function isExpired()
     {
         return $this->value === self::EXPIRED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        return $this->value === self::ACCEPTED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCaptured()
+    {
+        return $this->value === self::CAPTURED;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeclined()
+    {
+        return $this->value === self::DECLINED;
     }
 }

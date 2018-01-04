@@ -18,6 +18,7 @@ final class Status
     const CANCELLED = 'cancelled';
     const EXPIRED = 'expired';
     const SEE_TRANSACTIONS = 'see-transactions';
+    const DECLINED = 'declined';
 
     /**
      * @return array
@@ -31,7 +32,8 @@ final class Status
             self::COMPLETED,
             self::CANCELLED,
             self::EXPIRED,
-            self::SEE_TRANSACTIONS
+            self::SEE_TRANSACTIONS,
+            self::DECLINED
         ];
     }
 
@@ -89,5 +91,13 @@ final class Status
     public function isSeeTransactions()
     {
         return $this->value === self::SEE_TRANSACTIONS;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeclined()
+    {
+        return $this->value === self::DECLINED;
     }
 }
