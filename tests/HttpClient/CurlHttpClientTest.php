@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment {
+namespace GingerPayments\Payment\HttpClient {
     function curl_init() {
         return new \stdClass;
     }
@@ -29,9 +29,9 @@ namespace GingerPayments\Payment {
     }
 }
 
-namespace GingerPayments\Payment\Tests {
+namespace GingerPayments\Payment\Tests\HttpClient {
 
-    use GingerPayments\Payment\CurlHttpClient;
+    use GingerPayments\Payment\HttpClient\CurlHttpClient;
     use GingerPayments\Payment\HttpClient\HttpException;
 
     final class CurlHttpClientTest extends \PHPUnit_Framework_TestCase

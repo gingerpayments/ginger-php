@@ -1,8 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment;
-
-use GingerPayments\Payment\HttpClient\HttpException;
+namespace GingerPayments\Payment\HttpClient;
 
 /**
  * Custom HTTP interface because we do not want to depend on too many external
