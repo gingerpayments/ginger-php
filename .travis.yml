@@ -11,4 +11,3 @@ php:
 script:
 - vendor/bin/phpunit --coverage-clover=coverage.clover
 - vendor/bin/phpcs --standard=PSR2 src tests
-- wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
