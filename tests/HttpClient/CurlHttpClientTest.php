@@ -14,7 +14,7 @@ namespace GingerPayments\Payment\HttpClient {
     }
 
     function curl_errno($curl) {
-        if ($curl->options[CURLOPT_URL] == '/error') {
+        if ($curl->options[CURLOPT_URL] == 'https://www.example.com/error') {
             return CURLE_OUT_OF_MEMORY;
         }
 
@@ -43,7 +43,10 @@ namespace GingerPayments\Payment\Tests\HttpClient {
 
         public function setUp()
         {
-            $this->client = new CurlHttpClient();
+            $this->client = new CurlHttpClient(
+                'https://www.example.com',
+                '1a1b2e63c55e'
+            );
         }
 
         public function test_it_sends_a_request()
@@ -57,14 +60,15 @@ namespace GingerPayments\Payment\Tests\HttpClient {
 
             $this->assertEquals(
                 [
-                    CURLOPT_URL => '/foo/bar',
+                    CURLOPT_URL => 'https://www.example.com/foo/bar',
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_CUSTOMREQUEST => 'POST',
                     CURLOPT_POSTFIELDS => 'request data',
                     CURLOPT_HTTPHEADER => [
                         'Content-Length: 12',
                         'Content-Type: text/plain'
-                    ]
+                    ],
+                    CURLOPT_USERPWD => '1a1b2e63c55e:'
                 ],
                 json_decode($response, true)
             );
@@ -79,9 +83,10 @@ namespace GingerPayments\Payment\Tests\HttpClient {
 
             $this->assertEquals(
                 [
-                    CURLOPT_URL => '/foo/bar',
+                    CURLOPT_URL => 'https://www.example.com/foo/bar',
                     CURLOPT_RETURNTRANSFER => 1,
-                    CURLOPT_CUSTOMREQUEST => 'GET'
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_USERPWD => '1a1b2e63c55e:'
                 ],
                 json_decode($response, true)
             );

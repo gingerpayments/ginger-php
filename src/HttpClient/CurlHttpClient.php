@@ -8,6 +8,26 @@ use GingerPayments\Payment\HttpClient\HttpClient;
 final class CurlHttpClient implements HttpClient
 {
     /**
+     * @var string
+     */
+    private $endpoint;
+
+    /**
+     * @var string
+     */
+    private $apiKey;
+
+    /**
+     * @param string $endpoint
+     * @param string $apiKey
+     */
+    public function __construct($endpoint, $apiKey)
+    {
+        $this->endpoint = $endpoint;
+        $this->apiKey = $apiKey;
+    }
+
+    /**
      * @param string $method HTTP method
      * @param string $path
      * @param array $headers
@@ -19,8 +39,9 @@ final class CurlHttpClient implements HttpClient
     {
         $options = [
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $path,
-            CURLOPT_CUSTOMREQUEST => $method
+            CURLOPT_URL => $this->endpoint . $path,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_USERPWD => $this->apiKey . ':'
         ];
 
         if ($data != null) {
