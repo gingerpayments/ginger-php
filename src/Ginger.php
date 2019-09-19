@@ -26,7 +26,18 @@ final class Ginger
     public static function createClient($endpoint, $apiKey)
     {
         return new ApiClient(
-            new CurlHttpClient($endpoint . '/' . self::API_VERSION, $apiKey)
+            new CurlHttpClient(
+                $endpoint . '/' . self::API_VERSION,
+                $apiKey,
+                [
+                    'User-Agent' => sprintf(
+                        'Ginger-PHP/%s (%s; PHP %s)',
+                        self::CLIENT_VERSION,
+                        PHP_OS,
+                        phpversion()
+                    )
+                ]
+            )
         );
     }
 }
