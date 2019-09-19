@@ -192,4 +192,16 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(ApiClient\JsonDecodeFailure::class);
         $this->apiClient->getIdealIssuers();
     }
+
+    public function test_it_throws_an_exception_on_server_error()
+    {
+        $this->httpClient->setResponseToReturn(
+            json_encode(
+                ['error' => ['status' => '503', 'type' => 'ConnectionError', 'value' => 'The server made a boo-boo']]
+            )
+        );
+
+        $this->setExpectedException(ApiClient\ServerError::class);
+        $this->apiClient->getIdealIssuers();
+    }
 }

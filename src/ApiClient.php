@@ -4,6 +4,7 @@ namespace Ginger;
 
 use Ginger\ApiClient\HttpRequestFailure;
 use Ginger\ApiClient\JsonDecodeFailure;
+use Ginger\ApiClient\ServerError;
 use Ginger\HttpClient\HttpClient;
 
 final class ApiClient
@@ -36,7 +37,7 @@ final class ApiClient
             throw HttpRequestFailure::because($exception);
         }
 
-        return $this->decodeJson($response);
+        return $this->interpretResponse($response);
     }
 
     /**
@@ -55,7 +56,7 @@ final class ApiClient
             throw HttpRequestFailure::because($exception);
         }
 
-        return $this->decodeJson($response);
+        return $this->interpretResponse($response);
     }
 
     /**
@@ -79,7 +80,7 @@ final class ApiClient
             throw HttpRequestFailure::because($exception);
         }
 
-        return $this->decodeJson($response);
+        return $this->interpretResponse($response);
     }
 
     /**
@@ -104,7 +105,7 @@ final class ApiClient
             throw HttpRequestFailure::because($exception);
         }
 
-        return $this->decodeJson($response);
+        return $this->interpretResponse($response);
     }
 
     /**
@@ -129,7 +130,22 @@ final class ApiClient
             throw HttpRequestFailure::because($exception);
         }
 
-        return $this->decodeJson($response);
+        return $this->interpretResponse($response);
+    }
+
+    /**
+     * @param string $response
+     * @return array
+     * @throws JsonDecodeFailure
+     * @throws ServerError
+     */
+    private function interpretResponse($response)
+    {
+        $result = $this->decodeJson($response);
+        if (array_key_exists('error', $result)) {
+            throw ServerError::fromResult($result);
+        }
+        return $result;
     }
 
     /**
