@@ -1,9 +1,9 @@
 <?php
 
-namespace GingerPayments\Payment\Tests;
+namespace Ginger\Tests;
 
-use GingerPayments\Payment\ApiClient;
-use GingerPayments\Payment\Ginger;
+use Ginger\ApiClient;
+use Ginger\Ginger;
 
 final class GingerTest extends \PHPUnit_Framework_TestCase
 {

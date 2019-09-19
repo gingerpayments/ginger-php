@@ -1,9 +1,9 @@
 <?php
 
-namespace GingerPayments\Payment\Tests\HttpClient;
+namespace Ginger\Tests\HttpClient;
 
-use GingerPayments\Payment\HttpClient\HttpClient;
-use GingerPayments\Payment\HttpClient\HttpException;
+use Ginger\HttpClient\HttpClient;
+use Ginger\HttpClient\HttpException;
 
 final class MockHttpClient implements HttpClient
 {

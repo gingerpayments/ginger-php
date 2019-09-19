@@ -1,10 +1,10 @@
 <?php
 
-namespace GingerPayments\Payment\Tests;
+namespace Ginger\Tests;
 
-use GingerPayments\Payment\ApiClient;
-use GingerPayments\Payment\HttpClient\HttpException;
-use GingerPayments\Payment\Tests\HttpClient\MockHttpClient;
+use Ginger\ApiClient;
+use Ginger\HttpClient\HttpException;
+use Ginger\Tests\HttpClient\MockHttpClient;
 
 final class ApiClientTest extends \PHPUnit_Framework_TestCase
 {

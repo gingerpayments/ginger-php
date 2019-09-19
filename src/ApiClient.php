@@ -1,10 +1,10 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace Ginger;
 
-use GingerPayments\Payment\ApiClient\HttpRequestFailure;
-use GingerPayments\Payment\ApiClient\JsonDecodeFailure;
-use GingerPayments\Payment\HttpClient\HttpClient;
+use Ginger\ApiClient\HttpRequestFailure;
+use Ginger\ApiClient\JsonDecodeFailure;
+use Ginger\HttpClient\HttpClient;
 
 final class ApiClient
 {

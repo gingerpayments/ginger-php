@@ -1,8 +1,8 @@
 <?php
 
-namespace GingerPayments\Payment;
+namespace Ginger;
 
-use GingerPayments\Payment\HttpClient\CurlHttpClient;
+use Ginger\HttpClient\CurlHttpClient;
 
 final class Ginger
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment\HttpClient;
+namespace Ginger\HttpClient;
 
 final class HttpException extends \RuntimeException
 {

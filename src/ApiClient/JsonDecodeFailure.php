@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment\ApiClient;
+namespace Ginger\ApiClient;
 
 final class JsonDecodeFailure extends \RuntimeException
 {

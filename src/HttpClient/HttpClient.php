@@ -1,6 +1,6 @@
 <?php
 
-namespace GingerPayments\Payment\HttpClient;
+namespace Ginger\HttpClient;
 
 /**
  * Custom HTTP interface because we do not want to depend on too many external

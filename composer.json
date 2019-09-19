@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "GingerPayments\\Payment\\": "src"
+            "Ginger\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "GingerPayments\\Payment\\Tests\\": "tests"
+            "Ginger\\Tests\\": "tests"
         }
     }
 }
