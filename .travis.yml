@@ -9,4 +9,3 @@ php:
 - 7.3
 script:
 - vendor/bin/phpunit --coverage-clover=coverage.clover
-- vendor/bin/phpcs --standard=PSR2 src tests
