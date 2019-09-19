@@ -15,13 +15,20 @@ final class CurlHttpClient implements HttpClient
     private $apiKey;
 
     /**
+     * @var array
+     */
+    private $defaultHeaders;
+
+    /**
      * @param string $endpoint
      * @param string $apiKey
+     * @param array $defaultHeaders
      */
-    public function __construct($endpoint, $apiKey)
+    public function __construct($endpoint, $apiKey, array $defaultHeaders = [])
     {
         $this->endpoint = $endpoint;
         $this->apiKey = $apiKey;
+        $this->defaultHeaders = $defaultHeaders;
     }
 
     /**
@@ -41,9 +48,13 @@ final class CurlHttpClient implements HttpClient
             CURLOPT_USERPWD => $this->apiKey . ':'
         ];
 
+        $headers = array_merge($this->defaultHeaders, $headers);
         if ($data != null) {
             $options[CURLOPT_POSTFIELDS] = $data;
-            $headers = array_merge(['Content-Length' => strlen($data)], $headers);
+            $headers = array_merge(
+                ['Content-Length' => strlen($data)],
+                $headers
+            );
         }
 
         if (!empty($headers)) {

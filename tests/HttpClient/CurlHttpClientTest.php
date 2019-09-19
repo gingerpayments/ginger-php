@@ -45,7 +45,8 @@ namespace Ginger\Tests\HttpClient {
         {
             $this->client = new CurlHttpClient(
                 'https://www.example.com',
-                '1a1b2e63c55e'
+                '1a1b2e63c55e',
+                ['X-Foo' => 'bar']
             );
         }
 
@@ -66,6 +67,7 @@ namespace Ginger\Tests\HttpClient {
                     CURLOPT_POSTFIELDS => 'request data',
                     CURLOPT_HTTPHEADER => [
                         'Content-Length: 12',
+                        'X-Foo: bar',
                         'Content-Type: text/plain'
                     ],
                     CURLOPT_USERPWD => '1a1b2e63c55e:'
@@ -86,7 +88,8 @@ namespace Ginger\Tests\HttpClient {
                     CURLOPT_URL => 'https://www.example.com/foo/bar',
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_USERPWD => '1a1b2e63c55e:'
+                    CURLOPT_USERPWD => '1a1b2e63c55e:',
+                    CURLOPT_HTTPHEADER => ['X-Foo: bar']
                 ],
                 json_decode($response, true)
             );
