@@ -1,9 +1,6 @@
 <?php
 
-
 namespace GingerPayments\Payment\HttpClient;
-
-use GingerPayments\Payment\HttpClient\HttpClient;
 
 final class CurlHttpClient implements HttpClient
 {
