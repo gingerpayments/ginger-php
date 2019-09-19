@@ -17,5 +17,5 @@ $order = $client->createOrder(
     ]
 );
 
-// Show the payment URL which we should redirect the user to
+// Show the order URL where the user can select a payment method and initiate the transaction
 echo "Payment URL: " . $order['order_url'] . "\n";
