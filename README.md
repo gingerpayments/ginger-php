@@ -78,7 +78,7 @@ Once you've created your order, a transaction is created and associated with it.
 the transaction's payment URL, which you can retrieve as follows:
 
 ```php
-$paymentUrl = $order['transactions'][0]['payment_url'];
+$paymentUrl = $order['order_url'];
 ```
 
 It is also recommended that you store the order's ID somewhere, so you can retrieve information about it later:

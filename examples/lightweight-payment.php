@@ -18,4 +18,4 @@ $order = $client->createOrder(
 );
 
 // Show the payment URL which we should redirect the user to
-echo "Payment URL: " . $order['transactions'][0]['payment_url'] . "\n";
+echo "Payment URL: " . $order['order_url'] . "\n";
