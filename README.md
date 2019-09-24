@@ -130,6 +130,25 @@ $issuers = $client->getIdealIssuers();
 
 You can then use this information to present a list to the user of possible banks to choose from.
 
+## Using a different CA bundle
+
+If you need to use a different CA bundle than the one that comes with your system or cURL installation, you can
+provide custom cURL options indicating the location of your CA bundle as follows:
+
+```php
+use \Ginger\Ginger;
+
+$client = Ginger::createClient(
+    'https://api.example.com',
+    'your-api-key',
+    [
+        CURLOPT_CAINFO => '/path/to/ca-bundle.pem'
+    ]
+);
+```
+
+For more information on which cURL options to use, refer to the PHP cURL documentation.
+
 ## Custom HTTP client
 
 This library ships with its own minimal HTTP client for compatibility reasons. If you would like to use a different HTTP

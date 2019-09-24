@@ -21,22 +21,28 @@ final class Ginger
      *
      * @param string $endpoint
      * @param string $apiKey
+     * @param array $defaultCurlOptions
+     * @param array $defaultHeaders
      * @return ApiClient
      */
-    public static function createClient($endpoint, $apiKey)
+    public static function createClient($endpoint, $apiKey, array $defaultCurlOptions = [], array $defaultHeaders = [])
     {
         return new ApiClient(
             new CurlHttpClient(
                 $endpoint . '/' . self::API_VERSION,
                 $apiKey,
-                [
-                    'User-Agent' => sprintf(
-                        'Ginger-PHP/%s (%s; PHP %s)',
-                        self::CLIENT_VERSION,
-                        PHP_OS,
-                        phpversion()
-                    )
-                ]
+                array_merge(
+                    $defaultHeaders,
+                    [
+                        'User-Agent' => sprintf(
+                            'Ginger-PHP/%s (%s; PHP %s)',
+                            self::CLIENT_VERSION,
+                            PHP_OS,
+                            phpversion()
+                        )
+                    ]
+                ),
+                $defaultCurlOptions
             )
         );
     }

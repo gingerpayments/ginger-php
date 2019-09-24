@@ -20,15 +20,22 @@ final class CurlHttpClient implements HttpClient
     private $defaultHeaders;
 
     /**
+     * @var array
+     */
+    private $defaultCurlOptions;
+
+    /**
      * @param string $endpoint
      * @param string $apiKey
      * @param array $defaultHeaders
+     * @param array $defaultCurlOptions
      */
-    public function __construct($endpoint, $apiKey, array $defaultHeaders = [])
+    public function __construct($endpoint, $apiKey, array $defaultHeaders = [], array $defaultCurlOptions = [])
     {
         $this->endpoint = $endpoint;
         $this->apiKey = $apiKey;
         $this->defaultHeaders = $defaultHeaders;
+        $this->defaultCurlOptions = $defaultCurlOptions;
     }
 
     /**
@@ -41,12 +48,11 @@ final class CurlHttpClient implements HttpClient
      */
     public function request($method, $path, array $headers = [], $data = null)
     {
-        $options = [
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $this->endpoint . $path,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_USERPWD => $this->apiKey . ':'
-        ];
+        $options = $this->defaultCurlOptions;
+        $options[CURLOPT_RETURNTRANSFER] = 1;
+        $options[CURLOPT_URL] = $this->endpoint . $path;
+        $options[CURLOPT_CUSTOMREQUEST] = $method;
+        $options[CURLOPT_USERPWD] = $this->apiKey . ':';
 
         $headers = array_merge($this->defaultHeaders, $headers);
         if ($data != null) {
