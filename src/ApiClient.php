@@ -31,13 +31,7 @@ final class ApiClient
      */
     public function getIdealIssuers()
     {
-        try {
-            $response = $this->httpClient->request('GET', '/ideal/issuers');
-        } catch (\Exception $exception) {
-            throw HttpRequestFailure::because($exception);
-        }
-
-        return $this->interpretResponse($response);
+        return $this->send('GET', '/ideal/issuers');
     }
 
     /**
@@ -50,13 +44,7 @@ final class ApiClient
      */
     public function getOrder($id)
     {
-        try {
-            $response = $this->httpClient->request('GET', sprintf('/orders/%s', $id));
-        } catch (\Exception $exception) {
-            throw HttpRequestFailure::because($exception);
-        }
-
-        return $this->interpretResponse($response);
+        return $this->send('GET', sprintf('/orders/%s', $id));
     }
 
     /**
@@ -69,18 +57,12 @@ final class ApiClient
      */
     public function createOrder(array $orderData)
     {
-        try {
-            $response = $this->httpClient->request(
-                'POST',
-                '/orders',
-                ['Content-Type' => 'application/json'],
-                json_encode($orderData)
-            );
-        } catch (\Exception $exception) {
-            throw HttpRequestFailure::because($exception);
-        }
-
-        return $this->interpretResponse($response);
+        return $this->send(
+            'POST',
+            '/orders',
+            ['Content-Type' => 'application/json'],
+            json_encode($orderData)
+        );
     }
 
     /**
@@ -94,18 +76,12 @@ final class ApiClient
      */
     public function updateOrder($id, array $orderData)
     {
-        try {
-            $response = $this->httpClient->request(
-                'PUT',
-                sprintf('/orders/%s', $id),
-                ['Content-Type' => 'application/json'],
-                json_encode($orderData)
-            );
-        } catch (\Exception $exception) {
-            throw HttpRequestFailure::because($exception);
-        }
-
-        return $this->interpretResponse($response);
+        return $this->send(
+            'PUT',
+            sprintf('/orders/%s', $id),
+            ['Content-Type' => 'application/json'],
+            json_encode($orderData)
+        );
     }
 
     /**
@@ -119,13 +95,29 @@ final class ApiClient
      */
     public function refundOrder($id, array $orderData)
     {
+        return $this->send(
+            'POST',
+            sprintf('/orders/%s/refunds', $id),
+            ['Content-Type' => 'application/json'],
+            json_encode($orderData)
+        );
+    }
+
+    /**
+     * Send a request to the API.
+     *
+     * @param string $method HTTP request method
+     * @param string $path URL path to call
+     * @param array $headers Extra HTTP headers to send
+     * @param string $data Request data to send
+     * @return array
+     * @throws HttpRequestFailure When an error occurred while processing the request.
+     * @throws JsonDecodeFailure When the response data could not be decoded.
+     */
+    public function send($method, $path, array $headers = [], $data = null)
+    {
         try {
-            $response = $this->httpClient->request(
-                'POST',
-                sprintf('/orders/%s/refunds', $id),
-                ['Content-Type' => 'application/json'],
-                json_encode($orderData)
-            );
+            $response = $this->httpClient->request($method, $path, $headers, $data);
         } catch (\Exception $exception) {
             throw HttpRequestFailure::because($exception);
         }

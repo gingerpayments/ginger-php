@@ -43,7 +43,7 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
 
         $issuers = $this->apiClient->getIdealIssuers();
 
-        $this->assertEquals(['GET', '/ideal/issuers'], $this->httpClient->lastRequestData());
+        $this->assertEquals(['GET', '/ideal/issuers', [], null], $this->httpClient->lastRequestData());
         $this->assertEquals($expectedIssuers, $issuers);
     }
 
@@ -64,7 +64,7 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
         $order = $this->apiClient->getOrder('fcbfdd3a-ea2c-4240-96b2-613d49b79a55');
 
         $this->assertEquals(
-            ['GET', '/orders/fcbfdd3a-ea2c-4240-96b2-613d49b79a55'],
+            ['GET', '/orders/fcbfdd3a-ea2c-4240-96b2-613d49b79a55', [], null],
             $this->httpClient->lastRequestData()
         );
         $this->assertEquals($expectedOrder, $order);
