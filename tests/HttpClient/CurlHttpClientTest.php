@@ -10,6 +10,12 @@ namespace Ginger\HttpClient {
     }
 
     function curl_exec($curl) {
+        if ($curl->options[CURLOPT_URL] == 'https://www.example.com/empty/response') {
+            // curl_exec returns true instead of empty string on an empty response
+            // https://www.php.net/manual/en/function.curl-exec.php#70123
+            return true;
+        }
+
         return json_encode($curl->options);
     }
 
@@ -143,6 +149,16 @@ namespace Ginger\Tests\HttpClient {
                 ],
                 json_decode($response, true)
             );
+        }
+
+        public function test_it_returns_null_on_empty_response_body()
+        {
+            $response = $this->client->request(
+                'POST',
+                '/empty/response'
+            );
+
+            $this->assertNull($response);
         }
 
         public function test_it_throws_an_exception_on_curl_error()

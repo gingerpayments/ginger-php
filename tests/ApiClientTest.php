@@ -177,6 +177,28 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedOrder, $order);
     }
 
+    public function test_it_captures_an_order_transaction()
+    {
+        $this->apiClient->captureOrderTransaction(
+            'fcbfdd3a-ea2c-4240-96b2-613d49b79a55',
+            'ca3dfa6f-3dd3-4942-a358-b6852a407333'
+        );
+
+        $this->assertEquals(
+            [
+                'POST',
+                sprintf(
+                    '/orders/%s/transactions/%s/captures/',
+                    'fcbfdd3a-ea2c-4240-96b2-613d49b79a55',
+                    'ca3dfa6f-3dd3-4942-a358-b6852a407333'
+                ),
+                [],
+                null
+            ],
+            $this->httpClient->lastRequestData()
+        );
+    }
+
     public function test_it_throws_an_exception_on_http_client_error()
     {
         $this->httpClient->setExceptionToThrow(new HttpException('Whoops!'));

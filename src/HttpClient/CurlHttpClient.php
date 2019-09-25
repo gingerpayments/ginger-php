@@ -43,7 +43,7 @@ final class CurlHttpClient implements HttpClient
      * @param string $path
      * @param array $headers
      * @param string $data
-     * @return string
+     * @return string|null
      * @throws HttpException
      */
     public function request($method, $path, array $headers = [], $data = null)
@@ -88,6 +88,10 @@ final class CurlHttpClient implements HttpClient
                     $path
                 )
             );
+        }
+
+        if ($response === true || $response == '') {
+            return null;
         }
 
         return $response;

@@ -13,7 +13,7 @@ interface HttpClient
      * @param string $path
      * @param array $headers
      * @param string $data
-     * @return string
+     * @return string|null
      * @throws HttpException
      */
     public function request($method, $path, array $headers = [], $data = null);

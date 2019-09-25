@@ -104,6 +104,23 @@ final class ApiClient
     }
 
     /**
+     * Capture an order transaction.
+     *
+     * @param string $orderId The ID of the order.
+     * @param string $transactionId The ID of the transaction to capture.
+     * @return void
+     * @throws HttpRequestFailure When an error occurred while processing the request.
+     * @throws JsonDecodeFailure When the response data could not be decoded.
+     */
+    public function captureOrderTransaction($orderId, $transactionId)
+    {
+        $this->send(
+            'POST',
+            sprintf('/orders/%s/transactions/%s/captures/', $orderId, $transactionId)
+        );
+    }
+
+    /**
      * Send a request to the API.
      *
      * @param string $method HTTP request method
@@ -126,13 +143,17 @@ final class ApiClient
     }
 
     /**
-     * @param string $response
-     * @return array
+     * @param string|null $response
+     * @return array|null
      * @throws JsonDecodeFailure
      * @throws ServerError
      */
     private function interpretResponse($response)
     {
+        if ($response === null) {
+            return null;
+        }
+
         $result = $this->decodeJson($response);
         if (array_key_exists('error', $result)) {
             throw ServerError::fromResult($result);

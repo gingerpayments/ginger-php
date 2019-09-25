@@ -27,7 +27,7 @@ final class MockHttpClient implements HttpClient
      * @param string $path
      * @param array $headers
      * @param string $data
-     * @return string
+     * @return string|null
      */
     public function request($method, $path, array $headers = [], $data = null)
     {
@@ -37,7 +37,7 @@ final class MockHttpClient implements HttpClient
             throw $this->exceptionToThrow;
         }
 
-        return (string) $this->responseToReturn;
+        return $this->responseToReturn;
     }
 
     /**
