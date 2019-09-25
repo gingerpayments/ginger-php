@@ -119,6 +119,14 @@ You can refund an existing order by using the `refundOrder` method on the client
 $refundOrder = $client->refundOrder($orderId, ['amount' => 123, 'description' => 'My refund']);
 ```
 
+### Capturing a transaction of an order
+
+You can initiate a capture of an order's transaction by using the `captureOrderTransaction` method:
+
+```
+$client->captureOrderTransaction($orderId, $transactionId);
+```
+
 ### Getting the iDEAL issuers
 
 When you create an order with the iDEAL payment method, you need to provide an issuer ID. The issuer ID is an identifier
@@ -129,6 +137,22 @@ $issuers = $client->getIdealIssuers();
 ```
 
 You can then use this information to present a list to the user of possible banks to choose from.
+
+
+### Custom requests
+
+You can send any request that the API accepts using the `send` method. E.g. instead of using the `createOrder` method
+you could also use the following:
+
+```php
+$result = $client->send(
+    'POST', // Request method
+    '/orders', // API path
+    $orderData // Data to send with the request; optional
+);
+```
+
+The `$result` variable would then contain the decoded JSON returned by the API.
 
 ## Using a different CA bundle
 
