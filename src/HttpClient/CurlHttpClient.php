@@ -48,6 +48,35 @@ final class CurlHttpClient implements HttpClient
      */
     public function request($method, $path, array $headers = [], $data = null)
     {
+        $options = $this->createCurlOptions($method, $path, $headers, $data);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, $options);
+        $response = curl_exec($curl);
+        $errorNumber = curl_errno($curl);
+        $errorMessage = curl_error($curl);
+        curl_close($curl);
+
+        if ($errorNumber) {
+            throw HttpException::because($errorNumber, $errorMessage, $path);
+        }
+
+        if ($response === true || $response == '') {
+            return null;
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param string $method HTTP method
+     * @param string $path
+     * @param array $headers
+     * @param string $data
+     * @return array
+     */
+    private function createCurlOptions($method, $path, array $headers, $data)
+    {
         $options = $this->defaultCurlOptions;
         $options[CURLOPT_RETURNTRANSFER] = 1;
         $options[CURLOPT_URL] = $this->endpoint . $path;
@@ -65,35 +94,14 @@ final class CurlHttpClient implements HttpClient
 
         if (!empty($headers)) {
             $options[CURLOPT_HTTPHEADER] = array_map(
-                function($key, $value) { return "$key: $value"; },
+                function ($key, $value) {
+                    return "$key: $value";
+                },
                 array_keys($headers),
                 $headers
             );
         }
 
-        $curl = curl_init();
-        curl_setopt_array($curl, $options);
-        $response = curl_exec($curl);
-        $errorNumber = curl_errno($curl);
-        $errorMessage = curl_error($curl);
-        curl_close($curl);
-
-        if ($errorNumber) {
-            throw new HttpException(
-                sprintf(
-                    'cURL error: %s: %s (%s) for %s',
-                    $errorNumber,
-                    $errorMessage,
-                    'see https://curl.haxx.se/libcurl/c/libcurl-errors.html',
-                    $path
-                )
-            );
-        }
-
-        if ($response === true || $response == '') {
-            return null;
-        }
-
-        return $response;
+        return $options;
     }
 }
