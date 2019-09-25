@@ -57,12 +57,7 @@ final class ApiClient
      */
     public function createOrder(array $orderData)
     {
-        return $this->send(
-            'POST',
-            '/orders',
-            ['Content-Type' => 'application/json'],
-            json_encode($orderData)
-        );
+        return $this->send('POST', '/orders', $orderData);
     }
 
     /**
@@ -76,12 +71,7 @@ final class ApiClient
      */
     public function updateOrder($id, array $orderData)
     {
-        return $this->send(
-            'PUT',
-            sprintf('/orders/%s', $id),
-            ['Content-Type' => 'application/json'],
-            json_encode($orderData)
-        );
+        return $this->send('PUT', sprintf('/orders/%s', $id), $orderData);
     }
 
     /**
@@ -95,12 +85,7 @@ final class ApiClient
      */
     public function refundOrder($id, array $orderData)
     {
-        return $this->send(
-            'POST',
-            sprintf('/orders/%s/refunds', $id),
-            ['Content-Type' => 'application/json'],
-            json_encode($orderData)
-        );
+        return $this->send('POST', sprintf('/orders/%s/refunds', $id), $orderData);
     }
 
     /**
@@ -114,10 +99,7 @@ final class ApiClient
      */
     public function captureOrderTransaction($orderId, $transactionId)
     {
-        $this->send(
-            'POST',
-            sprintf('/orders/%s/transactions/%s/captures/', $orderId, $transactionId)
-        );
+        $this->send('POST', sprintf('/orders/%s/transactions/%s/captures/', $orderId, $transactionId));
     }
 
     /**
@@ -125,16 +107,20 @@ final class ApiClient
      *
      * @param string $method HTTP request method
      * @param string $path URL path to call
-     * @param array $headers Extra HTTP headers to send
-     * @param string $data Request data to send
+     * @param mixed $data Request data to send
      * @return array
      * @throws HttpRequestFailure When an error occurred while processing the request.
      * @throws JsonDecodeFailure When the response data could not be decoded.
      */
-    public function send($method, $path, array $headers = [], $data = null)
+    public function send($method, $path, $data = null)
     {
         try {
-            $response = $this->httpClient->request($method, $path, $headers, $data);
+            $response = $this->httpClient->request(
+                $method,
+                $path,
+                !is_null($data) ? ['Content-Type' => 'application/json'] : [],
+                !is_null($data) ? json_encode($data) : null
+            );
         } catch (\Exception $exception) {
             throw HttpRequestFailure::because($exception);
         }
