@@ -1,6 +1,7 @@
 # Ginger PHP bindings
 
 [![Build Status](https://travis-ci.org/gingerpayments/ginger-php.svg)](https://travis-ci.org/gingerpayments/ginger-php)
+[![Packagist](https://img.shields.io/packagist/v/gingerpayments/ginger-php)](https://packagist.org/packages/gingerpayments/ginger-php)
 [![MIT License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/gingerpayments/ginger-php/blob/master/LICENSE)
 
 ## Requirements
