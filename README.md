@@ -144,7 +144,7 @@ You can then use this information to present a list to the user of possible bank
 You can use the following request to retrieve a list of available currencies in ISO 4217 format.
 
 ```php
-$issuers = $client->getCurrencyList();
+$currencies = $client->getCurrencyList();
 ```
 
 For each available payment method for your account, you receive a list with available ISO 4217 currencies.
