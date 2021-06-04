@@ -201,7 +201,84 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_gets_an_currency_list()
     {
-        $this->apiClient->getCurrencyList();
+        $expectedCurrency = [
+            "payment_methods" => [
+                "afterpay" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "amex" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "apple-pay" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "bancontact" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "bank-transfer" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "credit-card" => [
+                    "currencies" => [
+                        "EUR",
+                        "USD"
+                    ]
+                ],
+                "google-pay" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "ideal" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "klarna-direct-debit" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "klarna-pay-later" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "klarna-pay-now" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "payconiq" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "paypal" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ],
+                "sofort" => [
+                    "currencies" => [
+                        "EUR"
+                    ]
+                ]
+            ]
+        ];
+
+        $this->httpClient->setResponseToReturn(json_encode($expectedCurrency));
+        $currencyList = $this->apiClient->getCurrencyList();
 
         $this->assertEquals(
             [
@@ -212,6 +289,8 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
             ],
             $this->httpClient->lastRequestData()
         );
+
+        $this->assertEquals($currencyList,$expectedCurrency);
     }
 
     public function test_it_throws_an_exception_on_http_client_error()
