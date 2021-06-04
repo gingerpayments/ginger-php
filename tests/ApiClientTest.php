@@ -199,6 +199,21 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_gets_an_currency_list()
+    {
+        $this->apiClient->getCurrencyList();
+
+        $this->assertEquals(
+            [
+                'GET',
+                '/merchants/self/projects/self/currencies',
+                [],
+                null
+            ],
+            $this->httpClient->lastRequestData()
+        );
+    }
+
     public function test_it_throws_an_exception_on_http_client_error()
     {
         $this->httpClient->setExceptionToThrow(new HttpException('Whoops!'));

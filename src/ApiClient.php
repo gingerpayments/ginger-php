@@ -103,6 +103,17 @@ final class ApiClient
     }
 
     /**
+     * Get an array of the available currency for every payment method.
+     *
+     * @return array The list of available currency.
+     * @throws HttpRequestFailure When an error occurred while processing the request.
+     * @throws JsonDecodeFailure When the response data could not be decoded.
+     */
+    public function getCurrencyList(){
+        return $this->send('GET','/merchants/self/projects/self/currencies');
+    }
+
+    /**
      * Send a request to the API.
      *
      * @param string $method HTTP request method
