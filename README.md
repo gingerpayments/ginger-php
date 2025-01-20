@@ -6,7 +6,7 @@
 
 ## Requirements
 
-* PHP 5.6 or later
+* PHP 8.1 or later
 * JSON PHP extension
 * cURL PHP extension
 
@@ -127,17 +127,6 @@ You can initiate a capture of an order's transaction by using the `captureOrderT
 ```
 $client->captureOrderTransaction($orderId, $transactionId);
 ```
-
-### Getting the iDEAL issuers
-
-When you create an order with the iDEAL payment method, you need to provide an issuer ID. The issuer ID is an identifier
-of the bank the user has selected. You can retrieve all possible issuers by using the `getIdealIssuers` method:
-
-```php
-$issuers = $client->getIdealIssuers();
-```
-
-You can then use this information to present a list to the user of possible banks to choose from.
 
 ### Getting the currency list
 
