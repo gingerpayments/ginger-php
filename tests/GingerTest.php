@@ -4,8 +4,9 @@ namespace Ginger\Tests;
 
 use Ginger\ApiClient;
 use Ginger\Ginger;
+use PHPUnit\Framework\TestCase;
 
-final class GingerTest extends \PHPUnit_Framework_TestCase
+final class GingerTest extends TestCase
 {
     public function test_it_creates_a_client()
     {
