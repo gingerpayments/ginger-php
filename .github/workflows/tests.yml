@@ -1,0 +1,36 @@
+name: Run Tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: [8.1, 8.2, 8.3]
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Setup PHP environment
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: xdebug
+
+      # Install Composer dependencies
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist
+
+      # Run tests
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --coverage-clover=coverage.clover

@@ -9,10 +9,6 @@ $apiKey = getenv('GINGER_API_KEY');
 // Get our client
 $client = \Ginger\Ginger::createClient($endpoint, $apiKey);
 
-// Get the issuers
-var_dump(
-    $client->getIdealIssuers()
-);
 
 // Create our order, indicating we want an iDEAL payment
 $order = $client->createOrder(

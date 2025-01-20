@@ -5,8 +5,9 @@ namespace Ginger\Tests;
 use Ginger\ApiClient;
 use Ginger\HttpClient\HttpException;
 use Ginger\Tests\HttpClient\MockHttpClient;
+use PHPUnit\Framework\TestCase;
 
-final class ApiClientTest extends \PHPUnit_Framework_TestCase
+final class ApiClientTest extends TestCase
 {
     /**
      * @var MockHttpClient
@@ -18,33 +19,10 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
      */
     private $apiClient;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->httpClient = new MockHttpClient();
         $this->apiClient = new ApiClient($this->httpClient);
-    }
-
-    public function test_it_gets_ideal_issuers()
-    {
-        $expectedIssuers = [
-            [
-                'id' => 'INGBNL2A',
-                'list_type' => 'Deutschland',
-                'name' => 'Issuer Simulation V3 - ING'
-            ],
-            [
-                'id' => 'RABONL2U',
-                'list_type' => 'Deutschland',
-                'name' => 'Issuer Simulation V3 - RABO'
-            ]
-        ];
-
-        $this->httpClient->setResponseToReturn(json_encode($expectedIssuers));
-
-        $issuers = $this->apiClient->getIdealIssuers();
-
-        $this->assertEquals(['GET', '/ideal/issuers', [], null], $this->httpClient->lastRequestData());
-        $this->assertEquals($expectedIssuers, $issuers);
     }
 
     public function test_it_gets_an_order()
@@ -297,16 +275,16 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->httpClient->setExceptionToThrow(new HttpException('Whoops!'));
 
-        $this->setExpectedException(ApiClient\HttpRequestFailure::class);
-        $this->apiClient->getIdealIssuers();
+        $this->expectException(ApiClient\HttpRequestFailure::class);
+        $this->apiClient->getCurrencyList();
     }
 
     public function test_it_throws_an_exception_on_json_decode_error()
     {
         $this->httpClient->setResponseToReturn('definately not json');
 
-        $this->setExpectedException(ApiClient\JsonDecodeFailure::class);
-        $this->apiClient->getIdealIssuers();
+        $this->expectException(ApiClient\JsonDecodeFailure::class);
+        $this->apiClient->getCurrencyList();
     }
 
     public function test_it_throws_an_exception_on_server_error()
@@ -317,7 +295,7 @@ final class ApiClientTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->setExpectedException(ApiClient\ServerError::class);
-        $this->apiClient->getIdealIssuers();
+        $this->expectException(ApiClient\ServerError::class);
+        $this->apiClient->getCurrencyList();
     }
 }

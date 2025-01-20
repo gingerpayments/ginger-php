@@ -23,18 +23,6 @@ final class ApiClient
     }
 
     /**
-     * Get an array of possible iDEAL issuers.
-     *
-     * @return array
-     * @throws HttpRequestFailure When an error occurred while processing the request.
-     * @throws JsonDecodeFailure When the response data could not be decoded.
-     */
-    public function getIdealIssuers()
-    {
-        return $this->send('GET', '/ideal/issuers');
-    }
-
-    /**
      * Get an order.
      *
      * @param string $id The order ID.

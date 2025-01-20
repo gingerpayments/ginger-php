@@ -39,15 +39,16 @@ namespace Ginger\Tests\HttpClient {
 
     use Ginger\HttpClient\CurlHttpClient;
     use Ginger\HttpClient\HttpException;
+    use PHPUnit\Framework\TestCase;
 
-    final class CurlHttpClientTest extends \PHPUnit_Framework_TestCase
+    final class CurlHttpClientTest extends TestCase
     {
         /**
          * @var CurlHttpClient
          */
         private $client;
 
-        public function setUp()
+        public function setUp(): void
         {
             $this->client = new CurlHttpClient(
                 'https://www.example.com',
@@ -163,7 +164,7 @@ namespace Ginger\Tests\HttpClient {
 
         public function test_it_throws_an_exception_on_curl_error()
         {
-            $this->setExpectedException(
+            $this->expectException(
                 HttpException::class,
                 'cURL error: 27: A memory allocation request failed. (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for /error'
             );
