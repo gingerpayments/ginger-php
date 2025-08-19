@@ -24,7 +24,14 @@
     "autoload": {
         "psr-4": {
             "Ginger\\": "src"
-        }
+        },
+        "exclude-from-classmap": [
+            "tests/",
+            "Tests/",
+            "test/",
+            "*/tests/*",
+            "*/Tests/*"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
