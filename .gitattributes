@@ -1,0 +1,10 @@
+/tests              export-ignore
+/Tests              export-ignore
+/.github            export-ignore
+/.gitlab-ci.yml     export-ignore
+/.editorconfig      export-ignore
+/phpunit.xml*       export-ignore
+/.phpunit*          export-ignore
+/.infection.json*   export-ignore
+/.php_cs*           export-ignore
+/.gitignore         export-ignore
