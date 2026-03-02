@@ -164,8 +164,8 @@ namespace Ginger\Tests\HttpClient {
 
         public function test_it_throws_an_exception_on_curl_error()
         {
-            $this->expectException(
-                HttpException::class,
+            $this->expectException(HttpException::class);
+            $this->expectExceptionMessage(
                 'cURL error: 27: A memory allocation request failed. (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for /error'
             );
 
